@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="38" Path="E:/Faculty of Engineering, Ain Shams University/3rd CSE 2018 - 2019/Lectures/Computer Organization/Project/PPI/CO2018PPI/PPI/PPI.xpr">
+<Project Version="7" Minor="38" Path="F:/CO2018PPI/PPI/PPI.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="f7fdbc4e9d514638b374134c0fb77749"/>
@@ -64,7 +64,7 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="PPI"/>
+        <Option Name="TopModule" Val="Acontroler"/>
         <Option Name="TopAutoSet" Val="TRUE"/>
       </Config>
     </FileSet>
@@ -78,7 +78,7 @@
       <Filter Type="Srcs"/>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="PPI"/>
+        <Option Name="TopModule" Val="Acontroler"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="TopAutoSet" Val="TRUE"/>
         <Option Name="TransportPathDelay" Val="0"/>

@@ -1,0 +1,273 @@
+/*
+
+Xilinx Vivado v2018.2 (64-bit) [Major: 2018, Minor: 2]
+SW Build: 2258646 on Thu Jun 14 20:03:12 MDT 2018
+IP Build: 2256618 on Thu Jun 14 22:10:49 MDT 2018
+
+Process ID: 14540
+License: Customer
+
+Current time: 	Sat Nov 24 00:39:11 EET 2018
+Time zone: 	Eastern European Time (Africa/Cairo)
+
+OS: Windows 10
+OS Version: 10.0
+OS Architecture: amd64
+Available processors (cores): 8
+
+Screen size: 1536x864
+Screen resolution (DPI): 96
+Available screens: 1
+Available disk space: 8 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_112 64-bit
+Java home: 	C:/Xilinx/Vivado/2018.2/tps/win64/jre
+Java executable location: 	C:/Xilinx/Vivado/2018.2/tps/win64/jre/bin/java.exe
+Java initial memory (-Xms): 	128 MB
+Java maximum memory (-Xmx):	 2 GB
+
+
+User name: 	ahmed
+User home directory: C:/Users/ahmed
+User working directory: F:/CO2018PPI/PPI
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: C:/Xilinx/Vivado
+HDI_APPROOT: C:/Xilinx/Vivado/2018.2
+RDI_DATADIR: C:/Xilinx/Vivado/2018.2/data
+RDI_BINDIR: C:/Xilinx/Vivado/2018.2/bin
+
+Vivado preferences file location: C:/Users/ahmed/AppData/Roaming/Xilinx/Vivado/2018.2/vivado.xml
+Vivado preferences directory: C:/Users/ahmed/AppData/Roaming/Xilinx/Vivado/2018.2/
+Vivado layouts directory: C:/Users/ahmed/AppData/Roaming/Xilinx/Vivado/2018.2/layouts
+PlanAhead jar file location: 	C:/Xilinx/Vivado/2018.2/lib/classes/planAhead.jar
+Vivado log file location: 	F:/CO2018PPI/PPI/vivado.log
+Vivado journal file location: 	F:/CO2018PPI/PPI/vivado.jou
+Engine tmp dir: 	F:/CO2018PPI/PPI/.Xil/Vivado-14540-DESKTOP-44U0N4G
+
+Xilinx Environment Variables
+----------------------------
+XILINX: C:/Xilinx/Vivado/2018.2/ids_lite/ISE
+XILINX_DSP: C:/Xilinx/Vivado/2018.2/ids_lite/ISE
+XILINX_PLANAHEAD: C:/Xilinx/Vivado/2018.2
+XILINX_SDK: C:/Xilinx/SDK/2018.2
+XILINX_VIVADO: C:/Xilinx/Vivado/2018.2
+XILINX_VIVADO_HLS: C:/Xilinx/Vivado/2018.2
+
+
+GUI allocated memory:	189 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 563 MB
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// [GUI Memory]: 66 MB (+66882kb) [00:00:05]
+// [Engine Memory]: 474 MB (+345541kb) [00:00:05]
+// Opening Vivado Project: F:\CO2018PPI\PPI\PPI.xpr. Version: Vivado v2018.2 
+// bx (ck):  Open Project : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// Tcl Message: open_project F:/CO2018PPI/PPI/PPI.xpr 
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_NEW
+// Tcl Message: open_project F:/CO2018PPI/PPI/PPI.xpr 
+// Tcl Message: INFO: [Project 1-313] Project file moved from 'E:/Faculty of Engineering, Ain Shams University/3rd CSE 2018 - 2019/Lectures/Computer Organization/Project/PPI/CO2018PPI/PPI' since last save. 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified 
+// [Engine Memory]: 561 MB (+66050kb) [00:00:08]
+// Tcl Message: INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'. 
+// TclEventType: PROJECT_NEW
+// [Engine Memory]: 593 MB (+4659kb) [00:00:10]
+// [GUI Memory]: 72 MB (+2654kb) [00:00:10]
+// [Engine Memory]: 625 MB (+2516kb) [00:00:11]
+// HMemoryUtils.trashcanNow. Engine heap size: 625 MB. GUI used memory: 39 MB. Current time: 11/24/18 12:39:14 AM EET
+// Project name: PPI; location: F:/CO2018PPI/PPI; part: xc7vx485tffg1157-1
+// Tcl Message: open_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:05 . Memory (MB): peak = 840.688 ; gain = 118.086 
+dismissDialog("Open Project"); // bx (ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints]", 0); // B (D, ck)
+// [Engine Memory]: 657 MB (+470kb) [00:00:14]
+// Tcl Message: update_compile_order -fileset sources_1 
+// PAPropertyPanels.initPanels (PPI.v) elapsed time: 0.2s
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, PPI (PPI.v)]", 1, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, ReadWriteControlLogic (PPI.v)]", 2, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, ReadWriteControlLogic (PPI.v)]", 2, false, false, false, false, false, true); // B (D, ck) - Double Click
+selectCodeEditor("PPI.v", 203, 209); // ce (w, ck)
+selectCodeEditor("PPI.v", 233, 7); // ce (w, ck)
+selectCodeEditor("PPI.v", 315, 86); // ce (w, ck)
+selectCodeEditor("PPI.v", 51, 58); // ce (w, ck)
+// Elapsed time: 48 seconds
+selectCodeEditor("PPI.v", 381, 47); // ce (w, ck)
+// Elapsed time: 42 seconds
+selectCodeEditor("PPI.v", 30, 120); // ce (w, ck)
+// Elapsed time: 31 seconds
+selectCodeEditor("PPI.v", 30, 162); // ce (w, ck)
+selectCodeEditor("PPI.v", 58, 168); // ce (w, ck)
+selectCodeEditor("PPI.v", 40, 203); // ce (w, ck)
+// Elapsed time: 39 seconds
+selectCodeEditor("PPI.v", 55, 114); // ce (w, ck)
+selectCodeEditor("PPI.v", 55, 114); // ce (w, ck)
+selectCodeEditor("PPI.v", 55, 114, false, false, false, false, true); // ce (w, ck) - Double Click
+typeControlKey((HResource) null, "PPI.v", 'c'); // ce (w, ck)
+selectCodeEditor("PPI.v", 122, 149); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'v'); // ce (w, ck)
+selectCodeEditor("PPI.v", 64, 74); // ce (w, ck)
+selectCodeEditor("PPI.v", 64, 74, false, false, false, false, true); // ce (w, ck) - Double Click
+typeControlKey((HResource) null, "PPI.v", 'c'); // ce (w, ck)
+selectCodeEditor("PPI.v", 147, 142); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'v'); // ce (w, ck)
+selectCodeEditor("PPI.v", 60, 93); // ce (w, ck)
+selectCodeEditor("PPI.v", 60, 93, false, false, false, false, true); // ce (w, ck) - Double Click
+typeControlKey((HResource) null, "PPI.v", 'c'); // ce (w, ck)
+selectCodeEditor("PPI.v", 205, 143); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'v'); // ce (w, ck)
+selectCodeEditor("PPI.v", 53, 107); // ce (w, ck)
+selectCodeEditor("PPI.v", 53, 107, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("PPI.v", 55, 130); // ce (w, ck)
+selectCodeEditor("PPI.v", 55, 130, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("PPI.v", 62, 95); // ce (w, ck)
+selectCodeEditor("PPI.v", 62, 95, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("PPI.v", 39, 61); // ce (w, ck)
+selectCodeEditor("PPI.v", 253, 146); // ce (w, ck)
+selectCodeEditor("PPI.v", 253, 146); // ce (w, ck)
+selectCodeEditor("PPI.v", 29, 177); // ce (w, ck)
+// Elapsed time: 38 seconds
+selectCodeEditor("PPI.v", 76, 199); // ce (w, ck)
+selectCodeEditor("PPI.v", 35, 237); // ce (w, ck)
+selectCodeEditor("PPI.v", 31, 209); // ce (w, ck)
+// [GUI Memory]: 77 MB (+1385kb) [00:04:50]
+// Elapsed time: 44 seconds
+selectCodeEditor("PPI.v", 31, 184); // ce (w, ck)
+// Elapsed time: 13 seconds
+selectCodeEditor("PPI.v", 34, 224); // ce (w, ck)
+selectCodeEditor("PPI.v", 34, 181); // ce (w, ck)
+// Elapsed time: 16 seconds
+selectMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // V (q, ck)
+selectMenu(RDIResourceCommand.RDICommands_CUSTOM_COMMANDS, "Custom Commands"); // aa (ck)
+selectMenuItem(RDIResourceCommand.RDICommands_SETTINGS, "Settings..."); // ad (ck)
+dismissMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // V (q, ck)
+// Run Command: RDIResourceCommand.RDICommands_SETTINGS
+// Tcl Command: 'rdi::info_commands {device::*}'
+// Tcl Command: 'rdi::info_commands {debug::*}'
+// Tcl Command: 'rdi::info_commands {*}'
+// C (ck): Settings: addNotify
+// HMemoryUtils.trashcanNow. Engine heap size: 688 MB. GUI used memory: 57 MB. Current time: 11/24/18 12:44:54 AM EET
+// [GUI Memory]: 85 MB (+3960kb) [00:05:58]
+// Elapsed time: 12 seconds
+selectTree(PAResourceQtoS.SettingsDialog_OPTIONS_TREE, "[optionsRoot, Colors]", 8, true); // M (C) - Node
+// [GUI Memory]: 91 MB (+2108kb) [00:06:03]
+// Elapsed time: 21 seconds
+expandTree(PAResourceQtoS.SettingsDialog_OPTIONS_TREE, "[optionsRoot, Colors]", 8); // M (C)
+// [GUI Memory]: 98 MB (+2426kb) [00:06:28]
+dismissDialog("Settings"); // C (ck)
+selectCodeEditor("PPI.v", 103, 211); // ce (w, ck)
+// [GUI Memory]: 103 MB (+111kb) [00:07:23]
+// Elapsed time: 56 seconds
+selectCodeEditor("PPI.v", 58, 201); // ce (w, ck)
+selectCodeEditor("PPI.v", 60, 234); // ce (w, ck)
+// [Engine Memory]: 698 MB (+8231kb) [00:07:28]
+selectCodeEditor("PPI.v", 67, 219); // ce (w, ck)
+selectCodeEditor("PPI.v", 43, 269); // ce (w, ck)
+selectCodeEditor("PPI.v", 50, 140); // ce (w, ck)
+// HMemoryUtils.trashcanNow. Engine heap size: 710 MB. GUI used memory: 50 MB. Current time: 11/24/18 12:46:48 AM EET
+// Elapsed time: 31 seconds
+selectCodeEditor("PPI.v", 51, 158); // ce (w, ck)
+selectCodeEditor("PPI.v", 65, 150); // ce (w, ck)
+selectCodeEditor("PPI.v", 65, 150); // ce (w, ck)
+// Elapsed time: 16 seconds
+selectCodeEditor("PPI.v", 121, 188); // ce (w, ck)
+selectCodeEditor("PPI.v", 65, 151); // ce (w, ck)
+// Elapsed time: 101 seconds
+selectCodeEditor("PPI.v", 1, 156); // ce (w, ck)
+// [GUI Memory]: 111 MB (+2792kb) [00:10:25]
+// [GUI Memory]: 117 MB (+757kb) [00:13:05]
+// Elapsed time: 191 seconds
+selectCodeEditor("PPI.v", 107, 185); // ce (w, ck)
+selectCodeEditor("PPI.v", 107, 186); // ce (w, ck)
+selectCodeEditor("PPI.v", 96, 269); // ce (w, ck)
+typeControlKey(null, null, 'z');
+selectCodeEditor("PPI.v", 172, 219); // ce (w, ck)
+selectCodeEditor("PPI.v", 172, 219); // ce (w, ck)
+selectCodeEditor("PPI.v", 57, 177); // ce (w, ck)
+// HMemoryUtils.trashcanNow. Engine heap size: 735 MB. GUI used memory: 51 MB. Current time: 11/24/18 12:52:58 AM EET
+// [Engine Memory]: 735 MB (+2364kb) [00:13:55]
+// Elapsed time: 37 seconds
+selectCodeEditor("PPI.v", 58, 113); // ce (w, ck)
+selectCodeEditor("PPI.v", 101, 114); // ce (w, ck)
+selectCodeEditor("PPI.v", 176, 89); // ce (w, ck)
+selectCodeEditor("PPI.v", 176, 89); // ce (w, ck)
+selectCodeEditor("PPI.v", 32, 129); // ce (w, ck)
+selectCodeEditor("PPI.v", 32, 129, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("PPI.v", 55, 225); // ce (w, ck)
+selectCodeEditor("PPI.v", 123, 44); // ce (w, ck)
+// Elapsed time: 26 seconds
+selectCodeEditor("PPI.v", 214, 51); // ce (w, ck)
+selectCodeEditor("PPI.v", 216, 50); // ce (w, ck)
+selectCodeEditor("PPI.v", 216, 50); // ce (w, ck)
+selectCodeEditor("PPI.v", 216, 50); // ce (w, ck)
+selectCodeEditor("PPI.v", 216, 50, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("PPI.v", 216, 50); // ce (w, ck)
+selectCodeEditor("PPI.v", 216, 50); // ce (w, ck)
+// Elapsed time: 39 seconds
+selectCodeEditor("PPI.v", 140, 55); // ce (w, ck)
+// Elapsed time: 12 seconds
+selectCodeEditor("PPI.v", 254, 43); // ce (w, ck)
+selectCodeEditor("PPI.v", 254, 43, false, false, false, false, true); // ce (w, ck) - Double Click
+typeControlKey((HResource) null, "PPI.v", 'c'); // ce (w, ck)
+selectCodeEditor("PPI.v", 51, 79); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'v'); // ce (w, ck)
+selectCodeEditor("PPI.v", 336, 43); // ce (w, ck)
+selectCodeEditor("PPI.v", 336, 43, false, false, false, false, true); // ce (w, ck) - Double Click
+typeControlKey((HResource) null, "PPI.v", 'c'); // ce (w, ck)
+selectCodeEditor("PPI.v", 82, 95); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'v'); // ce (w, ck)
+selectCodeEditor("PPI.v", 71, 158); // ce (w, ck)
+// Elapsed time: 11 seconds
+selectCodeEditor("PPI.v", 135, 50); // ce (w, ck)
+selectCodeEditor("PPI.v", 135, 50, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("PPI.v", 75, 125); // ce (w, ck)
+selectCodeEditor("PPI.v", 127, 44); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'c'); // ce (w, ck)
+selectCodeEditor("PPI.v", 123, 178); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'v'); // ce (w, ck)
+selectCodeEditor("PPI.v", 223, 176); // ce (w, ck)
+selectCodeEditor("PPI.v", 350, 176); // ce (w, ck)
+selectCodeEditor("PPI.v", 350, 176); // ce (w, ck)
+selectCodeEditor("PPI.v", 128, 181); // ce (w, ck)
+selectCodeEditor("PPI.v", 134, 181); // ce (w, ck)
+selectCodeEditor("PPI.v", 134, 181, false, false, false, false, true); // ce (w, ck) - Double Click
+typeControlKey((HResource) null, "PPI.v", 'c'); // ce (w, ck)
+selectCodeEditor("PPI.v", 435, 182); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'v'); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'v'); // ce (w, ck)
+selectCodeEditor("PPI.v", 247, 185); // ce (w, ck)
+selectCodeEditor("PPI.v", 247, 185, false, false, false, false, true); // ce (w, ck) - Double Click
+typeControlKey((HResource) null, "PPI.v", 'c'); // ce (w, ck)
+selectCodeEditor("PPI.v", 208, 215); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'v'); // ce (w, ck)
+selectCodeEditor("PPI.v", 336, 174); // ce (w, ck)
+selectCodeEditor("PPI.v", 336, 174, false, false, false, false, true); // ce (w, ck) - Double Click
+typeControlKey((HResource) null, "PPI.v", 'c'); // ce (w, ck)
+selectCodeEditor("PPI.v", 125, 232); // ce (w, ck)
+typeControlKey((HResource) null, "PPI.v", 'v'); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// [GUI Memory]: 125 MB (+1844kb) [00:18:29]

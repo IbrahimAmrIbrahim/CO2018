@@ -1,0 +1,32 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Fri Nov 23 20:45:35 2018
+# Process ID: 2696
+# Current directory: F:/CO2018PPI/PPI
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent10296 F:\CO2018PPI\PPI\PPI.xpr
+# Log file: F:/CO2018PPI/PPI/vivado.log
+# Journal file: F:/CO2018PPI/PPI\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project F:/CO2018PPI/PPI/PPI.xpr
+INFO: [Project 1-313] Project file moved from 'E:/Faculty of Engineering, Ain Shams University/3rd CSE 2018 - 2019/Lectures/Computer Organization/Project/PPI/CO2018PPI/PPI' since last save.
+Scanning sources...
+Finished scanning sources
+WARNING: [filemgmt 56-2] IPUserFilesDir: Could not find the directory 'F:/CO2018PPI/PPI/PPI.ip_user_files', nor could it be found using path 'E:/Faculty of Engineering, Ain Shams University/3rd CSE 2018 - 2019/Lectures/Computer Organization/Project/PPI/CO2018PPI/PPI/PPI.ip_user_files'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'.
+open_project: Time (s): cpu = 00:00:14 ; elapsed = 00:00:11 . Memory (MB): peak = 865.375 ; gain = 106.199
+update_compile_order -fileset sources_1
+config_webtalk -user on
+update_ip_catalog
+update_ip_catalog
+update_ip_catalog
+update_ip_catalog
+update_ip_catalog
+update_ip_catalog
+update_ip_catalog
+exit
+INFO: [Common 17-206] Exiting Vivado at Fri Nov 23 20:57:39 2018...
