@@ -79,48 +79,29 @@ assign D = (RW)? 8'b zzzz_zzzz : DataBus;
 
 endmodule
 
-/*module ReadWriteControlLogic(A , RDbar , WRbar ,CSbar , Reset);
-input [1:0] A;
-input RDbar , WRbar ,CSbar, Reset;
+module ReadWriteControlLogic();
 
-always @(A , RDbar , WRbar ,CSbar , Reset)
-begin
-if(~CSbar)
-begin
-case(A)
-00: Acontroler();
-01: Acontroler();
-10: Acontroler();
-11: Acontroler();
-end
-end
 endmodule
 
 
-module Acontroler(Order,out_to_A_port,out_to_C_upper_port);
-input order;
-output out_to_A_port;
-output out_to_C_upper_port;
+module GroupAcontroler(PortA_ctrl , PortUC_ctrl , ctrl , DataBus);
+output PortA_ctrl , PortUC_ctrl;
+input [7:0] DataBus;
+input ctrl;
+
+
 endmodule
 
 
 
-module Bcontroler(order,out_to_B_port,out_to_C_lower_port);
-input order;
-output out_to_B_port;
-output out_to_C_lower_port;
+module GroupBcontroler();
+
 endmodule
 
 
-module PPI(D , PA , PB , PC , A , RDbar , WRbar , CSbar , Reset);
-inout [7:0] D , PA , PB , PC;
-input [1:0] A;
-input RDbar , WRbar , CSbar , Reset;
+module PPI();
 
-assign PA = (~CSbar && Reset)? 8'b zzzz_zzzz : 8'b 1111_1111;
-
-
-endmodule*/
+endmodule
 
 
 module tb_PortA();
