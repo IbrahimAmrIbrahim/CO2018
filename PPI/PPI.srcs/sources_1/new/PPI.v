@@ -1,66 +1,65 @@
 `timescale 1ns / 1ps
-
-module PortA(DataBus,A,RW,Sel);
+module PortA(DataBus,A,InOut,Sel);
 inout [7:0] A;
 inout [7:0] DataBus;
-input RW;
-input Sel;
+input InOut;
+input [1:0] Sel;
 
 /*
-Read  :RW = 0 , A Input , DataBus Output
-Write :RW = 1 , A Output , DataBus Input
+InOut = 0 --> Input
+InOut = 1 --> Output
 */
 
-assign DataBus = (Sel)? ((RW)? 8'b zzzz_zzzz : A) : 8'b zzzz_zzzz;
-assign A = (Sel)? ((RW)? DataBus : 8'b zzzz_zzzz) : A;
+assign DataBus = (Sel == 2'b00)? ((InOut)? 8'bzzzz_zzzz : A) : 8'bzzzz_zzzz;
+assign A = (InOut)? ((Sel == 2'b00)? DataBus : A) : 8'bzzzz_zzzz;
 
 endmodule
 
-module PortB(DataBus,B,RW,Sel);
+module PortB(DataBus,B,InOut,Sel);
 inout [7:0] B;
 inout [7:0] DataBus;
-input RW;
-input Sel;
+input InOut;
+input [1:0] Sel;
 
 /*
-Read  :RW = 0 , B Input , DataBus Output
-Write :RW = 1 , B Output , DataBus Input
+InOut = 0 --> Input
+InOut = 1 --> Output
 */
 
-assign DataBus = (Sel)? ((RW)? 8'b zzzz_zzzz :  B) : 8'b zzzz_zzzz;
-assign B = (Sel)? ((RW)? DataBus : 8'b zzzz_zzzz) : B;
+assign DataBus = (Sel == 2'b01)? ((InOut)? 8'bzzzz_zzzz : B) : 8'bzzzz_zzzz;
+assign B = (InOut)? ((Sel == 2'b01)? DataBus : B) : 8'bzzzz_zzzz;
 
 endmodule
 
-module PortUpperC(DataBus,CU,RW,Sel);
-inout [3:0] CU;
-inout [3:0] DataBus;
-input RW;
-input Sel;
+module PortUC(DataBus,UC,InOut,Sel);
+inout [3:0] UC;
+inout [7:0] DataBus;
+input InOut;
+input [1:0] Sel;
 
 /*
-Read  :RW = 0 , UC Input , DataBus Output
-Write :RW = 1 , UC Output , DataBus Input
+InOut = 0 --> Input
+InOut = 1 --> Output
 */
 
-assign DataBus = (Sel)? ((RW)? 4'b zzzz :  CU) : 4'b zzzz;
-assign CU = (Sel)? ((RW)? DataBus :  4'b zzzz) : CU;
+assign DataBus = (Sel == 2'b10)? ((InOut)? 4'bzzzz : UC) : 4'bzzzz;
+assign UC = (InOut)? ((Sel == 2'b10)? DataBus : UC) : 4'bzzzz;
 
 endmodule
 
-module PortLowerC(DataBus,CL,RW,Sel);
-inout [3:0] CL;
-inout [3:0] DataBus;
-input RW;
-input Sel;
+module PortLC(DataBus,LC,InOut,Sel);
+inout [3:0] LC;
+inout [7:0] DataBus;
+input InOut;
+input [1:0] Sel;
 
 /*
-Read  :RW = 0 , LC Input , DataBus Output
-Write :RW = 1 , LC Output , DataBus Input
+InOut = 0 --> Input
+InOut = 1 --> Output
 */
 
-assign DataBus = (Sel)? ((RW)? 4'b zzzz : CL) : 4'b zzzz;
-assign CL = (Sel)? ((RW)? DataBus : 4'b zzzz) : CL;
+assign DataBus = (Sel == 2'b10)? ((InOut)? 4'bzzzz : LC) : 4'bzzzz;
+assign LC = (InOut)? ((Sel == 2'b10)? DataBus : LC) : 4'bzzzz;
 
 endmodule
 
@@ -87,7 +86,7 @@ endmodule
 module GroupAcontroler(PortA_ctrl , PortUC_ctrl , ctrl , DataBus);
 output PortA_ctrl , PortUC_ctrl;
 input [7:0] DataBus;
-input ctrl;
+input [2:0] ctrl;
 
 
 endmodule
