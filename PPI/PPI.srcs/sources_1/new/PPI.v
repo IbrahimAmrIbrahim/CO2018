@@ -50,38 +50,41 @@ module DataBusBuffer(DataBus,D,RD_bar,RW_bar,Reset,CS_bar);
 inout [7:0] D;
 inout [7:0] DataBus;
 input RD_bar,RW_bar,Reset,CS_bar ;
-reg ctrl;
+reg [1:0] ctrl;
 /*
-Read  :RW = 0 , D Output , DataBus Input
-Write :RW = 1 , D Input , DataBus Output
+Read  :ctrl = 0 , Input
+Write :ctrl = 1 , Output
 */
 
-assign DataBus = (ctrl)? D : 8'b zzzz_ZZZZ;
-assign D = (ctrl)? 8'b zzzz_zzzz : DataBus;
+assign DataBus = (ctrl[0])? D : 8'bzzzz_zzzz;
+assign D = (ctrl[1])? DataBus : 8'bzzzz_zzzz;
 
-always
+always @(RD_bar,RW_bar,Reset,CS_bar)
 begin
-if(~CS_bar)
-begin
-if(Reset || ~RD_bar)
-begin
-ctrl = 0;
+    if(~Reset && ~CS_bar)
+    begin
+        if(~RD_bar)
+        begin
+            ctrl[0] <= 0;
+            ctrl[1] <= 1;
+        end
+        else if(~RW_bar)
+        begin
+            ctrl[0] <= 1; 
+            ctrl[1] <= 0;
+        end
+        else
+        begin
+            ctrl[0] <= 0;
+            ctrl[1] <= 0;
+        end
+    end
+    else
+    begin 
+        ctrl[0] <= 0;
+        ctrl[1] <= 0;
+    end
 end
-else if(~RW_bar)
-begin
-ctrl = 1;
-end
-else
-begin
-ctrl = 0;
-end
-end
-else
-begin
-ctrl = 0;
-end
-end
-
 endmodule
 
 module PPI();
@@ -123,5 +126,62 @@ RW <= 0;
 Sel <= 0;
 end
 PortA A1(DataBus,A,RW,Sel);
+
+endmodule
+
+module DataBusBuffer_tb();
+reg RD , RW , CS , Reset;
+wire [7 : 0] D , DataBus;
+
+assign D = (~RD)? 8'b zzzz_zzzz : 8'b 1111_1111;
+assign DataBus = (~RD)? 8'b 0101_0101 :  8'b zzzz_zzzz;
+
+initial
+begin
+$monitor($time , "CS=%b RD=%b WR=%b Reset=%b D=%b DataBus=%b", CS , RD , RW , Reset , D , DataBus);
+$display("Reset");
+RW <= 1;
+RD <= 1;
+Reset <= 1;
+CS <= 1;
+#5
+$display("Nothing");
+RW <= 1;
+RD <= 1;
+Reset <= 0;
+CS <= 1;
+#5
+$display("chip select");
+RW <= 1;
+RD <= 1;
+Reset <= 0;
+CS <= 0;
+#5
+$display("write");
+RW <= 0;
+RD <= 1;
+Reset <= 0;
+CS <= 0;
+#5
+$display("Read");
+RW <= 1;
+RD <= 0;
+Reset <= 0;
+CS <= 0;
+#5
+$display("nothing");
+RW <= 1;
+RD <= 1;
+Reset <= 0;
+CS <= 1;
+#5
+$display("chip unselect");
+RW <= 1;
+RD <= 1;
+Reset <= 0;
+CS <= 0;
+end
+
+DataBusBuffer DBB(DataBus,D,RD,RW,Reset,CS);
 
 endmodule
