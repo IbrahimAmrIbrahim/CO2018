@@ -50,14 +50,37 @@ module DataBusBuffer(DataBus,D,RD_bar,RW_bar,Reset,CS_bar);
 inout [7:0] D;
 inout [7:0] DataBus;
 input RD_bar,RW_bar,Reset,CS_bar ;
-
+reg ctrl;
 /*
 Read  :RW = 0 , D Output , DataBus Input
 Write :RW = 1 , D Input , DataBus Output
 */
 
-/*assign DataBus = (RW)? D : 8'b zzzz_ZZZZ;
-assign D = (RW)? 8'b zzzz_zzzz : DataBus;*/
+assign DataBus = (ctrl)? D : 8'b zzzz_ZZZZ;
+assign D = (ctrl)? 8'b zzzz_zzzz : DataBus;
+
+always
+begin
+if(~CS_bar)
+begin
+if(Reset || ~RD_bar)
+begin
+ctrl = 0;
+end
+else if(~RW_bar)
+begin
+ctrl = 1;
+end
+else
+begin
+ctrl = 0;
+end
+end
+else
+begin
+ctrl = 0;
+end
+end
 
 endmodule
 
