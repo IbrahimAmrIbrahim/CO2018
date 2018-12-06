@@ -10,12 +10,12 @@ Write in PortA
                    9 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=xxxxxxxx PortB=xxxxxxxx PortC=00000000 D=01010101
                   11 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=xxxxxxxx PortC=00000000 D=01010101
 Write in PortB
-                  13 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=xxxxxxxx PortC=00000000 D=01010101
-                  15 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=00000000 D=01010101
+                  13 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=xxxxxxxx PortC=00000000 D=01011111
+                  15 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01011111 PortC=00000000 D=01011111
 Write in PortC
-                  17 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
-                  19 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=01010101 D=01010101
-                  21 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010101 D=01010101
+                  17 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=00000000 D=01010101
+                  19 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=01010101 D=01010101
+                  21 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=01010101 D=01010101
 Reset
                   26 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
 ********************************************************2nd***************************************************
@@ -26,14 +26,14 @@ Write in PortA
                   35 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
                   37 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=0000zzzz D=01010101
 Write in PortB
-                  39 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                  39 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=0000zzzz D=01010101
                   41 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=0000zzzz D=01010101
 Write in PortUC
-                  43 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                  43 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=0000zzzz D=01010101
                   45 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=0101zzzz D=01010101
 Read from PortLC
-                  47 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzzzzzz
-                  49 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzz1111 PortB=zzzz1111 PortC=01011111 D=zzzz1111
+                  47 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=01011111 D=zzzzzzzz
+                  49 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=01011111 D=zzzz1111
 Reset
                   51 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
 *****************************************************3rd*****************************************************
@@ -44,11 +44,11 @@ Write in PortA
                   60 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
                   62 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=00000000 D=01010101
 Read from PortB
-                  64 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=zzzzzzzz
-                  66 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=11111111 PortC=00000000 D=11111111
+                  64 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=11111111 PortC=00000000 D=zzzzzzzz
+                  66 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=11111111 PortC=00000000 D=11111111
 Write in PortC
-                  68 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
-                  70 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=01010101 D=01010101
+                  68 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=11111111 PortC=00000000 D=01010101
+                  70 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=11111111 PortC=x1x1x1x1 D=01010101
 Reset
                   72 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
 *******************************************************4th****************************************************
@@ -59,31 +59,31 @@ Write in PortA
                   81 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
                   83 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=0000zzzz D=01010101
 Read from PortB
-                  85 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=zzzzzzzz
-                  87 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=11111111 PortC=0000zzzz D=11111111
+                  85 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=11111111 PortC=0000zzzz D=zzzzzzzz
+                  87 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=11111111 PortC=0000zzzz D=11111111
 Write in PortUC
-                  89 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
-                  91 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=0101zzzz D=01010101
+                  89 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=11111111 PortC=0000zzzz D=01010101
+                  91 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=11111111 PortC=x1x1zzzz D=01010101
 Read from PortLC
-                  93 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzzzzzz
-                  95 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzz1111 PortB=zzzzzzzz PortC=01011111 D=zzzz1111
+                  93 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=11111111 PortC=x1x11111 D=zzzzzzzz
+                  95 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=11111111 PortC=x1x11111 D=11111111
 Reset
                   97 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
 *******************************************************5th****************************************************
 PortA output,PortB output,PortUC input , PortLC output confg
                  102 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001000
-                 104 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=10001000
+                 104 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=10001000
 Write in PortA
-                 106 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=01010101
-                 108 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=00000000 PortC=zzzz0000 D=01010101
+                 106 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 108 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzz0000 D=01010101
 write in PortB
-                 110 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=01010101
+                 110 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzz0000 D=01010101
                  112 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzz0000 D=01010101
 Read from PortUC
-                 114 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=zzzzzzzz
-                 116 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=0101zzzz PortB=0101zzzz PortC=01010000 D=0101zzzz
+                 114 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=01010000 D=zzzzzzzz
+                 116 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=01010000 D=0101zzzz
 Write in PortLC
-                 118 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 118 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzz0000 D=01010101
                  120 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzz0101 D=01010101
 Reset
                  122 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
@@ -95,11 +95,11 @@ Write in PortA
                  131 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
                  133 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
 write in PortB
-                 135 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+                 135 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
                  137 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzzzzzz D=01010101
 Read from PortUC
-                 139 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=11111111 D=zzzzzzzz
-                 141 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=11111111 PortC=11111111 D=11111111
+                 139 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=11111111 D=zzzzzzzz
+                 141 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=11111111 D=11111111
 Reset
                  143 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=11111111 D=zzzzzzzz
 *******************************************************7th****************************************************
@@ -110,14 +110,14 @@ Write in PortA
                  152 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
                  154 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzz0000 D=01010101
 Read from PortB
-                 156 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=zzzzzzzz
-                 158 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=01011111 PortB=01011111 PortC=zzzz0000 D=01011111
+                 156 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=01011111 PortC=zzzz0000 D=zzzzzzzz
+                 158 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=01011111 PortC=zzzz0000 D=01011111
 Read from PortUC
-                 160 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=zzzzzzzz
-                 162 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=0101zzzz PortB=zzzzzzzz PortC=01010000 D=0101zzzz
+                 160 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=01010000 D=zzzzzzzz
+                 162 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=01010000 D=01011111
 Write in PortLC
-                 164 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
-                 166 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzz0101 D=01010101
+                 164 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=zzzz0000 D=01010101
+                 166 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=zzzzx1x1 D=01010101
 Reset
                  168 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
 *******************************************************8th****************************************************
@@ -128,26 +128,26 @@ Write in PortA
                  177 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
                  179 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
 Read from PortB
-                 181 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzzzzzz D=zzzzzzzz
-                 183 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=01011111 PortB=01011111 PortC=zzzzzzzz D=01011111
+                 181 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=01011111 PortC=zzzzzzzz D=zzzzzzzz
+                 183 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=01011111 PortC=zzzzzzzz D=01011111
 Read from PortC
-                 185 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=zzzzzzzz
-                 187 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=01011100 PortB=zzzzzzzz PortC=01011100 D=01011100
+                 185 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=01011100 D=zzzzzzzz
+                 187 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=01011100 D=010111xx
 Reset
                  189 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=zzzzzzzz
 *******************************************************9th****************************************************
 PortA input,PortB output,PortUC output , PortLC output confg
                  194 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10010000
-                 196 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=00000000 D=10010000
+                 196 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=10010000
 Read from PortA
-                 198 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=00000000 D=zzzzzzzz
-                 200 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=00000000 D=11111111
+                 198 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=zzzzzzzz
+                 200 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=11111111
 Write in PortB
-                 202 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=00000000 D=01010101
-                 204 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01010101 PortC=00000000 D=01010101
+                 202 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=01010101
+                 204 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=00000000 D=01010101
 Write in PortC
-                 206 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
-                 208 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=01010101 PortC=01010101 D=01010101
+                 206 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=00000000 D=01010101
+                 208 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=x1x1x1x1 D=01010101
 Reset
                  210 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
 ********************************************************10th***************************************************
@@ -158,14 +158,14 @@ Read from PortA
                  219 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=0000zzzz D=zzzzzzzz
                  221 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=0000zzzz D=11111111
 Write in PortB
-                 223 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
-                 225 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01010101 PortC=0000zzzz D=01010101
+                 223 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=11111111 PortC=0000zzzz D=01010101
+                 225 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=0000zzzz D=01010101
 Write in PortUC
-                 227 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
-                 229 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=01010101 PortC=0101zzzz D=01010101
+                 227 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=0000zzzz D=01010101
+                 229 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=x1x1zzzz D=01010101
 Read from PortLC
-                 231 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzzzzzz
-                 233 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzz1111 PortC=01011111 D=zzzz1111
+                 231 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=x1x11111 D=zzzzzzzz
+                 233 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=x1x11111 D=11111111
 Reset
                  235 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
 *****************************************************11th*****************************************************
@@ -176,11 +176,11 @@ Read from PortA
                  244 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=zzzzzzzz
                  246 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=11111111
 Read from PortB
-                 248 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=zzzzzzzz
-                 250 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=11111111
+                 248 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=11111111 PortC=00000000 D=zzzzzzzz
+                 250 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=11111111 PortC=00000000 D=11111111
 Write in PortC
-                 252 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
-                 254 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010101 D=01010101
+                 252 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=11111111 PortC=00000000 D=01010101
+                 254 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=11111111 PortB=11111111 PortC=x1x1x1x1 D=01010101
 Reset
                  256 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
 *******************************************************12th****************************************************
@@ -191,32 +191,32 @@ Read from PortA
                  265 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=0000zzzz D=zzzzzzzz
                  267 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=0000zzzz D=11111111
 Read from PortB
-                 269 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=zzzzzzzz
-                 271 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=11111111
+                 269 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=11111111 PortC=0000zzzz D=zzzzzzzz
+                 271 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=11111111 PortC=0000zzzz D=11111111
 Write in PortUC
-                 273 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
-                 275 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0101zzzz D=01010101
+                 273 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=11111111 PortC=0000zzzz D=01010101
+                 275 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=11111111 PortB=11111111 PortC=x1x1zzzz D=01010101
 Read from PortLC
-                 277 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzzzzzz
-                 279 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzz1111
+                 277 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=11111111 PortC=x1x11111 D=zzzzzzzz
+                 279 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=11111111 PortC=x1x11111 D=11111111
 Reset
                  281 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
 *******************************************************13th****************************************************
 PortA input,PortB output,PortUC input , PortLC output confg
                  286 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10011000
-                 288 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=10011000
+                 288 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=10011000
 Read from PortA
-                 290 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=zzzz0000 D=zzzzzzzz
-                 292 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=zzzz0000 D=11111111
+                 290 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzz0000 D=zzzzzzzz
+                 292 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzz0000 D=11111111
 write in PortB
-                 294 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=01010101
-                 296 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01010101 PortC=zzzz0000 D=01010101
+                 294 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 296 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=zzzz0000 D=01010101
 Read from PortUC
-                 298 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=zzzzzzzz
-                 300 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=0101zzzz PortC=01010000 D=0101zzzz
+                 298 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=01010000 D=zzzzzzzz
+                 300 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=01010000 D=x1x11111
 Write in PortLC
-                 302 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
-                 304 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=01010101 PortC=zzzz0101 D=01010101
+                 302 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=zzzz0000 D=01010101
+                 304 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=zzzzx1x1 D=01010101
 Reset
                  306 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
 *******************************************************14th****************************************************
@@ -227,11 +227,11 @@ Read from PortA
                  315 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzzzzzz D=zzzzzzzz
                  317 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzzzzzz D=11111111
 write in PortB
-                 319 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
-                 321 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01010101 PortC=zzzzzzzz D=01010101
+                 319 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=11111111 PortC=zzzzzzzz D=01010101
+                 321 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=zzzzzzzz D=01010101
 Read from PortUC
-                 323 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=11111111 D=zzzzzzzz
-                 325 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=11111111 D=11111111
+                 323 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=11111111 D=zzzzzzzz
+                 325 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=x1x1x1x1 PortC=11111111 D=11111111
 Reset
                  327 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=11111111 D=zzzzzzzz
 *******************************************************15th****************************************************
@@ -242,14 +242,14 @@ Read from PortA
                  336 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzz0000 D=zzzzzzzz
                  338 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzz0000 D=11111111
 Read from PortB
-                 340 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=zzzzzzzz
-                 342 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=01011111
+                 340 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=01011111 PortC=zzzz0000 D=zzzzzzzz
+                 342 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=01011111 PortC=zzzz0000 D=x1x11111
 Read from PortUC
-                 344 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=zzzzzzzz
-                 346 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=0101zzzz
+                 344 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=01011111 PortC=01010000 D=zzzzzzzz
+                 346 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=01011111 PortC=01010000 D=x1x11111
 Write in PortLC
-                 348 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
-                 350 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0101 D=01010101
+                 348 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=01011111 PortC=zzzz0000 D=01010101
+                 350 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=11111111 PortB=01011111 PortC=zzzzx1x1 D=01010101
 Reset
                  352 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
 *******************************************************16th****************************************************

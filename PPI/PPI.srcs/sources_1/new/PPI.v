@@ -7,8 +7,8 @@ input [1:0] Sel;
 reg[7:0]DB;
 input RD_bar,WR_bar,Reset,CS_bar ;
 
-reg op,mode,type,forceR;
-reg phase;
+reg confg_select,mode_R_W,type,forceR,selected;
+reg mode_1_0;
 reg dataenable;
   
 always@(*)
@@ -25,44 +25,52 @@ begin
         begin
             if(Sel==2'b11)        
             begin
-                op=1;
+                confg_select=1;
                 dataenable=1;
                 if(DataBus[7] ==1 && DataBus[4] == 1  && DataBus[6] == 0 && DataBus[5] == 0)
                 begin
-                    phase<=0;
+                    mode_1_0<=0;
                     type <=0;
                 end
                 else if (DataBus[7] == 1 && DataBus[4] == 0 && DataBus[6] == 0 && DataBus[5] == 0)
                 begin
-                    phase<=0;
+                    mode_1_0<=0;
                     type<=1;
                 end
                 if (DataBus[7] == 0)
                 begin
-                    phase<=1;
+                    mode_1_0<=1;
                 end
              end             
              else if (Sel==2'b00)
              begin
-                op=0;
+             
+             selected= 1'b1;
+                confg_select=0;
                 if(~RD_bar)
                 begin
                     dataenable=0;
-                    mode=0;
+                    mode_R_W=0;
                 end
                 else if (~WR_bar)
                 begin
                     dataenable=1;
-                    mode=1;
+                    mode_R_W=1;
                 end
             end                 
+            
+            else
+            begin
+            selected=1'b0;
+            end
+       
         end
      end
 end
 
-assign A = (forceR)? 8'bzzzz_zzzz : (phase)? A : (op)? (type)? (mode)? A : 8'b0000_0000 : 8'bzzzz_zzzz :(mode)? (type)? DataBus :A : (type)? A : 8'bzzzz_zzzz;
+assign A = (forceR)? 8'bzzzz_zzzz :(selected)? (mode_1_0)? A : (confg_select)? (type)? (mode_R_W)? A : 8'b0000_0000 : 8'bzzzz_zzzz :(mode_R_W)? (type)? DataBus :A : (type)? A : 8'bzzzz_zzzz :A;
 assign DataBus = (dataenable)? 8'bzzzz_zzzz  : A  ;
-
+ 
 endmodule
 
 module PortB(DataBus,B,Sel,RD_bar,WR_bar,Reset,CS_bar);
@@ -71,7 +79,7 @@ inout [7:0] DataBus;
 input [1:0] Sel;
 reg[7:0]DB;
 input RD_bar,WR_bar,Reset,CS_bar ;
-reg op,mode,type,forceR;
+reg op,mode,type,forceR,selected;
 reg phase;
 reg dataenable;
   
@@ -108,6 +116,7 @@ begin
             end
             else if (Sel==2'b01)
             begin
+            selected=1'b1;
                 op=0;
                 if(~RD_bar)
                 begin
@@ -120,11 +129,16 @@ begin
                     mode=1;
                 end
             end
+      
+            else 
+            begin
+            selected=1'b0;
+            end
         end
     end
 end
 
-assign B = (forceR)? 8'bzzzz_zzzz : (phase)? B : (op)? (type)? (mode)? B : 8'b0000_0000 : 8'bzzzz_zzzz : (mode)? (type)? DataBus : B : (type)? B : 8'bzzzz_zzzz;
+assign B = (forceR)? 8'bzzzz_zzzz :(selected)? (phase)? B : (op)? (type)? (mode)? B : 8'b0000_0000 : 8'bzzzz_zzzz : (mode)? (type)? DataBus : B : (type)? B : 8'bzzzz_zzzz:B;
 assign DataBus = (dataenable)? 8'bzzzz_zzzz  : B;
 
 endmodule
@@ -1124,7 +1138,7 @@ $display("Write in PortA");
     RD <= 1;
     WR <= 1;
 $display("Write in PortB");
-    D_data <= 8'b0101_0101;
+    D_data <= 8'b0101_1111;
     ctrl <= 4'b1000;
     CS <= 0;
     Sel <= 2'b01;

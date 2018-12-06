@@ -1,4 +1,4 @@
-Running: xsim.dir/PPI_tb_behav/xsimk.exe -simmode gui -wdb PPI_tb_behav.wdb -simrunnum 0 -socket 51827
+Running: xsim.dir/PPI_tb_behav/xsimk.exe -simmode gui -wdb PPI_tb_behav.wdb -simrunnum 0 -socket 52001
 Design successfully loaded
-Design Loading Memory Usage: 4892 KB (Peak: 4892 KB)
-Design Loading CPU Usage: 0 ms
+Design Loading Memory Usage: 4904 KB (Peak: 4904 KB)
+Design Loading CPU Usage: 15 ms
