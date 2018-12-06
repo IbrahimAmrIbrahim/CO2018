@@ -2,19 +2,775 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Tue Nov 27 09:37:45 2018
-# Process ID: 5552
-# Current directory: F:/CO2018PPI/PPI
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent3952 F:\CO2018PPI\PPI\PPI.xpr
-# Log file: F:/CO2018PPI/PPI/vivado.log
-# Journal file: F:/CO2018PPI/PPI\vivado.jou
+# Start of session at: Wed Nov 28 17:55:33 2018
+# Process ID: 12744
+# Current directory: D:/CO PPI - Copy/PPI/CO2018PPI/PPI
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent17336 D:\CO PPI - Copy\PPI\CO2018PPI\PPI\PPI.xpr
+# Log file: D:/CO PPI - Copy/PPI/CO2018PPI/PPI/vivado.log
+# Journal file: D:/CO PPI - Copy/PPI/CO2018PPI/PPI\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project F:/CO2018PPI/PPI/PPI.xpr
+open_project {D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.xpr}
 Scanning sources...
 Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'.
-open_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:05 . Memory (MB): peak = 870.469 ; gain = 101.020
+open_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:06 . Memory (MB): peak = 848.406 ; gain = 122.176
 update_compile_order -fileset sources_1
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'PPI_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj PPI_tb_vlog.prj"
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto f7fdbc4e9d514638b374134c0fb77749 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot PPI_tb_behav xil_defaultlib.PPI_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "PPI_tb_behav -key {Behavioral:sim_1:Functional:PPI_tb} -tclbatch {PPI_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source PPI_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Reset
+                   0 CS=x RD=x WR=x Sel=xx Reset=1 PortA=xxxxxxxx PortB=xxxxxxxx PortC=xxxxxxxx D=xxxxxxxx
+***********************************************************1st************************************************
+PortA output,PortB output,PortUC output , PortLC output confg
+                   5 CS=0 RD=x WR=x Sel=11 Reset=0 PortA=xxxxxxxx PortB=xxxxxxxx PortC=zzzzzzzz D=10000000
+                   7 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=xxxxxxxx PortB=xxxxxxxx PortC=00000000 D=10000000
+Write in PortA
+                   9 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=xxxxxxxx PortB=xxxxxxxx PortC=00000000 D=01010101
+                  11 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=01010101 PortC=00000000 D=01010101
+Write in PortB
+                  13 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                  15 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=00000000 D=01010101
+Write in PortC
+                  17 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                  19 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=01010101 D=01010101
+                  21 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010101 D=01010101
+Reset
+                  26 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+********************************************************2nd***************************************************
+PortA output,PortB output,PortUC output , PortLC Input confg
+                  31 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10000001
+                  33 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=10000001
+Write in PortA
+                  35 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                  37 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=01010101 PortC=0000zzzz D=01010101
+Write in PortB
+                  39 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                  41 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=0000zzzz D=01010101
+Write in PortUC
+                  43 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                  45 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=0101zzzz D=01010101
+Read from PortLC
+                  47 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzzzzzz
+                  49 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzz1111 PortB=zzzz1111 PortC=01011111 D=zzzz1111
+Reset
+                  51 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
+*****************************************************3rd*****************************************************
+PortA output,PortB input,PortUC output , PortLC output confg
+                  56 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10000010
+                  58 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=10000010
+Write in PortA
+                  60 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                  62 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=00000000 D=01010101
+Read from PortB
+                  64 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=zzzzzzzz
+                  66 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=zzzzzzzz
+Write in PortC
+                  68 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=01010101
+                  70 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=11111111 PortC=01010101 D=01010101
+Reset
+                  72 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************4th****************************************************
+PortA output,PortB input,PortUC output , PortLC Input confg
+                  77 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10000011
+                  79 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=10000011
+Write in PortA
+                  81 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                  83 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=0000zzzz D=01010101
+Read from PortB
+                  85 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=zzzzzzzz
+                  87 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=zzzzzzzz
+Write in PortUC
+                  89 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=01010101
+                  91 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=11111111 PortC=0101zzzz D=01010101
+Read from PortLC
+                  93 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=01011111 D=zzzzzzzz
+                  95 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzz1111 PortB=11111111 PortC=01011111 D=zzzz1111
+Reset
+                  97 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
+*******************************************************5th****************************************************
+PortA output,PortB output,PortUC input , PortLC output confg
+                 102 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001000
+                 104 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=10001000
+Write in PortA
+                 106 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 108 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzz0000 D=01010101
+write in PortB
+                 110 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 112 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzz0000 D=01010101
+Read from PortUC
+                 114 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=zzzzzzzz
+                 116 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=0101zzzz PortB=0101zzzz PortC=01010000 D=0101zzzz
+Write in PortLC
+                 118 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 120 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzz0101 D=01010101
+Reset
+                 122 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************6th****************************************************
+PortA output,PortB output,PortUC input , PortLC input confg
+                 127 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001001
+                 129 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001001
+Write in PortA
+                 131 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+                 133 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzzzzzz D=01010101
+write in PortB
+                 135 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+                 137 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzzzzzz D=01010101
+Read from PortUC
+                 139 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=11111111 D=zzzzzzzz
+                 141 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=11111111 PortC=11111111 D=11111111
+Reset
+                 143 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=11111111 D=zzzzzzzz
+*******************************************************7th****************************************************
+PortA output,PortB input,PortUC input , PortLC output confg
+                 148 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001010
+                 150 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=10001010
+Write in PortA
+                 152 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 154 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+Read from PortB
+                 156 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=zzzzzzzz
+                 158 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=zzzzzzzz
+Read from PortUC
+                 160 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=01010000 D=zzzzzzzz
+                 162 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=0101zzzz PortB=01011111 PortC=01010000 D=0101zzzz
+Write in PortLC
+                 164 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=01010101
+                 166 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=zzzz0101 D=01010101
+Reset
+                 168 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************8th****************************************************
+PortA output,PortB input,PortUC input , PortLC input confg
+                 173 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001011
+                 175 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001011
+Write in PortA
+                 177 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+                 179 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+Read from PortB
+                 181 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzzzzzz D=zzzzzzzz
+                 183 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzzzzzz D=zzzzzzzz
+Read from PortC
+                 185 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=01011100 D=zzzzzzzz
+                 187 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=01011100 PortB=01011111 PortC=01011100 D=01011100
+Reset
+                 189 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=zzzzzzzz
+*******************************************************9th****************************************************
+PortA input,PortB output,PortUC output , PortLC output confg
+                 194 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10010000
+                 196 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=10010000
+Read from PortA
+                 198 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=zzzzzzzz
+                 200 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=11111111
+Write in PortB
+                 202 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                 204 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+Write in PortC
+                 206 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                 208 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010101 D=01010101
+Reset
+                 210 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+********************************************************10th***************************************************
+PortA input,PortB output,PortUC output , PortLC Input confg
+                 215 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=10010001
+                 217 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0000zzzz D=10010001
+Read from PortA
+                 219 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=0000zzzz D=zzzzzzzz
+                 221 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=0000zzzz D=xxxxxxxx
+Write in PortB
+                 223 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0000zzzz D=01010101
+                 225 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0000zzzz D=01010101
+Write in PortUC
+                 227 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0000zzzz D=01010101
+                 229 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0x0xzzzz D=01010101
+Read from PortLC
+                 231 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0x0x1111 D=zzzzzzzz
+                 233 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0x0x1111 D=0000xxxx
+Reset
+                 235 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
+*****************************************************11th*****************************************************
+PortA input,PortB input,PortUC output , PortLC output confg
+                 240 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=10010010
+                 242 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=10010010
+Read from PortA
+                 244 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=zzzzzzzz
+                 246 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=11111111
+Read from PortB
+                 248 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=zzzzzzzz
+                 250 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=11111111
+Write in PortC
+                 252 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                 254 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010101 D=01010101
+Reset
+                 256 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************12th****************************************************
+PortA input,PortB input,PortUC output , PortLC Input confg
+                 261 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10010011
+                 263 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=10010011
+Read from PortA
+                 265 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=0000zzzz D=zzzzzzzz
+                 267 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=0000zzzz D=11111111
+Read from PortB
+                 269 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=zzzzzzzz
+                 271 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=11111111
+Write in PortUC
+                 273 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                 275 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0101zzzz D=01010101
+Read from PortLC
+                 277 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzzzzzz
+                 279 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzz1111
+Reset
+                 281 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
+*******************************************************13th****************************************************
+PortA input,PortB output,PortUC input , PortLC output confg
+                 286 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10011000
+                 288 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=10011000
+Read from PortA
+                 290 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=zzzz0000 D=zzzzzzzz
+                 292 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=zzzz0000 D=xxxxxxxx
+write in PortB
+                 294 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=01010101
+                 296 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=01010101
+Read from PortUC
+                 298 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=01010000 D=zzzzzzzz
+                 300 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=01010000 D=0x0x0000
+Write in PortLC
+                 302 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=01010101
+                 304 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0x0x D=01010101
+Reset
+                 306 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************14th****************************************************
+PortA input,PortB output,PortUC input , PortLC input confg
+                 311 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=10011001
+                 313 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=10011001
+Read from PortA
+                 315 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=zzzzzzzz D=zzzzzzzz
+                 317 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=zzzzzzzz D=xxxxxxxx
+write in PortB
+                 319 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=01010101
+                 321 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=01010101
+Read from PortUC
+                 323 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=11111111 D=zzzzzzzz
+                 325 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=11111111 D=xxxxxxxx
+Reset
+                 327 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=11111111 D=zzzzzzzz
+*******************************************************15th****************************************************
+PortA input,PortB input,PortUC input , PortLC output confg
+                 332 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=10011010
+                 334 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=10011010
+Read from PortA
+                 336 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzz0000 D=zzzzzzzz
+                 338 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzz0000 D=11111111
+Read from PortB
+                 340 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=zzzzzzzz
+                 342 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=01011111
+Read from PortUC
+                 344 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=zzzzzzzz
+                 346 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=0101zzzz
+Write in PortLC
+                 348 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 350 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0101 D=01010101
+Reset
+                 352 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************16th****************************************************
+PortA input,PortB input,PortUC input , PortLC input confg
+                 357 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10011011
+                 359 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10011011
+Read from PortA
+                 361 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzzzzzz D=zzzzzzzz
+                 363 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzzzzzz D=11111111
+Read from PortB
+                 365 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzzzzzz D=zzzzzzzz
+                 367 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzzzzzz D=01011111
+Read from PortC
+                 369 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=zzzzzzzz
+                 371 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=01011100
+Reset
+                 373 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=zzzzzzzz
+*******************************************************17th****************************************************
+PortA input,PortB input,PortUC output , PortLC output confg
+                 378 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10010010
+                 380 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=10010010
+Read from PortA
+                 382 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=zzzzzzzz
+                 384 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=11111111
+Read from PortB
+                 386 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=00000000 D=zzzzzzzz
+                 388 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=00000000 D=01011111
+PortC BSR set bit 2
+                 390 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=0xxx0101
+                 392 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000100 D=0xxx0101
+PortC BSR set bit 6
+                 394 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000100 D=0xxx1101
+                 396 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01000100 D=0xxx1101
+PortC BSR reset bit 2
+                 398 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01000100 D=0xxx0100
+                 400 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01000000 D=0xxx0100
+PortC BSR set bit 0
+                 402 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01000000 D=0xxx0001
+                 404 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01000001 D=0xxx0001
+PortC BSR set bit 3
+                 406 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01000001 D=0xxx0111
+                 408 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01001001 D=0xxx0111
+                 410 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01001001 D=0xxx0111
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'PPI_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 884.855 ; gain = 14.883
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'PPI_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj PPI_tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module PortA
+INFO: [VRFC 10-311] analyzing module PortB
+INFO: [VRFC 10-311] analyzing module PortUC
+INFO: [VRFC 10-311] analyzing module PortLC
+INFO: [VRFC 10-311] analyzing module DataBusBuffer
+INFO: [VRFC 10-311] analyzing module PPI
+INFO: [VRFC 10-311] analyzing module PortA_tb
+INFO: [VRFC 10-311] analyzing module PortB_tb
+INFO: [VRFC 10-311] analyzing module DataBusBuffer_tb
+INFO: [VRFC 10-311] analyzing module PortUC_tb
+INFO: [VRFC 10-311] analyzing module PortLC_tb
+INFO: [VRFC 10-311] analyzing module PPI_tb
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto f7fdbc4e9d514638b374134c0fb77749 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot PPI_tb_behav xil_defaultlib.PPI_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.PortA
+Compiling module xil_defaultlib.PortB
+Compiling module xil_defaultlib.PortUC
+Compiling module xil_defaultlib.PortLC
+Compiling module xil_defaultlib.DataBusBuffer
+Compiling module xil_defaultlib.PPI
+Compiling module xil_defaultlib.PPI_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot PPI_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '4' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "PPI_tb_behav -key {Behavioral:sim_1:Functional:PPI_tb} -tclbatch {PPI_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source PPI_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Reset
+                   0 CS=x RD=x WR=x Sel=xx Reset=1 PortA=xxxxxxxx PortB=xxxxxxxx PortC=xxxxxxxx D=xxxxxxxx
+***********************************************************1st************************************************
+PortA output,PortB output,PortUC output , PortLC output confg
+                   5 CS=0 RD=x WR=x Sel=11 Reset=0 PortA=xxxxxxxx PortB=xxxxxxxx PortC=zzzzzzzz D=10000000
+                   7 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=xxxxxxxx PortB=xxxxxxxx PortC=00000000 D=10000000
+Write in PortA
+                   9 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=xxxxxxxx PortB=xxxxxxxx PortC=00000000 D=01010101
+                  11 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=01010101 PortC=00000000 D=01010101
+Write in PortB
+                  13 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                  15 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=00000000 D=01010101
+Write in PortC
+                  17 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                  19 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=01010101 D=01010101
+                  21 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010101 D=01010101
+Reset
+                  26 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+********************************************************2nd***************************************************
+PortA output,PortB output,PortUC output , PortLC Input confg
+                  31 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10000001
+                  33 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=10000001
+Write in PortA
+                  35 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                  37 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=01010101 PortC=0000zzzz D=01010101
+Write in PortB
+                  39 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                  41 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=0000zzzz D=01010101
+Write in PortUC
+                  43 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                  45 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=0101zzzz D=01010101
+Read from PortLC
+                  47 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzzzzzz
+                  49 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzz1111 PortB=zzzz1111 PortC=01011111 D=zzzz1111
+Reset
+                  51 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
+*****************************************************3rd*****************************************************
+PortA output,PortB input,PortUC output , PortLC output confg
+                  56 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10000010
+                  58 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=10000010
+Write in PortA
+                  60 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                  62 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=00000000 D=01010101
+Read from PortB
+                  64 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=zzzzzzzz
+                  66 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=zzzzzzzz
+Write in PortC
+                  68 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=01010101
+                  70 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=11111111 PortC=01010101 D=01010101
+Reset
+                  72 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************4th****************************************************
+PortA output,PortB input,PortUC output , PortLC Input confg
+                  77 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10000011
+                  79 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=10000011
+Write in PortA
+                  81 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                  83 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=0000zzzz D=01010101
+Read from PortB
+                  85 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=zzzzzzzz
+                  87 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=zzzzzzzz
+Write in PortUC
+                  89 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=01010101
+                  91 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=11111111 PortC=0101zzzz D=01010101
+Read from PortLC
+                  93 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=01011111 D=zzzzzzzz
+                  95 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzz1111 PortB=11111111 PortC=01011111 D=zzzz1111
+Reset
+                  97 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
+*******************************************************5th****************************************************
+PortA output,PortB output,PortUC input , PortLC output confg
+                 102 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001000
+                 104 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=10001000
+Write in PortA
+                 106 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 108 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzz0000 D=01010101
+write in PortB
+                 110 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 112 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzz0000 D=01010101
+Read from PortUC
+                 114 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=zzzzzzzz
+                 116 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=0101zzzz PortB=0101zzzz PortC=01010000 D=0101zzzz
+Write in PortLC
+                 118 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 120 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzz0101 D=01010101
+Reset
+                 122 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************6th****************************************************
+PortA output,PortB output,PortUC input , PortLC input confg
+                 127 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001001
+                 129 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001001
+Write in PortA
+                 131 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+                 133 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzzzzzz D=01010101
+write in PortB
+                 135 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+                 137 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=zzzzzzzz D=01010101
+Read from PortUC
+                 139 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=11111111 D=zzzzzzzz
+                 141 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=11111111 PortC=11111111 D=11111111
+Reset
+                 143 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=11111111 D=zzzzzzzz
+*******************************************************7th****************************************************
+PortA output,PortB input,PortUC input , PortLC output confg
+                 148 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001010
+                 150 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=10001010
+Write in PortA
+                 152 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 154 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+Read from PortB
+                 156 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=zzzzzzzz
+                 158 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=zzzzzzzz
+Read from PortUC
+                 160 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=01010000 D=zzzzzzzz
+                 162 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=0101zzzz PortB=01011111 PortC=01010000 D=0101zzzz
+Write in PortLC
+                 164 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=01010101
+                 166 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=01010101 PortB=01011111 PortC=zzzz0101 D=01010101
+Reset
+                 168 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************8th****************************************************
+PortA output,PortB input,PortUC input , PortLC input confg
+                 173 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001011
+                 175 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10001011
+Write in PortA
+                 177 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+                 179 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+Read from PortB
+                 181 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzzzzzz D=zzzzzzzz
+                 183 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzzzzzz D=zzzzzzzz
+Read from PortC
+                 185 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=01011100 D=zzzzzzzz
+                 187 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=01011100 PortB=01011111 PortC=01011100 D=01011100
+Reset
+                 189 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=zzzzzzzz
+*******************************************************9th****************************************************
+PortA input,PortB output,PortUC output , PortLC output confg
+                 194 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10010000
+                 196 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=10010000
+Read from PortA
+                 198 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=zzzzzzzz
+                 200 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=11111111
+Write in PortB
+                 202 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                 204 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+Write in PortC
+                 206 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                 208 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010101 D=01010101
+Reset
+                 210 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+********************************************************10th***************************************************
+PortA input,PortB output,PortUC output , PortLC Input confg
+                 215 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=10010001
+                 217 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0000zzzz D=10010001
+Read from PortA
+                 219 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=0000zzzz D=zzzzzzzz
+                 221 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=0000zzzz D=xxxxxxxx
+Write in PortB
+                 223 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0000zzzz D=01010101
+                 225 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0000zzzz D=01010101
+Write in PortUC
+                 227 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0000zzzz D=01010101
+                 229 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0x0xzzzz D=01010101
+Read from PortLC
+                 231 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0x0x1111 D=zzzzzzzz
+                 233 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=0x0x1111 D=0000xxxx
+Reset
+                 235 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
+*****************************************************11th*****************************************************
+PortA input,PortB input,PortUC output , PortLC output confg
+                 240 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=10010010
+                 242 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=10010010
+Read from PortA
+                 244 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=zzzzzzzz
+                 246 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=00000000 D=11111111
+Read from PortB
+                 248 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=zzzzzzzz
+                 250 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=00000000 D=11111111
+Write in PortC
+                 252 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                 254 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010101 D=01010101
+Reset
+                 256 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************12th****************************************************
+PortA input,PortB input,PortUC output , PortLC Input confg
+                 261 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10010011
+                 263 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=10010011
+Read from PortA
+                 265 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=0000zzzz D=zzzzzzzz
+                 267 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=0000zzzz D=11111111
+Read from PortB
+                 269 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=zzzzzzzz
+                 271 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=11111111 PortC=0000zzzz D=11111111
+Write in PortUC
+                 273 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0000zzzz D=01010101
+                 275 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=0101zzzz D=01010101
+Read from PortLC
+                 277 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzzzzzz
+                 279 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011111 D=zzzz1111
+Reset
+                 281 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz1111 D=zzzzzzzz
+*******************************************************13th****************************************************
+PortA input,PortB output,PortUC input , PortLC output confg
+                 286 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10011000
+                 288 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=10011000
+Read from PortA
+                 290 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=zzzz0000 D=zzzzzzzz
+                 292 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=zzzz0000 D=xxxxxxxx
+write in PortB
+                 294 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=01010101
+                 296 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=01010101
+Read from PortUC
+                 298 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=01010000 D=zzzzzzzz
+                 300 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=01010000 D=0x0x0000
+Write in PortLC
+                 302 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0000 D=01010101
+                 304 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzz0x0x D=01010101
+Reset
+                 306 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************14th****************************************************
+PortA input,PortB output,PortUC input , PortLC input confg
+                 311 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=10011001
+                 313 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=10011001
+Read from PortA
+                 315 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=zzzzzzzz D=zzzzzzzz
+                 317 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=00000000 PortC=zzzzzzzz D=xxxxxxxx
+write in PortB
+                 319 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=01010101
+                 321 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=01010101
+Read from PortUC
+                 323 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=11111111 D=zzzzzzzz
+                 325 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=11111111 D=xxxxxxxx
+Reset
+                 327 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=11111111 D=zzzzzzzz
+*******************************************************15th****************************************************
+PortA input,PortB input,PortUC input , PortLC output confg
+                 332 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=00000000 PortC=zzzzzzzz D=10011010
+                 334 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=10011010
+Read from PortA
+                 336 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzz0000 D=zzzzzzzz
+                 338 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzz0000 D=11111111
+Read from PortB
+                 340 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=zzzzzzzz
+                 342 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzz0000 D=01011111
+Read from PortUC
+                 344 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=zzzzzzzz
+                 346 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01010000 D=0101zzzz
+Write in PortLC
+                 348 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0000 D=01010101
+                 350 CS=0 RD=1 WR=0 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzz0101 D=01010101
+Reset
+                 352 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=01010101
+*******************************************************16th****************************************************
+PortA input,PortB input,PortUC input , PortLC input confg
+                 357 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10011011
+                 359 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10011011
+Read from PortA
+                 361 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzzzzzz D=zzzzzzzz
+                 363 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzzzzzz D=11111111
+Read from PortB
+                 365 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzzzzzz D=zzzzzzzz
+                 367 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=01011111 PortC=zzzzzzzz D=01011111
+Read from PortC
+                 369 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=zzzzzzzz
+                 371 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=01011100
+Reset
+                 373 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=zzzzzzzz
+*******************************************************17th****************************************************
+PortA output,PortB output,PortUC output , PortLC output confg
+                 378 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10000000
+                 380 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=00000000 PortB=00000000 PortC=00000000 D=10000000
+Write in PortA
+                 382 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=00000000 PortB=00000000 PortC=00000000 D=01010101
+                 384 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=01010101 PortC=00000000 D=01010101
+Write in PortB
+                 386 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
+                 388 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=01010101 PortC=00000000 D=01010101
+PortC BSR set bit 2
+                 390 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=00000000 D=0xxx0101
+                 392 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=00000100 D=0xxx0101
+PortC BSR set bit 6
+                 394 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=00000100 D=0xxx1101
+                 396 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=01000100 D=0xxx1101
+PortC BSR reset bit 2
+                 398 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=01000100 D=0xxx0100
+                 400 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=01000000 D=0xxx0100
+PortC BSR set bit 0
+                 402 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=01000000 D=0xxx0001
+                 404 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=01000001 D=0xxx0001
+PortC BSR set bit 3
+                 406 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=01000001 D=0xxx0111
+                 408 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=01001001 D=0xxx0111
+                 410 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=01010101 PortC=01001001 D=0xxx0111
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'PPI_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:05 ; elapsed = 00:00:12 . Memory (MB): peak = 900.254 ; gain = 0.000
+synth_design -rtl -name rtl_1
+Command: synth_design -rtl -name rtl_1
+Starting synth_design
+Using part: xc7vx485tffg1157-1
+Top: PPI_tb
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1014.691 ; gain = 112.852
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'PPI_tb' [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:1096]
+INFO: [Synth 8-6157] synthesizing module 'PPI' [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:366]
+INFO: [Synth 8-6157] synthesizing module 'PortA' [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:2]
+INFO: [Synth 8-6155] done synthesizing module 'PortA' (1#1) [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:2]
+INFO: [Synth 8-6157] synthesizing module 'PortB' [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:81]
+INFO: [Synth 8-6155] done synthesizing module 'PortB' (2#1) [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:81]
+INFO: [Synth 8-6157] synthesizing module 'PortUC' [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:160]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:224]
+INFO: [Synth 8-6155] done synthesizing module 'PortUC' (3#1) [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:160]
+INFO: [Synth 8-6157] synthesizing module 'PortLC' [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:242]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:307]
+INFO: [Synth 8-6155] done synthesizing module 'PortLC' (4#1) [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:242]
+INFO: [Synth 8-6157] synthesizing module 'DataBusBuffer' [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:325]
+INFO: [Synth 8-6155] done synthesizing module 'DataBusBuffer' (5#1) [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:325]
+INFO: [Synth 8-6155] done synthesizing module 'PPI' (6#1) [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:366]
+INFO: [Synth 8-6155] done synthesizing module 'PPI_tb' (7#1) [D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.srcs/sources_1/new/PPI.v:1096]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1069.621 ; gain = 167.781
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:07 . Memory (MB): peak = 1069.621 ; gain = 167.781
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:07 . Memory (MB): peak = 1069.621 ; gain = 167.781
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7vx485tffg1157-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+RTL Elaboration Complete:  : Time (s): cpu = 00:00:29 ; elapsed = 00:00:37 . Memory (MB): peak = 1622.383 ; gain = 720.543
+20 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:31 ; elapsed = 00:00:38 . Memory (MB): peak = 1622.383 ; gain = 722.109
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting Vivado at Wed Nov 28 18:13:20 2018...

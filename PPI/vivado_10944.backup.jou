@@ -2,19 +2,16 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Wed Nov 28 17:55:33 2018
-# Process ID: 12744
+# Start of session at: Wed Nov 28 14:19:19 2018
+# Process ID: 10944
 # Current directory: D:/CO PPI - Copy/PPI/CO2018PPI/PPI
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent17336 D:\CO PPI - Copy\PPI\CO2018PPI\PPI\PPI.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent352 D:\CO PPI - Copy\PPI\CO2018PPI\PPI\PPI.xpr
 # Log file: D:/CO PPI - Copy/PPI/CO2018PPI/PPI/vivado.log
 # Journal file: D:/CO PPI - Copy/PPI/CO2018PPI/PPI\vivado.jou
 #-----------------------------------------------------------
 start_gui
 open_project {D:/CO PPI - Copy/PPI/CO2018PPI/PPI/PPI.xpr}
 update_compile_order -fileset sources_1
-launch_simulation
-source PPI_tb.tcl
-close_sim
 launch_simulation
 source PPI_tb.tcl
 synth_design -rtl -name rtl_1
