@@ -106,7 +106,7 @@ begin
                     phase<=1;
                 end
             end
-            else if (Sel==2'b00)
+            else if (Sel==2'b01)
             begin
                 op=0;
                 if(~RD_bar)
