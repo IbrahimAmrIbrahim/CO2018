@@ -13,7 +13,7 @@ endmodule
 module arbiter_priority();
 endmodule
 
-module arbiter_FCFS();
+module arbiter_RobinRound();
 endmodule 
 
 module PCI();
