@@ -27,7 +27,11 @@ always @ (posedge CLK)
 
 endmodule
 
-module arbiter_priority();
+module arbiter_priority(GNT_Neg , REQ_Neg , FRAME_Neg);
+output reg [7:0] GNT_Neg;
+input [7:0] REQ_Neg;
+input FRAME_Neg;
+
 endmodule
 
 module arbiter_RobinRound();
