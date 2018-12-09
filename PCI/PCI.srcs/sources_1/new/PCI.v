@@ -6,7 +6,7 @@ input CLK, RST_N, GNT_N;
 inout [31:0] AD;
 inout [3:0] CBE_N;
 inout FRAME_N, IRDY_N, TRDY_N, DEVSEL_N;
-output GNT_N;
+output REQ_N;
 
 endmodule
 
