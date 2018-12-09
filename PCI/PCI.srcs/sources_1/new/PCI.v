@@ -27,15 +27,71 @@ always @ (posedge CLK)
 
 endmodule
 
-module arbiter_priority(GNT_Neg , REQ_Neg , FRAME_Neg);
+module arbiter_priority(GNT_Neg , REQ_Neg , FRAME_Neg ,clk, RST_Neg);
 output reg [7:0] GNT_Neg;
 input [7:0] REQ_Neg;
-input FRAME_Neg;
+input FRAME_Neg,RST_Neg,clk;
 
+always @(posedge clk)
+begin
+    if(~RST_Neg)
+    begin
+        GNT_Neg <= 8'b1111_1111;
+    end
+    else if(FRAME_Neg)
+    begin
+        casez(REQ_Neg)
+            8'bzzzz_zzz0:GNT_Neg <= 8'b1111_1110;
+            8'bzzzz_zz01:GNT_Neg <= 8'b1111_1101;
+            8'bzzzz_z011:GNT_Neg <= 8'b1111_1011;
+            8'bzzzz_0111:GNT_Neg <= 8'b1111_0111;
+            8'bzzz0_1111:GNT_Neg <= 8'b1110_1111;
+            8'bzz01_1111:GNT_Neg <= 8'b1101_1111;
+            8'bz011_1111:GNT_Neg <= 8'b1011_1111;
+            8'b0111_1111:GNT_Neg <= 8'b0111_1111;
+            default:GNT_Neg <= 8'b1111_1111;
+        endcase
+    end
+end
 endmodule
 
 module arbiter_RobinRound();
 endmodule 
 
 module PCI();
+endmodule
+
+module tb_arbiter_priority();
+
+wire [7:0] GNT;
+reg [7:0] REQ;
+reg FRAME,clk,RST;
+
+integer i;
+initial
+    begin
+    $monitor($time ,, "REQ = %b  FRAME = %b  GNT = %b  RST = %b" , REQ , FRAME , GNT , RST);
+    #2
+    clk <= 0;
+    RST <= 0;
+    FRAME <= 1;
+    #5
+    RST <= 1;
+        for(i = 0 ; i < 20 ; i = i + 1)
+    begin
+        #5
+        REQ <= $urandom %8;
+        //  RST <= $urandom %2;
+        // FRAME <= $urandom %2;
+    end
+end
+
+always
+begin
+    #5
+    clk = ~clk;
+end
+
+
+arbiter_priority arbiter_test(GNT,REQ,FRAME,clk,RST);
 endmodule
