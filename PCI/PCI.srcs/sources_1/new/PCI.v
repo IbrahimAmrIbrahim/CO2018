@@ -3,50 +3,77 @@
 module device_A(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N);
 
 parameter MyAddress = 32'hAA, TargetAddress = 32'hBC;
+parameter AssertedMaster = 4'b0000, GrantGiven = 4'b0001, FrameAsserted = 4'b0010, MasterReady = 4'b0011;
 
-input CLK, RST_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N;
-inout [31:0] AD;	reg [31:0] ADreg;  
-inout [3:0] CBE_N;	reg [3:0] CBE_Nreg;
+input CLK, RST_N, GNT_N, FORCED_REQ_N;
+input [31:0] FORCED_ADDRESS;
+input [3:0] FORCED_CBE_N;
+inout [31:0] AD;	
+inout [3:0] CBE_N;
 inout FRAME_N, IRDY_N, TRDY_N, DEVSEL_N; 
-reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
 output REQ_N;
-reg [31:0] memory [9:0];
+reg [31:0] ADreg; 
+reg [3:0] CBE_Nreg; 
+reg [3:0] Status = 0;
+reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
 reg MasterFlag = 0, GNTFlag = 0;
+
+
+reg [31:0] memory [9:0];
+
 assign REQ_N = FORCED_REQ_N;
 
-assign AD = ADreg;	          	assign CBE_N = CBE_Nreg;
-assign FRAME_N = FRAME_Nreg;	assign IRDY_N = IRDY_Nreg;
-assign TRDY_N = TRDY_Nreg;	    assign DEVSEL_N = DEVSEL_Nreg;
+assign AD      = ADreg;	        assign CBE_N    = CBE_Nreg;
+assign FRAME_N = FRAME_Nreg;	assign IRDY_N   = IRDY_Nreg;
+assign TRDY_N  = TRDY_Nreg;	    assign DEVSEL_N = DEVSEL_Nreg;
 
-always @ (posedge CLK)
+always @ (posedge CLK, RST_N)
+    if (!RST_N)
+        begin
+         ADreg = {(32){1'bz}} ; CBE_Nreg = 4'bzzzz ; FRAME_Nreg = 1; IRDY_Nreg = 1; TRDY_Nreg = 1; DEVSEL_Nreg = 1;
+         MasterFlag = 0;      
+        end
+    else
 	begin 
-        if(!REQ_N) //Then Device is Master
-            MasterFlag = 1;
+        if(!REQ_N || MasterFlag) //Then Device is Master
+        begin 
+        MasterFlag = 1;
+            case (Status)
+                AssertedMaster:
+                        begin 
+                            if(!GNT_N)
+                            begin
+                                GNTFlag = 1;
+                                Status <= GrantGiven;
+                            end
+                            else
+                                GNTFlag = 0;    
+                        end
+                GrantGiven:
+                        begin
+                            FRAME_Nreg <= 0;
+                            ADreg    <= FORCED_ADDRESS;
+                            CBE_Nreg <= FORCED_CBE_N;
+                            Status   <= FrameAsserted;
+                        end
+                FrameAsserted:
+                        begin 
+                            IRDY_Nreg <= 0;
+                            ADreg    <= {(32){1'bz}};
+                            CBE_Nreg <= 4'b1111;   
+                            Status <= MasterReady;
+                        end
+                MasterReady:
+                        begin 
+                        end
 
-        if (MasterFlag)
-            if(!GNT_N)
-                GNTFlag = 1;
-            else
-                begin 
-                    GNTFlag = 0;
-                    MasterFlag = 0;
-                end
-        
-        if (GNTFlag)
-            begin
-                FRAME_Nreg <= 0;
-                ADreg    <= FORCED_ADDRESS;
-                CBE_Nreg <= 4'b0110;
-            end
-
-        if(!FRAME_N)
-                IRDY_Nreg = 0;
-        if(!IRDY_N)
-            begin
-                ADreg    <= {(32){1'bz}};
-                CBE_Nreg <= 4'b1111;
-
-            end
+                default : /* default */;
+            endcase
+        end
+        else begin
+            if(AD == MyAddress)
+                DEVSEL_Nreg <= 0;
+        end
         
     end
 
