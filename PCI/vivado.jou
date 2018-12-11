@@ -195,3 +195,5 @@ source tb_RTH_AND_MEMORY.tcl
 close_sim
 launch_simulation
 source tb_RTH_AND_MEMORY.tcl
+close_sim
+close_sim
