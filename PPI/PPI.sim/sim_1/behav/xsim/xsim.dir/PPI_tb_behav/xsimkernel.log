@@ -2,3 +2,6 @@ Running: xsim.dir/PPI_tb_behav/xsimk.exe -simmode gui -wdb PPI_tb_behav.wdb -sim
 Design successfully loaded
 Design Loading Memory Usage: 4904 KB (Peak: 4904 KB)
 Design Loading CPU Usage: 15 ms
+Simulation completed
+Simulation Memory Usage: 5948 KB (Peak: 5948 KB)
+Simulation CPU Usage: 30 ms

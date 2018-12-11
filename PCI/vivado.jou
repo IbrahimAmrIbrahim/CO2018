@@ -1,0 +1,270 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Tue Dec 11 13:22:05 2018
+# Process ID: 3708
+# Current directory: F:/ppi 2/PCI
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent11632 F:\ppi 2\PCI\PCI.xpr
+# Log file: F:/ppi 2/PCI/vivado.log
+# Journal file: F:/ppi 2/PCI\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {F:/ppi 2/PCI/PCI.xpr}
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_RTH [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_arbiter_priority [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation
+source tb_arbiter_priority.tcl
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_RTH [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+current_sim simulation_1
+close_sim
+close_sim
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top REQ_THREADER [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+launch_simulation
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+reset_run synth_1
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
