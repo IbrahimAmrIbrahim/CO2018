@@ -30,7 +30,8 @@ assign TRDY_N  = TRDY_Nreg;	    assign DEVSEL_N = DEVSEL_Nreg;
 always @ (posedge CLK, RST_N)
     if (!RST_N)
         begin
-         ADreg = {(32){1'bz}} ; CBE_Nreg = 4'bzzzz ; FRAME_Nreg = 1; IRDY_Nreg = 1; TRDY_Nreg = 1; DEVSEL_Nreg = 1;         
+         ADreg = {(32){1'bz}} ; CBE_Nreg = 4'bzzzz ; FRAME_Nreg = 1; IRDY_Nreg = 1; TRDY_Nreg = 1; DEVSEL_Nreg = 1;
+         MasterFlag = 0;      
         end
     else
 	begin 
