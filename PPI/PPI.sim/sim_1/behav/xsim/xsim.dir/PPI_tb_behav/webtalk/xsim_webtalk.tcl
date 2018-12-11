@@ -29,4 +29,3 @@ webtalk_add_data -client xsim -key iteration -value "0" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Simulation_Time -value "0.03_sec" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Simulation_Memory -value "5948_KB" -context "xsim\\usage"
 webtalk_transmit -clientid 856157203 -regid "" -xml F:/ppi 2/PPI/PPI.sim/sim_1/behav/xsim/xsim.dir/PPI_tb_behav/webtalk/usage_statistics_ext_xsim.xml -html F:/ppi 2/PPI/PPI.sim/sim_1/behav/xsim/xsim.dir/PPI_tb_behav/webtalk/usage_statistics_ext_xsim.html -wdm F:/ppi 2/PPI/PPI.sim/sim_1/behav/xsim/xsim.dir/PPI_tb_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
-webtalk_terminate

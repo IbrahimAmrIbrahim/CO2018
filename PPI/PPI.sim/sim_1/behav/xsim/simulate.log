@@ -258,38 +258,4 @@ PortA input,PortB input,PortUC input , PortLC input confg
                  359 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10011011
 Read from PortA
                  361 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzzzzzz D=zzzzzzzz
-                 363 CS=0 RD=0 WR=1 Sel=00 Reset=0 PortA=11111111 PortB=zzzzzzzz PortC=zzzzzzzz D=11111111
-Read from PortB
-                 365 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=01011111 PortC=zzzzzzzz D=zzzzzzzz
-                 367 CS=0 RD=0 WR=1 Sel=01 Reset=0 PortA=11111111 PortB=01011111 PortC=zzzzzzzz D=x1x11111
-Read from PortC
-                 369 CS=0 RD=1 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=01011111 PortC=01011100 D=zzzzzzzz
-                 371 CS=0 RD=0 WR=1 Sel=10 Reset=0 PortA=11111111 PortB=01011111 PortC=01011100 D=x1x111xx
-Reset
-                 373 CS=0 RD=1 WR=1 Sel=10 Reset=1 PortA=zzzzzzzz PortB=zzzzzzzz PortC=01011100 D=zzzzzzzz
-*******************************************************17th****************************************************
-PortA output,PortB output,PortUC output , PortLC output confg
-                 378 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=zzzzzzzz D=10000000
-                 380 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=10000000
-Write in PortA
-                 382 CS=0 RD=1 WR=1 Sel=00 Reset=0 PortA=zzzzzzzz PortB=zzzzzzzz PortC=00000000 D=01010101
-                 384 CS=0 RD=1 WR=0 Sel=00 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=00000000 D=01010101
-Write in PortB
-                 386 CS=0 RD=1 WR=1 Sel=01 Reset=0 PortA=01010101 PortB=zzzzzzzz PortC=00000000 D=11110000
-                 388 CS=0 RD=1 WR=0 Sel=01 Reset=0 PortA=01010101 PortB=11110000 PortC=00000000 D=11110000
-PortC BSR set bit 2
-                 390 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=00000000 D=0xxx0101
-                 392 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=00000100 D=0xxx0101
-PortC BSR set bit 6
-                 394 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=00000100 D=0xxx1101
-                 396 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=01000100 D=0xxx1101
-PortC BSR reset bit 2
-                 398 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=01000100 D=0xxx0100
-                 400 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=01000000 D=0xxx0100
-PortC BSR set bit 0
-                 402 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=01000000 D=0xxx0001
-                 404 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=01000001 D=0xxx0001
-PortC BSR set bit 3
-                 406 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=01000001 D=0xxx0111
-                 408 CS=0 RD=1 WR=0 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=01001001 D=0xxx0111
-                 410 CS=0 RD=1 WR=1 Sel=11 Reset=0 PortA=01010101 PortB=11110000 PortC=01001001 D=0xxx0111
+                 363 CS=0 RD=0 WR=1 Sel=00 Reset=
