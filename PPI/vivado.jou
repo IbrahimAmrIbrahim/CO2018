@@ -17,3 +17,16 @@ source PPI_tb.tcl
 close_sim
 launch_simulation
 source PPI_tb.tcl
+close_sim
+launch_simulation
+source PPI_tb.tcl
+close_sim
+launch_simulation
+source PPI_tb.tcl
+close_sim
+launch_simulation
+source PPI_tb.tcl
+close_sim
+launch_simulation
+source PPI_tb.tcl
+close_sim
