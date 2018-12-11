@@ -178,52 +178,143 @@ output reg [7:0]THREADING_REQ6;
 output reg [7:0]THREADING_REQ7;
 reg [7:0]THREADING_REQ[0:7]; // memory
 reg location;//memory location
-reg bit_no;// 0 bit location
-reg [7:0] BIT_SHIFT_OUT;// the out for 0 bit location
+reg flag;// finished all if
+reg step;// to enter all if
+reg step2;//secend if
 always@(*)
     begin
     
     location=0;
-    bit_no=0;
-            while(bit_no<8)
-        begin
-        
-        if(REQ[bit_no]==1'b0)
+  step=0;
+     flag=0;
+        if(flag==0)
+          begin
+            if(step==0)
             begin
-         
-       //   BIT_SHIFT x(bit_no,BIT_SHIFT_OUT);
+            if(REQ[4]==1'b0)
+            begin
             
-           case(bit_no)
-            0: BIT_SHIFT_OUT=8'b1111_1110;
-            1: BIT_SHIFT_OUT=8'b1111_1101;
-            2: BIT_SHIFT_OUT=8'b1111_1011;
-            3: BIT_SHIFT_OUT=8'b1111_0111;
-            4: BIT_SHIFT_OUT=8'b1110_1111;
-            5: BIT_SHIFT_OUT=8'b1101_1111;
-            6: BIT_SHIFT_OUT=8'b1011_1111;
-            7: BIT_SHIFT_OUT=8'b0111_1111;
-            default: BIT_SHIFT_OUT=8'b1111_1111;
-           
-            endcase
-            THREADING_REQ[location]= BIT_SHIFT_OUT;
-        
-         location=location+1;
-             end
-       
-         bit_no=bit_no + 1;
-       end
-     if(bit_no==8)
-        begin
-        THREADING_REQ1=THREADING_REQ[0];
-        THREADING_REQ1=THREADING_REQ[1];
-        THREADING_REQ2=THREADING_REQ[2];
-        THREADING_REQ3=THREADING_REQ[3];
-        THREADING_REQ4=THREADING_REQ[4];
-        THREADING_REQ5=THREADING_REQ[5];
-        THREADING_REQ6=THREADING_REQ[6];
-        THREADING_REQ7=THREADING_REQ[7];
+            THREADING_REQ[location]= 8'b1111_1110;
+            
+            location=location+1;
+            
+            end
+            step=step+1;
+            end
           
-        end
+            if(step==1)
+            begin
+            if(REQ[1]==1'b0)
+            begin
+            
+            THREADING_REQ[location]= 8'b1111_1101;
+            
+            location=location+1;
+            
+            end
+            step=step+1;
+            step2=0;
+            end
+            
+            if(step==0)
+            begin
+            
+            if(REQ[5]==1'b0)
+            begin
+            
+            
+            THREADING_REQ[location]= 8'b1111_1011;
+            
+            location=location+1;
+            
+            end
+            step=step+1;   
+            end
+           
+            if(step==3)
+            begin
+            if(REQ[3]==1'b0)
+            begin
+            
+            THREADING_REQ[location]= 8'b1111_0111;
+            
+            location=location+1;
+            
+            end
+            
+            step=step+1;
+            end
+             
+            
+            if(step==4)
+            begin
+            if(REQ[4]==1'b0)
+            begin
+            
+            THREADING_REQ[location]= 8'b1110_1111;
+            
+            location=location+1;
+            
+            end
+            
+            step=step+1;
+            end
+            
+            if(step==5)
+            begin
+            if(REQ[5]==1'b0)
+            begin
+            
+            THREADING_REQ[location]= 8'b1101_1111;
+            
+            location=location+1;
+            
+            end
+            step=step+1;
+            end
+            
+            if(step==6)
+            begin
+            if(REQ[6]==1'b0)
+            begin
+            
+            THREADING_REQ[location]= 8'b1011_1111;
+            
+            location=location+1;
+            
+            end
+            step=step+1;
+            end
+            if(step==7)
+            begin
+            if(REQ[7]==1'b0)
+            begin
+            
+            THREADING_REQ[location]= 8'b0111_1111;
+            
+            location=location+1;
+            
+            end
+            step=step+1;
+             
+            end;
+           flag=1;
+           
+            end
+
+     
+       
+   if(flag==1)
+       begin
+            THREADING_REQ0=THREADING_REQ[0];
+            THREADING_REQ1=THREADING_REQ[1];
+            THREADING_REQ2=THREADING_REQ[2];
+            THREADING_REQ3=THREADING_REQ[3];
+            THREADING_REQ4=THREADING_REQ[4];
+            THREADING_REQ5=THREADING_REQ[5];
+            THREADING_REQ6=THREADING_REQ[6];
+            THREADING_REQ7=THREADING_REQ[7];
+        end      
     end
 
 
@@ -247,14 +338,11 @@ $monitor( "REQ = %b   out0 = %b out1 = %b out2 = %b out3 = %b out4 = %b  out5 = 
 in=8'b1111_1111;
 #5
 
-$display(y);
-if(y[z]==1)
-begin
-y[z]=1'b0;
-end
+$display("---------");
 #5
-$display(y[z]);
-in=8'b0000_0010;
+$display("--------");
+in=8'b0000_0100;
+
 
 
 end

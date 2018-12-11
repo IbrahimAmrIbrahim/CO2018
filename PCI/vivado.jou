@@ -12,3 +12,94 @@
 start_gui
 open_project {F:/ppi 2/PCI/PCI.xpr}
 update_compile_order -fileset sources_1
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+add_bp {F:/ppi 2/PCI/PCI.srcs/sources_1/new/PCI.v} 298
+remove_bps -file {F:/ppi 2/PCI/PCI.srcs/sources_1/new/PCI.v} -line 298
+add_bp {F:/ppi 2/PCI/PCI.srcs/sources_1/new/PCI.v} 298
+remove_bps -file {F:/ppi 2/PCI/PCI.srcs/sources_1/new/PCI.v} -line 298
+add_bp {F:/ppi 2/PCI/PCI.srcs/sources_1/new/PCI.v} 298
+remove_bps -file {F:/ppi 2/PCI/PCI.srcs/sources_1/new/PCI.v} -line 298
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
