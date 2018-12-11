@@ -103,3 +103,95 @@ source tb_RTH.tcl
 close_sim
 launch_simulation
 source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+launch_simulation
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+close_sim
+launch_simulation
+source tb_RTH.tcl
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_RTH_AND_MEMORY [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl
+close_sim
+launch_simulation
+source tb_RTH_AND_MEMORY.tcl

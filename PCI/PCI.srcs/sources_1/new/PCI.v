@@ -164,10 +164,11 @@ begin
 end
 endmodule*/
 
-
-module REQ_THREADER(REQ,THREADING_REQ0,THREADING_REQ1,THREADING_REQ2,THREADING_REQ3,THREADING_REQ4,THREADING_REQ5,THREADING_REQ6,THREADING_REQ7);
+// thread the input depending on the zeros, all 1=> all1 and arragne them with piorty
+module REQ_THREADER(REQ,THREADING_REQ0,THREADING_REQ1,THREADING_REQ2,THREADING_REQ3,THREADING_REQ4,THREADING_REQ5,THREADING_REQ6,THREADING_REQ7,MEMORY_ENABLE);
 //request output only 1 time
 input [7:0]REQ;
+output MEMORY_ENABLE;
 output reg [7:0]THREADING_REQ0;
 output reg [7:0]THREADING_REQ1;
 output reg [7:0]THREADING_REQ2;
@@ -177,135 +178,189 @@ output reg [7:0]THREADING_REQ5;
 output reg [7:0]THREADING_REQ6;
 output reg [7:0]THREADING_REQ7;
 reg [7:0]THREADING_REQ[0:7]; // memory
-reg location;//memory location
 reg flag;// finished all if
-reg step;// to enter all if
-reg step2;//secend if
+reg [2:0] step,location,free_location;
+//if 0 get out 
+//if all 1 output =1111_1111
+
 always@(*)
     begin
     
-    location=0;
-  step=0;
+ 
      flag=0;
+     step=0;
+     location=0;
         if(flag==0)
-          begin
-            if(step==0)
-            begin
-            if(REQ[4]==1'b0)
-            begin
-            
-            THREADING_REQ[location]= 8'b1111_1110;
-            
-            location=location+1;
-            
-            end
+        begin
+        
+        
+        if(step==0)
+        begin
+        if(REQ[0]==1'b0)
+        begin
+        THREADING_REQ[location]= 8'b1111_1110;  
+    
+        location=location+1;
+        end
+        
+           step=step+1;
+        end
+        
+        if(step==1)
+        begin
+        if(REQ[1]==1'b0)
+        begin
+        
+        THREADING_REQ[location]= 8'b1111_1101;  
+        location=location+1;
+        end
+            step=step+1; 
+        
+        end
+        
+        if(step==2)
+        begin
+        if(REQ[2]==1'b0)
+        begin
+        
+        
+        THREADING_REQ[location]= 8'b1111_1011;
+        location=location+1;
+        end
+           step=step+1;
+        
+        
+        
+        end
+        
+        if(step==3)
+        begin
+        if(REQ[3]==1'b0)
+        begin
+        
+        THREADING_REQ[location]= 8'b1111_0111;
+        location=location+1;
+        end
             step=step+1;
-            end
-          
-            if(step==1)
-            begin
-            if(REQ[1]==1'b0)
-            begin
-            
-            THREADING_REQ[location]= 8'b1111_1101;
-            
-            location=location+1;
-            
-            end
-            step=step+1;
-            step2=0;
-            end
-            
-            if(step==0)
-            begin
-            
-            if(REQ[5]==1'b0)
-            begin
-            
-            
-            THREADING_REQ[location]= 8'b1111_1011;
-            
-            location=location+1;
-            
-            end
-            step=step+1;   
-            end
-           
-            if(step==3)
-            begin
-            if(REQ[3]==1'b0)
-            begin
-            
-            THREADING_REQ[location]= 8'b1111_0111;
-            
-            location=location+1;
-            
-            end
-            
-            step=step+1;
-            end
-             
-            
-            if(step==4)
-            begin
-            if(REQ[4]==1'b0)
-            begin
-            
-            THREADING_REQ[location]= 8'b1110_1111;
-            
-            location=location+1;
-            
-            end
-            
-            step=step+1;
-            end
-            
-            if(step==5)
-            begin
-            if(REQ[5]==1'b0)
-            begin
-            
-            THREADING_REQ[location]= 8'b1101_1111;
-            
-            location=location+1;
-            
-            end
-            step=step+1;
-            end
-            
-            if(step==6)
-            begin
-            if(REQ[6]==1'b0)
-            begin
-            
-            THREADING_REQ[location]= 8'b1011_1111;
-            
-            location=location+1;
-            
-            end
-            step=step+1;
-            end
-            if(step==7)
-            begin
-            if(REQ[7]==1'b0)
-            begin
-            
-            THREADING_REQ[location]= 8'b0111_1111;
-            
-            location=location+1;
-            
-            end
-            step=step+1;
-             
-            end;
-           flag=1;
-           
-            end
+        end
+        
+        if(step==4)
+        begin
+        if(REQ[4]==1'b0)
+        begin
+        
+        THREADING_REQ[location]= 8'b1110_1111;
+        location=location+1;
+        end
+           step=step+1;
+        end
+        
+        if(step==5)
+        begin
+        if(REQ[5]==1'b0)
+        begin
+        
+        THREADING_REQ[location]= 8'b1101_1111;
+        location=location+1;
+        end
+           step=step+1;
+        end
+        
+        if(step==6)
+        begin
+        if(REQ[6]==1'b0)
+        begin
+        
+        THREADING_REQ[location]= 8'b1011_1111;
+        location=location+1;
+        end
+           step=step+1;
+        end
+        
+        if(step==7)
+        begin
+        if(REQ[7]==1'b0)
+        begin
+        
+        THREADING_REQ[location]= 8'b0111_1111;
+       location=location+1;
+        
+        end
+           step=step+1;
+        end
 
-     
+        free_location=location;
+      
+        case(free_location)
+        0: begin
+        THREADING_REQ[0]= 8'b1111_1111 ;
+          THREADING_REQ[1]= 8'b1111_1111 ;
+            THREADING_REQ[2]= 8'b1111_1111 ;
+              THREADING_REQ[3]= 8'b1111_1111 ;
+                THREADING_REQ[4]= 8'b1111_1111 ;
+                  THREADING_REQ[5]= 8'b1111_1111 ;
+                    THREADING_REQ[6]= 8'b1111_1111 ;
+                      THREADING_REQ[7]= 8'b1111_1111 ;
+        end
+        
+        1:begin
+         THREADING_REQ[1]= 8'b1111_1111 ;
+               THREADING_REQ[2]= 8'b1111_1111 ;
+                 THREADING_REQ[3]= 8'b1111_1111 ;
+                   THREADING_REQ[4]= 8'b1111_1111 ;
+                     THREADING_REQ[5]= 8'b1111_1111 ;
+                       THREADING_REQ[6]= 8'b1111_1111 ;
+                         THREADING_REQ[7]= 8'b1111_1111 ;
+        end
+        
+        2:begin
+       THREADING_REQ[2]= 8'b1111_1111 ;          
+          THREADING_REQ[3]= 8'b1111_1111 ;        
+            THREADING_REQ[4]= 8'b1111_1111 ;      
+              THREADING_REQ[5]= 8'b1111_1111 ;    
+                THREADING_REQ[6]= 8'b1111_1111 ;  
+                  THREADING_REQ[7]= 8'b1111_1111 ;
+        end
+        
+        3:begin
+      THREADING_REQ[3]= 8'b1111_1111 ;        
+          THREADING_REQ[4]= 8'b1111_1111 ;      
+            THREADING_REQ[5]= 8'b1111_1111 ;    
+              THREADING_REQ[6]= 8'b1111_1111 ;  
+                THREADING_REQ[7]= 8'b1111_1111 ;
+        end
+        4:begin
+        THREADING_REQ[4]= 8'b1111_1111 ;      
+          THREADING_REQ[5]= 8'b1111_1111 ;    
+            THREADING_REQ[6]= 8'b1111_1111 ;  
+              THREADING_REQ[7]= 8'b1111_1111 ;
+        end
+        5:begin
+          THREADING_REQ[5]= 8'b1111_1111 ;    
+                  THREADING_REQ[6]= 8'b1111_1111 ;  
+                    THREADING_REQ[7]= 8'b1111_1111 ;
+        end
+        6:begin
+         THREADING_REQ[6]= 8'b1111_1111 ;  
+                           THREADING_REQ[7]= 8'b1111_1111 ;
+        end
+       7:begin
+        
+                          THREADING_REQ[7]= 8'b1111_1111 ;
+        end
+       
+      
+        endcase
+      
+        flag=1;
+        
+        end
+        
+
        
    if(flag==1)
        begin
+            
             THREADING_REQ0=THREADING_REQ[0];
             THREADING_REQ1=THREADING_REQ[1];
             THREADING_REQ2=THREADING_REQ[2];
@@ -315,9 +370,156 @@ always@(*)
             THREADING_REQ6=THREADING_REQ[6];
             THREADING_REQ7=THREADING_REQ[7];
         end      
+        
     end
 
+assign MEMORY_ENABLE=1;
 
+endmodule
+
+
+module memory(IN0,IN1,IN2,IN3,IN4,IN5,IN6,IN7,OUT1,ENABLE);
+input [7:0] IN0,IN1,IN2,IN3,IN4,IN5,IN6,IN7;
+output reg [7:0] OUT1;
+input ENABLE;
+reg [7:0]MEGA_MIND[0:7];
+reg IN0_FLAG,IN1_FLAG,IN2_FLAG,IN3_FLAG,IN4_FLAG,IN5_FLAG,IN6_FLAG,IN7_FLAG;
+//flag1 equals ex
+reg first_time;
+reg [2:0]free_location;
+always@(ENABLE)
+begin
+
+ 
+ if(1)
+ begin
+    free_location=0;
+    MEGA_MIND[free_location]=IN0;
+    free_location=free_location+1;
+    MEGA_MIND[free_location]=IN1;
+    free_location=free_location+1;  
+    MEGA_MIND[free_location]=IN2;
+    free_location=free_location+1;
+    MEGA_MIND[free_location]=IN3;
+    free_location=free_location+1;
+    MEGA_MIND[free_location]=IN4;
+    free_location=free_location+1;
+    MEGA_MIND[free_location]=IN5;
+    free_location=free_location+1;
+    MEGA_MIND[free_location]=IN6;
+    free_location=free_location+1;
+    MEGA_MIND[free_location]=IN7;
+    OUT1=MEGA_MIND[free_location];// megamind
+ end
+ 
+ else
+ begin
+  if(1)
+    begin
+    casez(IN0)
+    MEGA_MIND[0]: ;
+    MEGA_MIND[1]: ;
+    MEGA_MIND[2]: ;
+    MEGA_MIND[3]: ;
+    MEGA_MIND[4]: ;
+    MEGA_MIND[5]: ;
+    MEGA_MIND[6]: ;
+    MEGA_MIND[7]: ;
+    default:IN0_FLAG=0;
+    endcase
+    end
+    
+    
+    casez(IN1)
+    MEGA_MIND[0]:IN1_FLAG=1;
+    MEGA_MIND[1]:IN1_FLAG=1;
+    MEGA_MIND[2]:IN1_FLAG=1;
+    MEGA_MIND[3]:IN1_FLAG=1;
+    MEGA_MIND[4]:IN1_FLAG=1;
+    MEGA_MIND[5]:IN1_FLAG=1;
+    MEGA_MIND[6]:IN1_FLAG=1;
+    MEGA_MIND[7]:IN1_FLAG=1;
+    default:IN1_FLAG=0;
+    
+    endcase
+    
+      
+    casez(IN2)
+    MEGA_MIND[0]:IN2_FLAG=1;
+    MEGA_MIND[1]:IN2_FLAG=1;
+    MEGA_MIND[2]:IN2_FLAG=1;
+    MEGA_MIND[3]:IN2_FLAG=1;
+    MEGA_MIND[4]:IN2_FLAG=1;
+    MEGA_MIND[5]:IN2_FLAG=1;
+    MEGA_MIND[6]:IN2_FLAG=1;
+    MEGA_MIND[7]:IN2_FLAG=1;
+    default:IN2_FLAG=0;
+    endcase
+    
+    casez(IN3)
+    MEGA_MIND[0]:IN3_FLAG=1;
+    MEGA_MIND[1]:IN3_FLAG=1;
+    MEGA_MIND[2]:IN3_FLAG=1;
+    MEGA_MIND[3]:IN3_FLAG=1;
+    MEGA_MIND[4]:IN3_FLAG=1;
+    MEGA_MIND[5]:IN3_FLAG=1;
+    MEGA_MIND[6]:IN3_FLAG=1;
+    MEGA_MIND[7]:IN3_FLAG=1;
+    default:IN3_FLAG=0;
+    endcase
+      
+    casez(IN4)
+    MEGA_MIND[0]:IN4_FLAG=1;
+    MEGA_MIND[1]:IN4_FLAG=1;
+    MEGA_MIND[2]:IN4_FLAG=1;
+    MEGA_MIND[3]:IN4_FLAG=1;
+    MEGA_MIND[4]:IN4_FLAG=1;
+    MEGA_MIND[5]:IN4_FLAG=1;
+    MEGA_MIND[6]:IN4_FLAG=1;
+    MEGA_MIND[7]:IN4_FLAG=1;
+    default:IN4_FLAG=0;
+    endcase
+      
+    casez(IN5)
+    MEGA_MIND[0]:IN5_FLAG=1;
+    MEGA_MIND[1]:IN5_FLAG=1;
+    MEGA_MIND[2]:IN5_FLAG=1;
+    MEGA_MIND[3]:IN5_FLAG=1;
+    MEGA_MIND[4]:IN5_FLAG=1;
+    MEGA_MIND[5]:IN5_FLAG=1;
+    MEGA_MIND[6]:IN5_FLAG=1;
+    MEGA_MIND[7]:IN5_FLAG=1;
+    default:IN5_FLAG=0;
+    endcase
+      
+    casez(IN6)
+    MEGA_MIND[0]:IN6_FLAG=1;
+    MEGA_MIND[1]:IN6_FLAG=1;
+    MEGA_MIND[2]:IN6_FLAG=1;
+    MEGA_MIND[3]:IN6_FLAG=1;
+    MEGA_MIND[4]:IN6_FLAG=1;
+    MEGA_MIND[5]:IN6_FLAG=1;
+    MEGA_MIND[6]:IN6_FLAG=1;
+    MEGA_MIND[7]:IN6_FLAG=1;
+    default:IN6_FLAG=0;
+    
+    endcase
+      
+    casez(IN7)
+    MEGA_MIND[0]:IN7_FLAG=1;
+    MEGA_MIND[1]:IN7_FLAG=1;
+    MEGA_MIND[2]:IN7_FLAG=1;
+    MEGA_MIND[3]:IN7_FLAG=1;
+    MEGA_MIND[4]:IN7_FLAG=1;
+    MEGA_MIND[5]:IN7_FLAG=1;
+    MEGA_MIND[6]:IN7_FLAG=1;
+    MEGA_MIND[7]:IN7_FLAG=1;
+    default:IN7_FLAG=0;
+    endcase
+    
+ end
+
+end
 
 endmodule
 
@@ -327,17 +529,18 @@ endmodule
 module PCI();
 endmodule
 
-module tb_RTH();
+module tb_RTH_AND_MEMORY();
 reg[7:0]in;
-wire [7:0] out0,out1,out2,out3,out4,out5,out6,out7;
+wire [7:0] out0,out1,out2,out3,out4,out5,out6,out7,gnt_out;
 reg z=0;
 reg[7:0] y=8'b1111_1111;
 initial
 begin
-$monitor( "REQ = %b   out0 = %b out1 = %b out2 = %b out3 = %b out4 = %b  out5 = %b out6 = %b out7 = %b " , in,out0,out1,out2,out3,out4,out5,out6,out7 );
+$monitor( "REQ = %b   out0 = %b out1 = %b out2 = %b out3 = %b out4 = %b  out5 = %b out6 = %b out7 = %b  gnt_out= %b" , in,out0,out1,out2,out3,out4,out5,out6,out7,gnt_out );
 in=8'b1111_1111;
 #5
 
+#5
 $display("---------");
 #5
 $display("--------");
@@ -347,7 +550,7 @@ in=8'b0000_0100;
 
 end
 REQ_THREADER a1(in,out0,out1,out2,out3,out4,out5,out6,out7);
-
+//memory a2(out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,1);
 
 endmodule
 
