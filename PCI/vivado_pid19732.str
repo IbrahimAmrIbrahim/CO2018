@@ -6967,3 +6967,13 @@ selectCodeEditor("PCI.v", 156, 238); // ce (w, ck)
 // TclEventType: FILE_SET_CHANGE
 // TclEventType: DG_ANALYSIS_MSG_RESET
 // TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 29 seconds
+selectCodeEditor("PCI.v", 61, 120, false, true, false, false, false); // ce (w, ck) - Control Key
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, ck)
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 65 seconds
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
