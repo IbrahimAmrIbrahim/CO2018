@@ -1,4 +1,4 @@
-webtalk_init -webtalk_dir E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/Lectures/Computer Organization/Project/CO2018/PPI/PPI.sim/sim_1/behav/xsim/xsim.dir/PPI_tb_behav/webtalk/
+webtalk_init -webtalk_dir F:/ppi 2/PPI/PPI.sim/sim_1/behav/xsim/xsim.dir/PPI_tb_behav/webtalk/
 webtalk_register_client -client project
 webtalk_add_data -client project -key date_generated -value "Fri Dec  7 01:49:19 2018" -context "software_version_and_target_device"
 webtalk_add_data -client project -key product_version -value "XSIM v2018.2 (64-bit)" -context "software_version_and_target_device"
@@ -12,15 +12,15 @@ webtalk_add_data -client project -key target_family -value "not_applicable" -con
 webtalk_add_data -client project -key target_device -value "not_applicable" -context "software_version_and_target_device"
 webtalk_add_data -client project -key target_package -value "not_applicable" -context "software_version_and_target_device"
 webtalk_add_data -client project -key target_speed -value "not_applicable" -context "software_version_and_target_device"
-webtalk_add_data -client project -key random_id -value "c145de35-c715-4098-a6d5-7ab2e73f7b72" -context "software_version_and_target_device"
+webtalk_add_data -client project -key random_id -value "9a052697-d459-4ffb-b381-231088b28502" -context "software_version_and_target_device"
 webtalk_add_data -client project -key project_id -value "f7fdbc4e9d514638b374134c0fb77749" -context "software_version_and_target_device"
 webtalk_add_data -client project -key project_iteration -value "118" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_name -value "Microsoft Windows 8 or later , 64-bit" -context "user_environment"
 webtalk_add_data -client project -key os_release -value "major release  (build 9200)" -context "user_environment"
-webtalk_add_data -client project -key cpu_name -value "Intel(R) Core(TM) i7-4510U CPU @ 2.00GHz" -context "user_environment"
-webtalk_add_data -client project -key cpu_speed -value "2594 MHz" -context "user_environment"
+webtalk_add_data -client project -key cpu_name -value "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz" -context "user_environment"
+webtalk_add_data -client project -key cpu_speed -value "2808 MHz" -context "user_environment"
 webtalk_add_data -client project -key total_processors -value "1" -context "user_environment"
-webtalk_add_data -client project -key system_ram -value "8.000 GB" -context "user_environment"
+webtalk_add_data -client project -key system_ram -value "17.000 GB" -context "user_environment"
 webtalk_register_client -client xsim
 webtalk_add_data -client xsim -key Command -value "xsim" -context "xsim\\command_line_options"
 webtalk_add_data -client xsim -key trace_waveform -value "true" -context "xsim\\usage"
@@ -29,4 +29,3 @@ webtalk_add_data -client xsim -key iteration -value "0" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Simulation_Time -value "0.03_sec" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Simulation_Memory -value "5948_KB" -context "xsim\\usage"
 webtalk_transmit -clientid 856157203 -regid "" -xml F:/ppi 2/PPI/PPI.sim/sim_1/behav/xsim/xsim.dir/PPI_tb_behav/webtalk/usage_statistics_ext_xsim.xml -html F:/ppi 2/PPI/PPI.sim/sim_1/behav/xsim/xsim.dir/PPI_tb_behav/webtalk/usage_statistics_ext_xsim.html -wdm F:/ppi 2/PPI/PPI.sim/sim_1/behav/xsim/xsim.dir/PPI_tb_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
-
