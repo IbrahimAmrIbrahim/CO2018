@@ -3,7 +3,8 @@
 module device_A(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N);
 
 parameter MyAddress = 32'hAA, TargetAddress = 32'hBC;
-parameter AssertedMaster = 4'b0000, GrantGiven = 4'b0001, FrameAsserted = 4'b0010, DataPhase1 = 4'b0011, DataPhase2 = 4'b0100, DataPhase3 = 4'b0101, DataPhase4 = 4'b0110;
+parameter AssertedMaster = 4'b0000, GrantGiven = 4'b0001, FrameAsserted = 4'b0010;
+parameter DataPhase1 = 4'b0011, DataPhase2 = 4'b0100, DataPhase3 = 4'b0101, DataPhase4 = 4'b0110, DataPhase5 = 4'b0111;
 
 input CLK, RST_N, GNT_N, FORCED_REQ_N;
 input [31:0] FORCED_ADDRESS;
@@ -75,32 +76,106 @@ always @ (posedge CLK, RST_N)
                                     ADreg    <= memory[9];
                                     CBE_Nreg <= 4'b0000;    // Also Write's operation Dataphase 1
                                                                         // should hapen only on final dataphase 
-                                                                        // if(!GNT_N)
-                                                                        //     if (!REQ_N)
-                                                                        //         Status <= DataPhase1;
-                                                                        //     else
-                                                                        //         begin 
-                                                                        //             FRAME_Nreg <= 1;
-                                                                        //             IRDY_Nreg  <= 0;
-                                                                        //         end
                                 end
                         end
                 DataPhase1:
                         begin
                             if (ReadFlag)
+                            begin
                                 memory [0]= AD;
+                                if(!DEVSEL_N)
+                                    Status <= DataPhase2;
+                                else
+                                if(!GNT_N)
+                                    if (!REQ_N)
+                                        MasterFlag = 1;
+                                    else
+                                        begin 
+                                            MasterFlag <= 0;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                        end
+                            end
                             else if (WriteFlag)
                                 begin 
                                 end
                         end
                 DataPhase2:
                         begin
+                            if (ReadFlag)
+                            begin
+                                memory [1]= AD;
+                                if(!DEVSEL_N)
+                                    Status <= DataPhase3;
+                                else
+                                if(!GNT_N)
+                                    if (!REQ_N)
+                                        MasterFlag = 1;
+                                    else
+                                        begin 
+                                            MasterFlag <= 0;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                        end
+                            end
+                            else if (WriteFlag)
+                                begin 
+                                end
                         end
                 DataPhase3:
                         begin 
+                            if (ReadFlag)
+                            begin
+                                memory [2]= AD;
+                                if(!DEVSEL_N)
+                                    Status <= DataPhase4;
+                                else
+                                if(!GNT_N)
+                                    if (!REQ_N)
+                                        MasterFlag = 1;
+                                    else
+                                        begin 
+                                            MasterFlag <= 0;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                        end
+                            end
+                            else if (WriteFlag)
+                                begin 
+                                end
                         end
                 DataPhase4:
                         begin 
+                            if (ReadFlag)
+                            begin
+                                memory [3]= AD;
+                                if(!DEVSEL_N)
+                                    Status <= DataPhase5;
+                                else
+                                if(!GNT_N)
+                                    if (!REQ_N)
+                                        MasterFlag = 1;
+                                    else
+                                        begin 
+                                            MasterFlag <= 0;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                        end
+                            end
+                            else if (WriteFlag)
+                                begin 
+                                end
+                        end
+                DataPhase5:
+                        begin
+                            if(!GNT_N)
+                                if (!REQ_N)
+                                    Status <= DataPhase1;
+                                else
+                                    begin 
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 0;
+                                    end
                         end   
                 default : /* default */;
             endcase
@@ -743,7 +818,7 @@ out7=8'b1110_1111;
 
 end
 
-memory a2(out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,1);
+memory a2(out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,1'b1);
 
 endmodule
 
