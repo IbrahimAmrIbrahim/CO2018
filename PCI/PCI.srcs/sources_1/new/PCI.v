@@ -409,17 +409,220 @@ module memory(IN0,IN1,IN2,IN3,IN4,IN5,IN6,IN7,OUT1,ENABLE);
 input [7:0] IN0,IN1,IN2,IN3,IN4,IN5,IN6,IN7;
 output reg [7:0] OUT1;
 input ENABLE;
-reg [7:0]MEGA_MIND[0:7];
+reg [7:0]MEGA_MIND[0:7], shift_dumy[0:7];
 reg IN0_FLAG,IN1_FLAG,IN2_FLAG,IN3_FLAG,IN4_FLAG,IN5_FLAG,IN6_FLAG,IN7_FLAG;
 //flag1 equals ex
-reg first_time;
+reg first_time,not_first_time;
+reg [1:0]flag;
 reg [2:0]free_location;
-always@(ENABLE)
+
+
+always@(*)
 begin
 
+ if(first_time==1)
+   begin
  
- if(1)
+    
+       
+        casez(IN0)
+        MEGA_MIND[0]: ;
+        default:begin
+        shift_dumy[0]=MEGA_MIND[0];
+        shift_dumy[1]=MEGA_MIND[1];
+        shift_dumy[2]=MEGA_MIND[2];
+        shift_dumy[3]=MEGA_MIND[3];
+        shift_dumy[4]=MEGA_MIND[4];
+        shift_dumy[5]=MEGA_MIND[5];
+        shift_dumy[6]=MEGA_MIND[6];
+        shift_dumy[7]=MEGA_MIND[7];
+        MEGA_MIND[0]=shift_dumy[1];
+        MEGA_MIND[1]=shift_dumy[2];
+        MEGA_MIND[2]=shift_dumy[3];
+        MEGA_MIND[3]=shift_dumy[4];   
+        MEGA_MIND[4]=shift_dumy[5];   
+        MEGA_MIND[5]=shift_dumy[6];   
+        MEGA_MIND[6]=shift_dumy[7];   
+        MEGA_MIND[7]=8'b1111_1111;   
+        if(free_location>0)
+        free_location=free_location-1;
+        MEGA_MIND[free_location]=IN0;
+        free_location=free_location+1;
+        end
+        endcase
+        
+        
+        
+        casez(IN1)
+        
+        MEGA_MIND[1]: ;
+        
+        default:begin
+        
+        shift_dumy[1]=MEGA_MIND[1];
+        shift_dumy[2]=MEGA_MIND[2];
+        shift_dumy[3]=MEGA_MIND[3];
+        shift_dumy[4]=MEGA_MIND[4];
+        shift_dumy[5]=MEGA_MIND[5];
+        shift_dumy[6]=MEGA_MIND[6];
+        shift_dumy[7]=MEGA_MIND[7];
+        
+        MEGA_MIND[1]=shift_dumy[2];
+        MEGA_MIND[2]=shift_dumy[3];
+        MEGA_MIND[3]=shift_dumy[4];   
+        MEGA_MIND[4]=shift_dumy[5];   
+        MEGA_MIND[5]=shift_dumy[6];   
+        MEGA_MIND[6]=shift_dumy[7];   
+        MEGA_MIND[7]=8'b1111_1111;      
+        if(free_location>1)
+        free_location=free_location-1;
+        MEGA_MIND[free_location]=IN1;
+        free_location=free_location+1;
+        end
+        endcase
+        
+        
+        casez(IN2)
+        
+        MEGA_MIND[2]:;
+        
+        default:begin
+        shift_dumy[0]=MEGA_MIND[0];
+        
+        shift_dumy[3]=MEGA_MIND[3];
+        shift_dumy[4]=MEGA_MIND[4];
+        shift_dumy[5]=MEGA_MIND[5];
+        shift_dumy[6]=MEGA_MIND[6];
+        shift_dumy[7]=MEGA_MIND[7];
+        
+        MEGA_MIND[2]=shift_dumy[3];
+        MEGA_MIND[3]=shift_dumy[4];   
+        MEGA_MIND[4]=shift_dumy[5];   
+        MEGA_MIND[5]=shift_dumy[6];   
+        MEGA_MIND[6]=shift_dumy[7];   
+        MEGA_MIND[7]=8'b1111_1111;   
+        if(free_location>2)         
+        free_location=free_location-1;
+        MEGA_MIND[free_location]=IN2;
+        free_location=free_location+1;
+        end
+        endcase
+        
+        casez(IN3)
+        
+        MEGA_MIND[3]:;
+        
+        default:begin
+        
+        
+        shift_dumy[4]=MEGA_MIND[4];
+        shift_dumy[5]=MEGA_MIND[5];
+        shift_dumy[6]=MEGA_MIND[6];
+        shift_dumy[7]=MEGA_MIND[7];
+        
+        MEGA_MIND[3]=shift_dumy[4];   
+        MEGA_MIND[4]=shift_dumy[5];   
+        MEGA_MIND[5]=shift_dumy[6];   
+        MEGA_MIND[6]=shift_dumy[7];   
+        MEGA_MIND[7]=8'b1111_1111;   
+        if(free_location>3)
+        free_location=free_location-1;
+        MEGA_MIND[free_location]=IN3;
+        free_location=free_location+1;
+        end
+        endcase
+        
+        casez(IN4)
+        
+        MEGA_MIND[4]:;
+        
+        default:begin 
+        
+        shift_dumy[0]=MEGA_MIND[0];
+        
+        shift_dumy[5]=MEGA_MIND[5];
+        shift_dumy[6]=MEGA_MIND[6];
+        shift_dumy[7]=MEGA_MIND[7];
+        
+        MEGA_MIND[4]=shift_dumy[5];   
+        MEGA_MIND[5]=shift_dumy[6];   
+        MEGA_MIND[6]=shift_dumy[7];   
+        MEGA_MIND[7]=8'b1111_1111;   
+        if(free_location>4)
+        free_location=free_location-1;
+        MEGA_MIND[free_location]=IN4;
+        free_location=free_location+1;
+        end
+        endcase
+        
+        casez(IN5)
+        
+        MEGA_MIND[5]:;
+        
+        default:begin
+        
+        
+        
+        shift_dumy[6]=MEGA_MIND[6];
+        shift_dumy[7]=MEGA_MIND[7];
+        
+        MEGA_MIND[5]=shift_dumy[6];   
+        MEGA_MIND[6]=shift_dumy[7];   
+        MEGA_MIND[7]=8'b1111_1111;     
+        if(free_location>5)               
+        free_location=free_location-1;
+        MEGA_MIND[free_location]=IN5;
+        free_location=free_location+1;
+        end
+        endcase
+        
+        casez(IN6)
+        
+        MEGA_MIND[6]:;
+        
+        default:begin
+        
+        
+        shift_dumy[7]=MEGA_MIND[7];
+        
+        
+        MEGA_MIND[6]=shift_dumy[7];   
+        MEGA_MIND[7]=8'b1111_1111;     
+        if(free_location>6)
+        free_location=free_location-1;
+        
+        
+        MEGA_MIND[free_location]=IN6;
+        free_location=free_location+1;
+        end
+        
+        endcase
+        
+        casez(IN7)
+        
+        MEGA_MIND[7]:;
+        default:begin
+        if(free_location>7)
+        free_location=free_location-1;
+        MEGA_MIND[free_location]=IN7;  
+        free_location=free_location+1;                 
+        
+        
+        free_location=free_location+1;
+        end
+        
+        endcase
+       
+       OUT1=MEGA_MIND[7];
+    end
+    
+    
+ 
+ else
  begin
+
+  first_time=1;
+   
     free_location=0;
     MEGA_MIND[free_location]=IN0;
     free_location=free_location+1;
@@ -436,115 +639,30 @@ begin
     MEGA_MIND[free_location]=IN6;
     free_location=free_location+1;
     MEGA_MIND[free_location]=IN7;
-    OUT1=MEGA_MIND[free_location];// megamind
- end
- 
- else
- begin
-  if(1)
-    begin
-    casez(IN0)
-    MEGA_MIND[0]: ;
-    MEGA_MIND[1]: ;
-    MEGA_MIND[2]: ;
-    MEGA_MIND[3]: ;
-    MEGA_MIND[4]: ;
-    MEGA_MIND[5]: ;
-    MEGA_MIND[6]: ;
-    MEGA_MIND[7]: ;
-    default:IN0_FLAG=0;
-    endcase
+    //reset the free location
+    if(IN0==8'b1111_1111)
+    free_location=0;
+    else if(IN1==8'b1111_1111)
+    free_location=1;
+    else if(IN2==8'b1111_1111)
+    free_location=2;
+    else if(IN3==8'b1111_1111)
+    free_location=3;
+    else if(IN4==8'b1111_1111)
+    free_location=4;
+    else if(IN5==8'b1111_1111)
+    free_location=5;
+    else if(IN6==8'b1111_1111)
+    free_location=6;
+    else if(IN7==8'b1111_1111) 
+    free_location=7;  
+    OUT1=free_location;
     end
     
     
-    casez(IN1)
-    MEGA_MIND[0]:IN1_FLAG=1;
-    MEGA_MIND[1]:IN1_FLAG=1;
-    MEGA_MIND[2]:IN1_FLAG=1;
-    MEGA_MIND[3]:IN1_FLAG=1;
-    MEGA_MIND[4]:IN1_FLAG=1;
-    MEGA_MIND[5]:IN1_FLAG=1;
-    MEGA_MIND[6]:IN1_FLAG=1;
-    MEGA_MIND[7]:IN1_FLAG=1;
-    default:IN1_FLAG=0;
     
-    endcase
-    
-      
-    casez(IN2)
-    MEGA_MIND[0]:IN2_FLAG=1;
-    MEGA_MIND[1]:IN2_FLAG=1;
-    MEGA_MIND[2]:IN2_FLAG=1;
-    MEGA_MIND[3]:IN2_FLAG=1;
-    MEGA_MIND[4]:IN2_FLAG=1;
-    MEGA_MIND[5]:IN2_FLAG=1;
-    MEGA_MIND[6]:IN2_FLAG=1;
-    MEGA_MIND[7]:IN2_FLAG=1;
-    default:IN2_FLAG=0;
-    endcase
-    
-    casez(IN3)
-    MEGA_MIND[0]:IN3_FLAG=1;
-    MEGA_MIND[1]:IN3_FLAG=1;
-    MEGA_MIND[2]:IN3_FLAG=1;
-    MEGA_MIND[3]:IN3_FLAG=1;
-    MEGA_MIND[4]:IN3_FLAG=1;
-    MEGA_MIND[5]:IN3_FLAG=1;
-    MEGA_MIND[6]:IN3_FLAG=1;
-    MEGA_MIND[7]:IN3_FLAG=1;
-    default:IN3_FLAG=0;
-    endcase
-      
-    casez(IN4)
-    MEGA_MIND[0]:IN4_FLAG=1;
-    MEGA_MIND[1]:IN4_FLAG=1;
-    MEGA_MIND[2]:IN4_FLAG=1;
-    MEGA_MIND[3]:IN4_FLAG=1;
-    MEGA_MIND[4]:IN4_FLAG=1;
-    MEGA_MIND[5]:IN4_FLAG=1;
-    MEGA_MIND[6]:IN4_FLAG=1;
-    MEGA_MIND[7]:IN4_FLAG=1;
-    default:IN4_FLAG=0;
-    endcase
-      
-    casez(IN5)
-    MEGA_MIND[0]:IN5_FLAG=1;
-    MEGA_MIND[1]:IN5_FLAG=1;
-    MEGA_MIND[2]:IN5_FLAG=1;
-    MEGA_MIND[3]:IN5_FLAG=1;
-    MEGA_MIND[4]:IN5_FLAG=1;
-    MEGA_MIND[5]:IN5_FLAG=1;
-    MEGA_MIND[6]:IN5_FLAG=1;
-    MEGA_MIND[7]:IN5_FLAG=1;
-    default:IN5_FLAG=0;
-    endcase
-      
-    casez(IN6)
-    MEGA_MIND[0]:IN6_FLAG=1;
-    MEGA_MIND[1]:IN6_FLAG=1;
-    MEGA_MIND[2]:IN6_FLAG=1;
-    MEGA_MIND[3]:IN6_FLAG=1;
-    MEGA_MIND[4]:IN6_FLAG=1;
-    MEGA_MIND[5]:IN6_FLAG=1;
-    MEGA_MIND[6]:IN6_FLAG=1;
-    MEGA_MIND[7]:IN6_FLAG=1;
-    default:IN6_FLAG=0;
-    
-    endcase
-      
-    casez(IN7)
-    MEGA_MIND[0]:IN7_FLAG=1;
-    MEGA_MIND[1]:IN7_FLAG=1;
-    MEGA_MIND[2]:IN7_FLAG=1;
-    MEGA_MIND[3]:IN7_FLAG=1;
-    MEGA_MIND[4]:IN7_FLAG=1;
-    MEGA_MIND[5]:IN7_FLAG=1;
-    MEGA_MIND[6]:IN7_FLAG=1;
-    MEGA_MIND[7]:IN7_FLAG=1;
-    default:IN7_FLAG=0;
-    endcase
-    
- end
+   
+
 
 end
 
@@ -558,26 +676,39 @@ endmodule
 
 module tb_RTH_AND_MEMORY();
 reg[7:0]in;
-wire [7:0] out0,out1,out2,out3,out4,out5,out6,out7,gnt_out;
+wire [7:0]gnt_out;
+reg [7:0] out0,out1,out2,out3,out4,out5,out6,out7;
 reg z=0;
 reg[7:0] y=8'b1111_1111;
 initial
 begin
-$monitor( "REQ = %b   out0 = %b out1 = %b out2 = %b out3 = %b out4 = %b  out5 = %b out6 = %b out7 = %b  gnt_out= %b" , in,out0,out1,out2,out3,out4,out5,out6,out7,gnt_out );
-in=8'b1111_1111;
-#5
-
+$monitor( "  out0 = %b out1 = %b out2 = %b out3 = %b out4 = %b  out5 = %b out6 = %b out7 = %b  gnt_out= %b" ,out0,out1,out2,out3,out4,out5,out6,out7,gnt_out );
+out0=8'b1111_1110;
+out1=8'b1111_1110;
+out2=8'b1111_1111;
+out3=8'b1111_1111;
+out4=8'b1111_1111;
+out5=8'b1111_1111;
+out6=8'b1111_1111;
+out7=8'b1111_1111;
 #5
 $display("---------");
 #5
-$display("--------");
-in=8'b0000_0100;
+out0=8'b1111_1110;
+out1=8'b1111_1100;
+out2=8'b1111_1111;
+out3=8'b1111_1000;
+out4=8'b1111_1111;
+out5=8'b1111_1111;
+out6=8'b1111_1111;
+out7=8'b1110_1111;
+
 
 
 
 end
-REQ_THREADER a1(in,out0,out1,out2,out3,out4,out5,out6,out7);
-//memory a2(out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,1);
+
+memory a2(out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,1);
 
 endmodule
 
