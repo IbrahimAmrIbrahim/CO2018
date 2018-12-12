@@ -28,7 +28,7 @@ assign REQ_N = FORCED_REQ_N;
 
 assign AD      = ADreg;	        assign CBE_N    = CBE_Nreg;
 assign FRAME_N = FRAME_Nreg;	assign IRDY_N   = IRDY_Nreg;
-assign TRDY_N  = TRDY_Nreg;	    assign DEVSEL_N = DEVSEL_Nreg;
+assign TRDY_N  = TRDY_Nreg;	    //assign DEVSEL_N = DEVSEL_Nreg;
 
 always @ (posedge CLK, RST_N)
     if (!RST_N)
@@ -75,7 +75,6 @@ always @ (posedge CLK, RST_N)
                                     WriteFlag = 1;
                                     ADreg    <= memory[9];
                                     CBE_Nreg <= 4'b0000;    // Also Write's operation Dataphase 1
-                                                                        // should hapen only on final dataphase 
                                 end
                         end
                 DataPhase1:
@@ -129,7 +128,7 @@ always @ (posedge CLK, RST_N)
                                 memory [2]= AD;
                                 if(!DEVSEL_N)
                                     Status <= DataPhase4;
-                                else
+                                else            // if operation with target is Done check for another Transaction request before Rising Frame 
                                 if(!GNT_N)
                                     if (!REQ_N)
                                         MasterFlag = 1;
@@ -166,22 +165,14 @@ always @ (posedge CLK, RST_N)
                                 begin 
                                 end
                         end
-                DataPhase5:
+                DataPhase5:         // Test Phase
                         begin
-                            if(!GNT_N)
-                                if (!REQ_N)
-                                    Status <= DataPhase1;
-                                else
-                                    begin 
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 0;
-                                    end
                         end   
                 default : /* default */;
             endcase
         end
         else begin
-            if(AD == MyAddress)
+            if(AD == MyAddress && IRDY_N)
                 DEVSEL_Nreg <= 0;
         end
         
