@@ -18,7 +18,10 @@ reg [3:0] CBE_Nreg;
 reg [3:0] Status = 0;
 reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
 reg MasterFlag = 0, GNTFlag = 0, ReadFlag = 0, WriteFlag = 0;
-
+reg [31:0] value1;
+reg [31:0] value2;
+reg [31:0] value3;
+reg [31:0] value4;
 
 reg [31:0] memory [0:9];
 initial
@@ -81,7 +84,8 @@ always @ (posedge CLK, RST_N)
                         begin
                             if (ReadFlag)
                             begin
-                                memory [0]= AD;
+                                memory [0] = FORCED_ADDRESS;
+                                ADreg <= memory [0];    //for debuging
                                 if(!DEVSEL_N)
                                     Status <= DataPhase2;
                                 else
@@ -103,7 +107,8 @@ always @ (posedge CLK, RST_N)
                         begin
                             if (ReadFlag)
                             begin
-                                memory [1]= AD;
+                                memory [1]= FORCED_ADDRESS;
+                                ADreg <= memory [1];    //for debuging
                                 if(!DEVSEL_N)
                                     Status <= DataPhase3;
                                 else
@@ -125,7 +130,8 @@ always @ (posedge CLK, RST_N)
                         begin 
                             if (ReadFlag)
                             begin
-                                memory [2]= AD;
+                                memory [2]= FORCED_ADDRESS;
+                                ADreg <= memory [2];    //for debuging
                                 if(!DEVSEL_N)
                                     Status <= DataPhase4;
                                 else            // if operation with target is Done check for another Transaction request before Rising Frame 
@@ -147,7 +153,8 @@ always @ (posedge CLK, RST_N)
                         begin 
                             if (ReadFlag)
                             begin
-                                memory [3]= AD;
+                                memory [3]= FORCED_ADDRESS;
+                                ADreg <= memory [3];    //for debuging
                                 if(!DEVSEL_N)
                                     Status <= DataPhase5;
                                 else
