@@ -1,0 +1,5 @@
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+  out0 = 11111110 out1 = 11111110 out2 = 11111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 00000010
+---------
+  out0 = 11111110 out1 = 11111100 out2 = 11111111 out3 = 11111000 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11101111  gnt_out= 11111111
