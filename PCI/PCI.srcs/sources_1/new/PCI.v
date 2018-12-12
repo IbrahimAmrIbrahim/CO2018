@@ -3,7 +3,7 @@
 module device_A(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N);
 
 parameter MyAddress = 32'hAA, TargetAddress = 32'hBC;
-parameter AssertedMaster = 4'b0000, GrantGiven = 4'b0001, FrameAsserted = 4'b0010, MasterReady = 4'b0011;
+parameter AssertedMaster = 4'b0000, GrantGiven = 4'b0001, FrameAsserted = 4'b0010, DataPhase1 = 4'b0011, DataPhase2 = 4'b0100, DataPhase3 = 4'b0101, DataPhase4 = 4'b0110;
 
 input CLK, RST_N, GNT_N, FORCED_REQ_N;
 input [31:0] FORCED_ADDRESS;
@@ -16,10 +16,12 @@ reg [31:0] ADreg;
 reg [3:0] CBE_Nreg; 
 reg [3:0] Status = 0;
 reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
-reg MasterFlag = 0, GNTFlag = 0;
+reg MasterFlag = 0, GNTFlag = 0, ReadFlag = 0, WriteFlag = 0;
 
 
-reg [31:0] memory [9:0];
+reg [31:0] memory [0:9];
+initial
+memory [9] = 32'hAAAA_AAAA; 
 
 assign REQ_N = FORCED_REQ_N;
 
@@ -31,7 +33,7 @@ always @ (posedge CLK, RST_N)
     if (!RST_N)
         begin
          ADreg = {(32){1'bz}} ; CBE_Nreg = 4'bzzzz ; FRAME_Nreg = 1; IRDY_Nreg = 1; TRDY_Nreg = 1; DEVSEL_Nreg = 1;
-         MasterFlag = 0;      
+         MasterFlag = 0;   
         end
     else
 	begin 
@@ -59,14 +61,47 @@ always @ (posedge CLK, RST_N)
                 FrameAsserted:
                         begin 
                             IRDY_Nreg <= 0;
-                            ADreg    <= {(32){1'bz}};
-                            CBE_Nreg <= 4'b1111;   
-                            Status <= MasterReady;
+
+                            if (CBE_N == 4'b0110)       //Read Operation
+                                begin
+                                    ReadFlag <= 1;
+                                    ADreg    <= {(32){1'bz}};
+                                    CBE_Nreg <= 4'b0000;
+                                    Status   <= DataPhase1;
+                                end
+                            else if (CBE_N == 4'b0111) // Write Operation
+                                begin
+                                    WriteFlag = 1;
+                                    ADreg    <= memory[9];
+                                    CBE_Nreg <= 4'b0000;    // Also Write's operation Dataphase 1
+                                                                        // should hapen only on final dataphase 
+                                                                        // if(!GNT_N)
+                                                                        //     if (!REQ_N)
+                                                                        //         Status <= DataPhase1;
+                                                                        //     else
+                                                                        //         begin 
+                                                                        //             FRAME_Nreg <= 1;
+                                                                        //             IRDY_Nreg  <= 0;
+                                                                        //         end
+                                end
                         end
-                MasterReady:
+                DataPhase1:
+                        begin
+                            if (ReadFlag)
+                                memory [0]= AD;
+                            else if (WriteFlag)
+                                begin 
+                                end
+                        end
+                DataPhase2:
+                        begin
+                        end
+                DataPhase3:
                         begin 
                         end
-
+                DataPhase4:
+                        begin 
+                        end   
                 default : /* default */;
             endcase
         end
