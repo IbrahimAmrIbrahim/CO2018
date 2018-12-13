@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="38" Path="E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/Lectures/Computer Organization/Project/CO2018/PCI/PCI.xpr">
+<Project Version="7" Minor="38" Path="F:/pci dream/PCI/PCI.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="66223dc40a1b4371b9bedc03532d6795"/>
@@ -81,7 +81,8 @@
       <Filter Type="Srcs"/>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="tb_arbiter_RobinRound"/>
+        <Option Name="TopModule" Val="tb_fcfs"/>
+        <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SrcSet" Val="sources_1"/>
