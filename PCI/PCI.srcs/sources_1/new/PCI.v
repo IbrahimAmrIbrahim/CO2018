@@ -608,7 +608,7 @@ always@(*)
         
     end
 
-assign MEMORY_ENABLE=1;
+
 
 endmodule
 
