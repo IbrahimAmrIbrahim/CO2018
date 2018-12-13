@@ -358,7 +358,11 @@ REQ_THREADER RT1(REQ,TH0,TH1,TH2,TH3,TH4,TH5,TH6,TH7);
 memory m1(TH0,TH1,TH2,TH3,TH4,TH5,TH6,TH7,memory_out,CLK);
 always@(posedge CLK)
 begin
-
+  if(~RST_Neg)
+  begin
+      GNT <= 8'b1111_1111;
+       end
+  else if(FRAME_Neg)
       begin
       GNT=memory_out;
       end
