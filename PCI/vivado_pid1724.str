@@ -2200,3 +2200,228 @@ selectGraphicalView(RDIResource.RDIViews_WAVEFORM_VIEWER, 560, 41); // n (o, ck)
 // HMemoryUtils.trashcanNow. Engine heap size: 758 MB. GUI used memory: 71 MB. Current time: 12/13/18 10:17:12 PM EET
 // TclEventType: WAVEFORM_UPDATE_WAVEFORM
 // Run Command: RDIResourceCommand.RDICommands_WAVEFORM_SAVE_CONFIGURATION
+// Elapsed time: 57 seconds
+dismissFileChooser();
+// 'e' command handler elapsed time: 41 seconds
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// HMemoryUtils.trashcanNow. Engine heap size: 758 MB. GUI used memory: 80 MB. Current time: 12/13/18 10:18:30 PM EET
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// HMemoryUtils.trashcanNow. Engine heap size: 758 MB. GUI used memory: 71 MB. Current time: 12/13/18 10:18:30 PM EET
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// HMemoryUtils.trashcanNow. Engine heap size: 758 MB. GUI used memory: 71 MB. Current time: 12/13/18 10:18:30 PM EET
+// Elapsed time: 524 seconds
+selectCodeEditor("PCI.v", 165, 196); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, aG)
+selectCodeEditor("PCI.v", 140, 270); // ce (w, aG)
+selectCodeEditor("PCI.v", 140, 270); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'v'); // ce (w, aG)
+typeControlKey(null, null, 'z');
+typeControlKey((HResource) null, "PCI.v", 'v'); // ce (w, aG)
+selectCodeEditor("PCI.v", 95, 352); // ce (w, aG)
+// Elapsed time: 28 seconds
+selectCodeEditor("PCI.v", 109, 317); // ce (w, aG)
+// Elapsed time: 84 seconds
+selectCodeEditor("PCI.v", 132, 266); // ce (w, aG)
+// Elapsed time: 50 seconds
+selectCodeEditor("PCI.v", 18, 201); // ce (w, aG)
+selectCodeEditor("PCI.v", 14, 132); // ce (w, aG)
+selectCodeEditor("PCI.v", 0, 95); // ce (w, aG)
+selectCodeEditor("PCI.v", 276, 487); // ce (w, aG)
+selectCodeEditor("PCI.v", 115, 70); // ce (w, aG)
+selectCodeEditor("PCI.v", 79, 470); // ce (w, aG)
+selectCodeEditor("PCI.v", 79, 470, false, false, false, false, true); // ce (w, aG) - Double Click
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, aG)
+selectCodeEditor("PCI.v", 82, 154); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'v'); // ce (w, aG)
+// Elapsed time: 33 seconds
+selectCodeEditor("PCI.v", 186, 231); // ce (w, aG)
+selectCodeEditor("PCI.v", 230, 232); // ce (w, aG)
+selectCodeEditor("PCI.v", 284, 230); // ce (w, aG)
+selectCodeEditor("PCI.v", 284, 230, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 284, 230); // ce (w, aG)
+selectCodeEditor("PCI.v", 224, 321); // ce (w, aG)
+selectCodeEditor("PCI.v", 193, 341); // ce (w, aG)
+selectCodeEditor("PCI.v", 193, 334); // ce (w, aG)
+selectCodeEditor("PCI.v", 212, 286); // ce (w, aG)
+selectCodeEditor("PCI.v", 166, 250); // ce (w, aG)
+// Elapsed time: 29 seconds
+selectCodeEditor("PCI.v", 1063, 503); // ce (w, aG)
+selectCodeEditor("PCI.v", 1063, 503, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 1063, 503); // ce (w, aG)
+selectCodeEditor("PCI.v", 182, 110); // ce (w, aG)
+selectCodeEditor("PCI.v", 368, 114); // ce (w, aG)
+selectCodeEditor("PCI.v", 179, 199); // ce (w, aG)
+// Elapsed time: 10 seconds
+selectCodeEditor("PCI.v", 184, 111); // ce (w, aG)
+selectCodeEditor("PCI.v", 239, 115); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'v'); // ce (w, aG)
+selectCodeEditor("PCI.v", 147, 212); // ce (w, aG)
+selectCodeEditor("PCI.v", 147, 212); // ce (w, aG)
+selectCodeEditor("PCI.v", 147, 212); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'v'); // ce (w, aG)
+selectCodeEditor("PCI.v", 166, 112); // ce (w, aG)
+selectCodeEditor("PCI.v", 133, 147); // ce (w, aG)
+selectCodeEditor("PCI.v", 104, 169); // ce (w, aG)
+selectCodeEditor("PCI.v", 381, 211); // ce (w, aG)
+selectCodeEditor("PCI.v", 446, 202); // ce (w, aG)
+selectCodeEditor("PCI.v", 446, 207); // ce (w, aG)
+selectCodeEditor("PCI.v", 119, 607); // ce (w, aG)
+selectCodeEditor("PCI.v", 119, 607); // ce (w, aG)
+selectCodeEditor("PCI.v", 344, 139); // ce (w, aG)
+selectCodeEditor("PCI.v", 343, 154); // ce (w, aG)
+selectCodeEditor("PCI.v", 216, 234); // ce (w, aG)
+selectCodeEditor("PCI.v", 244, 234); // ce (w, aG)
+selectCodeEditor("PCI.v", 32, 229); // ce (w, aG)
+selectCodeEditor("PCI.v", 32, 230); // ce (w, aG)
+// Elapsed time: 48 seconds
+selectCodeEditor("PCI.v", 148, 207); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, aG)
+selectCodeEditor("PCI.v", 133, 249); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'v'); // ce (w, aG)
+// Elapsed time: 23 seconds
+selectCodeEditor("PCI.v", 412, 163); // ce (w, aG)
+selectCodeEditor("PCI.v", 412, 163, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 347, 491); // ce (w, aG)
+selectCodeEditor("PCI.v", 37, 537); // ce (w, aG)
+selectCodeEditor("PCI.v", 37, 537, false, false, false, false, true); // ce (w, aG) - Double Click
+// Elapsed time: 25 seconds
+selectCodeEditor("PCI.v", 316, 443); // ce (w, aG)
+selectCodeEditor("PCI.v", 315, 439); // ce (w, aG)
+selectCodeEditor("PCI.v", 529, 429); // ce (w, aG)
+selectCodeEditor("PCI.v", 400, 412); // ce (w, aG)
+selectCodeEditor("PCI.v", 64, 297); // ce (w, aG)
+selectCodeEditor("PCI.v", 64, 297, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 287, 144); // ce (w, aG)
+selectCodeEditor("PCI.v", 287, 144, false, false, false, false, true); // ce (w, aG) - Double Click
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, aG)
+selectCodeEditor("PCI.v", 148, 210); // ce (w, aG)
+selectCodeEditor("PCI.v", 148, 210, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 196, 267); // ce (w, aG)
+selectCodeEditor("PCI.v", 254, 301); // ce (w, aG)
+selectCodeEditor("PCI.v", 270, 330); // ce (w, aG)
+selectCodeEditor("PCI.v", 119, 298); // ce (w, aG)
+selectCodeEditor("PCI.v", 200, 264); // ce (w, aG)
+selectCodeEditor("PCI.v", 69, 175); // ce (w, aG)
+selectCodeEditor("PCI.v", 164, 267); // ce (w, aG)
+selectCodeEditor("PCI.v", 120, 299); // ce (w, aG)
+selectCodeEditor("PCI.v", 308, 307); // ce (w, aG)
+// Elapsed time: 13 seconds
+selectCodeEditor("PCI.v", 178, 311); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, aG)
+// Elapsed time: 22 seconds
+selectCodeEditor("PCI.v", 546, 147); // ce (w, aG)
+selectCodeEditor("PCI.v", 517, 168); // ce (w, aG)
+// Elapsed time: 16 seconds
+selectCodeEditor("PCI.v", 383, 483); // ce (w, aG)
+// Elapsed time: 13 seconds
+selectCodeEditor("PCI.v", 412, 197); // ce (w, aG)
+selectCodeEditor("PCI.v", 412, 197, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 160, 293); // ce (w, aG)
+// Elapsed time: 86 seconds
+selectCodeEditor("PCI.v", 240, 452); // ce (w, aG)
+selectCodeEditor("PCI.v", 253, 444); // ce (w, aG)
+// Elapsed time: 22 seconds
+selectCodeEditor("PCI.v", 247, 451); // ce (w, aG)
+selectCodeEditor("PCI.v", 176, 475); // ce (w, aG)
+selectCodeEditor("PCI.v", 175, 476); // ce (w, aG)
+selectCodeEditor("PCI.v", 175, 476, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 175, 476); // ce (w, aG)
+selectCodeEditor("PCI.v", 27, 60); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, aG)
+selectCodeEditor("PCI.v", 39, 463); // ce (w, aG)
+selectCodeEditor("PCI.v", 38, 484); // ce (w, aG)
+selectCodeEditor("PCI.v", 27, 475); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'v'); // ce (w, aG)
+selectCodeEditor("PCI.v", 104, 505); // ce (w, aG)
+// Elapsed time: 11 seconds
+selectCodeEditor("PCI.v", 16, 254); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, aG)
+selectCodeEditor("PCI.v", 76, 464); // ce (w, aG)
+selectCodeEditor("PCI.v", 76, 464, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 76, 464); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'v'); // ce (w, aG)
+selectCodeEditor("PCI.v", 128, 569); // ce (w, aG)
+selectCodeEditor("PCI.v", 163, 366); // ce (w, aG)
+selectCodeEditor("PCI.v", 196, 510); // ce (w, aG)
+selectCodeEditor("PCI.v", 343, 216); // ce (w, aG)
+selectCodeEditor("PCI.v", 343, 216, false, false, false, false, true); // ce (w, aG) - Double Click
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, aG)
+selectCodeEditor("PCI.v", 255, 250); // ce (w, aG)
+selectCodeEditor("PCI.v", 235, 250); // ce (w, aG)
+selectCodeEditor("PCI.v", 235, 250, false, false, false, false, true); // ce (w, aG) - Double Click
+typeControlKey((HResource) null, "PCI.v", 'v'); // ce (w, aG)
+selectCodeEditor("PCI.v", 55, 314); // ce (w, aG)
+selectCodeEditor("PCI.v", 55, 314, false, false, false, false, true); // ce (w, aG) - Double Click
+typeControlKey((HResource) null, "PCI.v", 'v'); // ce (w, aG)
+selectCodeEditor("PCI.v", 218, 497); // ce (w, aG)
+selectCodeEditor("PCI.v", 161, 502); // ce (w, aG)
+selectCodeEditor("PCI.v", 260, 261); // ce (w, aG)
+selectCodeEditor("PCI.v", 283, 242); // ce (w, aG)
+selectCodeEditor("PCI.v", 287, 244); // ce (w, aG)
+// Elapsed time: 12 seconds
+selectCodeEditor("PCI.v", 308, 318); // ce (w, aG)
+selectCodeEditor("PCI.v", 308, 318); // ce (w, aG)
+selectCodeEditor("PCI.v", 308, 318, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 353, 334); // ce (w, aG)
+selectCodeEditor("PCI.v", 353, 334); // ce (w, aG)
+selectCodeEditor("PCI.v", 353, 334); // ce (w, aG)
+selectCodeEditor("PCI.v", 215, 468); // ce (w, aG)
+selectCodeEditor("PCI.v", 208, 499); // ce (w, aG)
+// Elapsed time: 25 seconds
+selectCodeEditor("PCI.v", 132, 504); // ce (w, aG)
+selectCodeEditor("PCI.v", 132, 504); // ce (w, aG)
+selectCodeEditor("PCI.v", 132, 504, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 132, 504); // ce (w, aG)
+selectCodeEditor("PCI.v", 161, 504); // ce (w, aG)
+// Elapsed time: 10 seconds
+selectCodeEditor("PCI.v", 108, 572); // ce (w, aG)
+// Elapsed time: 81 seconds
+selectCodeEditor("PCI.v", 11, 248); // ce (w, aG)
+selectCodeEditor("PCI.v", 11, 248, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 81, 281); // ce (w, aG)
+// Elapsed time: 13 seconds
+selectCodeEditor("PCI.v", 240, 353); // ce (w, aG)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 21 seconds
+selectCodeEditor("PCI.v", 1068, 337); // ce (w, aG)
+selectCodeEditor("PCI.v", 1068, 337, false, false, false, false, true); // ce (w, aG) - Double Click
+selectCodeEditor("PCI.v", 2, 383); // ce (w, aG)
+selectCodeEditor("PCI.v", 192, 223); // ce (w, aG)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// Elapsed time: 49 seconds
+selectCodeEditor("PCI.v", 192, 323); // ce (w, aG)
+// Run Command: RDIResourceCommand.RDICommands_WAVEFORM_SAVE_CONFIGURATION
+// TclEventType: DG_GRAPH_GENERATED
+dismissFileChooser();
+// Elapsed time: 10 seconds
+selectCodeEditor("PCI.v", 498, 201); // ce (w, aG)
+typeControlKey((HResource) null, "PCI.v", 'c'); // ce (w, aG)
+// Elapsed time: 42 seconds
+selectCodeEditor("PCI.v", 634, 350); // ce (w, aG)
+// Run Command: RDIResourceCommand.RDICommands_WAVEFORM_SAVE_CONFIGURATION
+dismissFileChooser();
+// Elapsed time: 14 seconds
+selectCodeEditor("PCI.v", 249, 381); // ce (w, aG)
+selectCodeEditor("PCI.v", 200, 363); // ce (w, aG)
+selectCodeEditor("PCI.v", 124, 147); // ce (w, aG)
+selectCodeEditor("PCI.v", 194, 314); // ce (w, aG)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 37 seconds
+selectCodeEditor("PCI.v", 152, 526); // ce (w, aG)
+// Elapsed time: 13 seconds
+selectCodeEditor("PCI.v", 607, 117); // ce (w, aG)
+// HMemoryUtils.trashcanNow. Engine heap size: 758 MB. GUI used memory: 70 MB. Current time: 12/13/18 10:48:33 PM EET
+// Elapsed time: 1056 seconds
+selectCodeEditor("PCI.v", 576, 303); // ce (w, aG)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
