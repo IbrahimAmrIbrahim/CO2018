@@ -1,7 +1,4 @@
-Running: xsim.dir/tb_arbiter_priority_behav/xsimk.exe -simmode gui -wdb tb_arbiter_priority_behav.wdb -simrunnum 0 -socket 65155
+Running: xsim.dir/tb_arbiter_priority_behav/xsimk.exe -simmode gui -wdb tb_arbiter_priority_behav.wdb -simrunnum 0 -socket 4504
 Design successfully loaded
 Design Loading Memory Usage: 4852 KB (Peak: 4852 KB)
-Design Loading CPU Usage: 62 ms
-Simulation completed
-Simulation Memory Usage: 5552 KB (Peak: 5552 KB)
-Simulation CPU Usage: 93 ms
+Design Loading CPU Usage: 30 ms
