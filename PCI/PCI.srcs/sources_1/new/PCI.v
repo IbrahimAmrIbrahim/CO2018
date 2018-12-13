@@ -932,7 +932,7 @@ reg FRAME,clk,RST;
 
 integer i;
 initial
-    begin
+begin
     $monitor($time ,, "REQ = %b  FRAME = %b  GNT = %b  RST = %b" , REQ , FRAME , GNT , RST);
     #2
     clk <= 0;
@@ -940,7 +940,7 @@ initial
     FRAME <= 1;
     #5
     RST <= 1;
-        for(i = 0 ; i < 20 ; i = i + 1)
+    for(i = 0 ; i < 20 ; i = i + 1)
     begin
         #10
         REQ <= $urandom %8;
@@ -961,7 +961,46 @@ begin
 end
 
 
-arbiter_priority arbiter_test(GNT,REQ,FRAME,clk,RST);
+arbiter_priority arbiter_priority_test(GNT,REQ,FRAME,clk,RST);
+endmodule
+
+module tb_arbiter_RobinRound();
+
+wire [7:0] GNT;
+reg [7:0] REQ;
+reg FRAME,clk,RST;
+
+integer i;
+initial
+    begin
+    $monitor($time ,, "REQ = %b  FRAME = %b  GNT = %b  RST = %b" , REQ , FRAME , GNT , RST);
+    clk <= 0;
+    RST <= 0;
+    FRAME <= 1;
+    #8
+    RST <= 1;
+    for(i = 0 ; i < 20 ; i = i + 1)
+    begin
+        #10
+        REQ <= $urandom %8;
+        //  RST <= $urandom %2;
+    end
+end
+
+always
+begin
+    #25
+    FRAME = ~FRAME;
+end
+
+always
+begin
+    #5
+    clk = ~clk;
+end
+
+
+arbiter_RobinRound arbiter_RobinRound_test(GNT,REQ,FRAME,clk,RST);
 endmodule
 
 module tb_fcfs();

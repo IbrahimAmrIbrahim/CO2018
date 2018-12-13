@@ -9,4 +9,5 @@ INFO: [VRFC 10-311] analyzing module memory
 INFO: [VRFC 10-311] analyzing module PCI
 INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
 INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_RobinRound
 INFO: [VRFC 10-311] analyzing module tb_fcfs

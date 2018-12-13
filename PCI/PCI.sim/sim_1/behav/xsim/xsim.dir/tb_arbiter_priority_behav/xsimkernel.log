@@ -2,3 +2,6 @@ Running: xsim.dir/tb_arbiter_priority_behav/xsimk.exe -simmode gui -wdb tb_arbit
 Design successfully loaded
 Design Loading Memory Usage: 4852 KB (Peak: 4852 KB)
 Design Loading CPU Usage: 30 ms
+Simulation completed
+Simulation Memory Usage: 5540 KB (Peak: 5540 KB)
+Simulation CPU Usage: 77 ms
