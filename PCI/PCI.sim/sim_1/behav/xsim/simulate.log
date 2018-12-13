@@ -55,45 +55,23 @@ Time resolution is 1 ps
                  345 REQ = 00000011  FRAME = 1  GNT = 11111011  RST = 1
                  355 REQ = 00000011  FRAME = 1  GNT = 11110111  RST = 1
                  365 REQ = 00000011  FRAME = 1  GNT = 11101111  RST = 1
-                 375 REQ = 00000011  FRAME = 1  GNT = 11011111  RST = 1
-                 385 REQ = 00000011  FRAME = 1  GNT = 10111111  RST = 1
-                 395 REQ = 00000011  FRAME = 1  GNT = 01111111  RST = 1
-                 405 REQ = 00000011  FRAME = 1  GNT = 11111011  RST = 1
-                 415 REQ = 00000011  FRAME = 1  GNT = 11110111  RST = 1
-                 425 REQ = 00000011  FRAME = 1  GNT = 11101111  RST = 1
-                 435 REQ = 00000011  FRAME = 1  GNT = 11011111  RST = 1
-                 445 REQ = 00000011  FRAME = 1  GNT = 10111111  RST = 1
-                 455 REQ = 00000011  FRAME = 1  GNT = 01111111  RST = 1
-                 465 REQ = 00000011  FRAME = 1  GNT = 11111011  RST = 1
-                 475 REQ = 00000011  FRAME = 1  GNT = 11110111  RST = 1
-                 485 REQ = 00000011  FRAME = 1  GNT = 11101111  RST = 1
-                 495 REQ = 00000011  FRAME = 1  GNT = 11011111  RST = 1
-                 505 REQ = 00000011  FRAME = 1  GNT = 10111111  RST = 1
-                 515 REQ = 00000011  FRAME = 1  GNT = 01111111  RST = 1
-                 525 REQ = 00000011  FRAME = 1  GNT = 11111011  RST = 1
-                 535 REQ = 00000011  FRAME = 1  GNT = 11110111  RST = 1
-                 545 REQ = 00000011  FRAME = 1  GNT = 11101111  RST = 1
-                 555 REQ = 00000011  FRAME = 1  GNT = 11011111  RST = 1
-                 565 REQ = 00000011  FRAME = 1  GNT = 10111111  RST = 1
-                 575 REQ = 00000011  FRAME = 1  GNT = 01111111  RST = 1
-                 585 REQ = 00000011  FRAME = 1  GNT = 11111011  RST = 1
-                 595 REQ = 00000011  FRAME = 1  GNT = 11110111  RST = 1
-                 605 REQ = 00000011  FRAME = 1  GNT = 11101111  RST = 1
-                 615 REQ = 00000011  FRAME = 1  GNT = 11011111  RST = 1
-                 625 REQ = 00000011  FRAME = 1  GNT = 10111111  RST = 1
-                 635 REQ = 00000011  FRAME = 1  GNT = 01111111  RST = 1
-                 645 REQ = 00000011  FRAME = 1  GNT = 11111011  RST = 1
-                 655 REQ = 00000011  FRAME = 1  GNT = 11110111  RST = 1
-                 665 REQ = 00000011  FRAME = 1  GNT = 11101111  RST = 1
-                 675 REQ = 00000011  FRAME = 1  GNT = 11011111  RST = 1
-                 685 REQ = 00000011  FRAME = 1  GNT = 10111111  RST = 1
-                 695 REQ = 00000011  FRAME = 1  GNT = 01111111  RST = 1
-                 705 REQ = 00000011  FRAME = 1  GNT = 11111011  RST = 1
-                 715 REQ = 00000011  FRAME = 1  GNT = 11110111  RST = 1
-                 725 REQ = 00000011  FRAME = 1  GNT = 11101111  RST = 1
-                 735 REQ = 00000011  FRAME = 1  GNT = 11011111  RST = 1
-                 745 REQ = 00000011  FRAME = 1  GNT = 10111111  RST = 1
-                 755 REQ = 00000011  FRAME = 1  GNT = 01111111  RST = 1
+                 375 REQ = 00000011  FRAME = 1  GNT = 110111out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 01111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 01111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 01111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 01111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 01111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  FRAME = 1  GNT = 01111111  RST = 1
                  765 REQ = 00000011  FRAME = 1  GNT = 11111011  RST = 1
                  775 REQ = 00000011  FRAME = 1  GNT = 11110111  RST = 1
                  785 REQ = 00000011  FRAME = 1  GNT = 11101111  RST = 1
@@ -113,4 +91,8 @@ Time resolution is 1 ps
                  925 REQ = 00000011  FRAME = 1  GNT = 10111111  RST = 1
                  935 REQ = 00000011  FRAME = 1  GNT = 01111111  RST = 1
                  945 REQ = 00000011  FRAME = 1  GNT = 11111011  RST = 1
-        
+                 955 REQ = 00000011  FRAME = 1  GNT = 11110111  RST = 1
+                 965 REQ = 00000011  FRAME = 1  GNT = 11101111  RST = 1
+                 975 REQ = 00000011  FRAME = 1  GNT = 11011111  RST = 1
+                 985 REQ = 00000011  FRAME = 1  GNT = 10111111  RST = 1
+                 995 REQ = 00000011  FRAME = 1  GNT = 01111111  RST = 1
