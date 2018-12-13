@@ -1,0 +1,30 @@
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+----0-----
+  out0 = 11111110 out1 = 11111101 out2 = 11111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= xxxxxxxx  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11111101 out2 = 11111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+----1-----
+  out0 = 11111111 out1 = 11111111 out2 = 11111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111111 out1 = 11111111 out2 = 11111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111111  gnt_out2=zzzzzzzz  fl=  z
+----2-----
+  out0 = 11111011 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111011 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111011  gnt_out2=zzzzzzzz  fl=  z
+----3-----
+  out0 = 11111011 out1 = 11101111 out2 = 10111111 out3 = 01111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111011  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111011 out1 = 11101111 out2 = 10111111 out3 = 01111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+----4-----
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 01111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 01111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 01111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 01111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11111110  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 11101111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 out6 = 11111111 out7 = 11111111  gnt_out= 01111111  gnt_out2=zzzzzzzz  fl=  z
+  out0 = 11111110 out1 = 11101111 out2 = 01111111 out3 = 11111111 out4 = 11111111  out5 = 11111111 

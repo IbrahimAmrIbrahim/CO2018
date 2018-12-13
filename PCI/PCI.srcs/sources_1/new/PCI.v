@@ -617,15 +617,11 @@ assign MEMORY_ENABLE=1;
 
 endmodule
 
-<<<<<<< HEAD
 
-module memory(IN0,IN1,IN2,IN3,IN4,IN5,IN6,IN7,OUT1,OUT2,ENABLE,FL);
-=======
-module memory(IN0,IN1,IN2,IN3,IN4,IN5,IN6,IN7,OUT1,ENABLE);
->>>>>>> 85ae3f984b74babb4ff763c1b6a72a57b123bcf9
+module memory(IN0,IN1,IN2,IN3,IN4,IN5,IN6,IN7,OUT1,CLK);
 input [7:0] IN0,IN1,IN2,IN3,IN4,IN5,IN6,IN7;
-output reg [7:0] OUT1,OUT2,FL;
-input ENABLE;
+output reg [7:0] OUT1;
+input CLK;
 reg [7:0]MEGA_MIND[0:7], shift_dumy[0:7],MEGA_DUMY[0:7];
 reg IN0_FLAG,IN1_FLAG,IN2_FLAG,IN3_FLAG,IN4_FLAG,IN5_FLAG,IN6_FLAG,IN7_FLAG;
 //flag1 equals ex
@@ -634,7 +630,7 @@ reg [1:0]flag;
 reg [2:0]free_location;
 
 
-always@(*)
+always@(posedge CLK)
 begin
 
  if(first_time==1)
@@ -659,7 +655,6 @@ begin
     
    endcase
  
-    
     casez(MEGA_MIND[6])
   
       IN0:;
@@ -830,9 +825,7 @@ begin
         free_location=free_location+1;
         end
         endcase
-        
-        
-        
+                
         casez(IN1)
         
                MEGA_MIND[0]: ;
@@ -852,8 +845,7 @@ begin
         free_location=free_location+1;
         end
         endcase
-        
-        
+                
         casez(IN2)
         
       MEGA_MIND[0]: ;
@@ -977,7 +969,7 @@ begin
         
         endcase
        
-        OUT1=MEGA_MIND[0];
+        OUT1=MEGA_MIND[0];//=============
         MEGA_DUMY[0]=MEGA_MIND[0];
         MEGA_DUMY[1]=MEGA_MIND[1];
         MEGA_DUMY[2]=MEGA_MIND[2];
@@ -997,8 +989,7 @@ begin
         MEGA_MIND[7]=    8'b1111_1111;
         if(OUT1!=8'b1111_1111)
       free_location=free_location-1;   
-       OUT2=MEGA_MIND[0]; 
-       FL=free_location;
+      
                     end
 else
  begin
@@ -1038,7 +1029,7 @@ else
     free_location=6;
     else if(IN7==8'b1111_1111) 
     free_location=7;  
-    OUT1=MEGA_MIND[0];
+    OUT1=MEGA_MIND[0];//==========
     
     MEGA_DUMY[0]=MEGA_MIND[0];
     MEGA_DUMY[1]=MEGA_MIND[1];
@@ -1058,8 +1049,7 @@ else
     MEGA_MIND[7]=    8'b1111_1111;
     if(OUT1!=8'b1111_1111)
     free_location=free_location-1;
-    OUT2=MEGA_MIND[0];
-    FL=free_location;
+    
     end
     
     
@@ -1079,6 +1069,7 @@ endmodule
 
 module tb_RTH_AND_MEMORY();
 reg[7:0]in;
+reg clk;
 wire [7:0]gnt_out,gnt_out2,fl;
 reg [7:0] out0,out1,out2,out3,out4,out5,out6,out7;
 reg z=0;
@@ -1086,6 +1077,7 @@ reg[7:0] y=8'b1111_1111;
 initial
 begin
 $monitor( "  out0 = %b out1 = %b out2 = %b out3 = %b out4 = %b  out5 = %b out6 = %b out7 = %b  gnt_out= %b  gnt_out2=%b  fl=%d" ,out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,gnt_out2,fl );
+  clk <= 0;
 $display("----0-----");
 out0=8'b1111_1110;
 out1=8'b1111_1101;
@@ -1095,60 +1087,59 @@ out4=8'b1111_1111;
 out5=8'b1111_1111;
 out6=8'b1111_1111;
 out7=8'b1111_1111;
-#5
+#30
 $display("----1-----");
-#5
-out0=8'b1111_1111;
-out1=8'b1111_1111;
-out2=8'b1111_1111;
-out3=8'b1111_1111;
-out4=8'b1111_1111;
-out5=8'b1111_1111;
-out6=8'b1111_1111;
-out7=8'b1111_1111;
+out0<=8'b1111_1111;
+out1<=8'b1111_1111;
+out2<=8'b1111_1111;
+out3<=8'b1111_1111;
+out4<=8'b1111_1111;
+out5<=8'b1111_1111;
+out6<=8'b1111_1111;
+out7<=8'b1111_1111;
 
-#5
+#30
 $display("----2-----");
-#5
-out0=8'b1111_1011;
-out1=8'b1110_1111;
-out2=8'b0111_1111;
-out3=8'b1111_1111;
-out4=8'b1111_1111;
-out5=8'b1111_1111;
-out6=8'b1111_1111;
-out7=8'b1111_1111;
-#5
+out0<=8'b1111_1011;
+out1<=8'b1110_1111;
+out2<=8'b0111_1111;
+out3<=8'b1111_1111;
+out4<=8'b1111_1111;
+out5<=8'b1111_1111;
+out6<=8'b1111_1111;
+out7<=8'b1111_1111;
+#30
 $display("----3-----");
-#5
-out0=8'b1111_1011;
-out1=8'b1110_1111;
-out2=8'b1011_1111;
-out3=8'b0111_1111;
-out4=8'b1111_1111;
-out5=8'b1111_1111;
-out6=8'b1111_1111;
-out7=8'b1111_1111;
-#5
+out0<=8'b1111_1011;
+out1<=8'b1110_1111;
+out2<=8'b1011_1111;
+out3<=8'b0111_1111;
+out4<=8'b1111_1111;
+out5<=8'b1111_1111;
+out6<=8'b1111_1111;
+out7<=8'b1111_1111;
+#30
 $display("----4-----");
-#5
-out0=8'b1111_1110;
-out1=8'b1110_1111;
-out2=8'b0111_1111;
-out3=8'b1111_1111;
-out4=8'b1111_1111;
-out5=8'b1111_1111;
-out6=8'b1111_1111;
-out7=8'b1111_1111;
-
+out0<=8'b1111_1110;
+out1<=8'b1110_1111;
+out2<=8'b0111_1111;
+out3<=8'b1111_1111;
+out4<=8'b1111_1111;
+out5<=8'b1111_1111;
+out6<=8'b1111_1111;
+out7<=8'b1111_1111;
+ 
 
 end
+always
+begin
+    #15
+    clk = ~clk;
+end
 
-<<<<<<< HEAD
-memory a2(out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,gnt_out2,1,fl);
-=======
-memory a2(out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,1'b1);
->>>>>>> 85ae3f984b74babb4ff763c1b6a72a57b123bcf9
+memory a2(out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,clk);
+
+
 
 endmodule
 
