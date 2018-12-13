@@ -349,35 +349,30 @@ begin
 end
 endmodule 
 
-module arbiter_FCFS(GNT_Neg , REQ_Neg , FRAME_Neg ,clk, RST_Neg);
-output reg [7:0] GNT_Neg;
-input [7:0] REQ_Neg;
-input FRAME_Neg,RST_Neg,clk;
+module arbiter_FCFS(GNT , REQ , FRAME_Neg ,CLK, RST_Neg);
+output reg [7:0] GNT ;
+wire [7:0] TH0,TH1,TH2,TH3,TH4,TH5,TH6,TH7,memory_out;
+input [7:0] REQ;
+input FRAME_Neg,RST_Neg,CLK;
+REQ_THREADER RT1(REQ,TH0,TH1,TH2,TH3,TH4,TH5,TH6,TH7);
+memory m1(TH0,TH1,TH2,TH3,TH4,TH5,TH6,TH7,memory_out,CLK);
 
-always @(posedge clk)
+always@(posedge CLK)
 begin
-    if(~RST_Neg)
+if(~RST_Neg)
     begin
-        GNT_Neg <= 8'b1111_1111;
+        GNT <= 8'b1111_1111;
     end
-    else if(FRAME_Neg)
-    begin
-   GNT_Neg=REQ_Neg;
-   casez(GNT_Neg)
-             8'bzzzz_zzz0:GNT_Neg <= 8'b1111_1110;
-             8'bzzzz_zz01:GNT_Neg <= 8'b1111_1101;
-             8'bzzzz_z011:GNT_Neg <= 8'b1111_1011;
-             8'bzzzz_0111:GNT_Neg <= 8'b1111_0111;
-             8'bzzz0_1111:GNT_Neg <= 8'b1110_1111;
-             8'bzz01_1111:GNT_Neg <= 8'b1101_1111;
-             8'bz011_1111:GNT_Neg <= 8'b1011_1111;
-             8'b0111_1111:GNT_Neg <= 8'b0111_1111;
-             default:GNT_Neg <= 8'b1111_1111;
-  
-  endcase 
-      
-    end
+    
+      else if(FRAME_Neg)
+      begin
+      GNT=memory_out;
+      end
+    
+    
 end
+      
+
 endmodule
 
 module FCFO_Protocall();
@@ -405,10 +400,10 @@ end
 endmodule*/
 
 // thread the input depending on the zeros, all 1=> all1 and arragne them with piorty
-module REQ_THREADER(REQ,THREADING_REQ0,THREADING_REQ1,THREADING_REQ2,THREADING_REQ3,THREADING_REQ4,THREADING_REQ5,THREADING_REQ6,THREADING_REQ7,MEMORY_ENABLE);
+module REQ_THREADER(REQ,THREADING_REQ0,THREADING_REQ1,THREADING_REQ2,THREADING_REQ3,THREADING_REQ4,THREADING_REQ5,THREADING_REQ6,THREADING_REQ7);
 //request output only 1 time
 input [7:0]REQ;
-output MEMORY_ENABLE;
+
 output reg [7:0]THREADING_REQ0;
 output reg [7:0]THREADING_REQ1;
 output reg [7:0]THREADING_REQ2;
