@@ -1251,3 +1251,37 @@ end
 
 arbiter_FCFS arbiter_test(GNT,REQ,FRAME,clk,RST);
 endmodule
+
+module tb_arbiter_FCFS();
+
+wire [7:0] GNT;
+reg [7:0] REQ;
+reg FRAME,clk,RST;
+
+integer i;
+initial
+    begin
+    $monitor($time ,, "REQ = %b  FRAME = %b  GNT = %b  RST = %b" , REQ , FRAME , GNT , RST);
+    clk <= 0;
+    RST <= 0;
+    FRAME <= 1;
+    #8
+    RST <= 1;
+    REQ <= 8'b1111_1101;
+    #10
+    REQ <= 8'b1111_0111;
+    #10
+    REQ <= 8'b1001_1111;
+    #10
+    REQ <= 8'b1111_1101;
+end
+
+always
+begin
+    #5
+    clk = ~clk;
+end
+
+
+arbiter_FCFS arbiter_FCFS_test(GNT,REQ,FRAME,clk,RST);
+endmodule
