@@ -54,7 +54,7 @@ always @ (posedge CLK, RST_N)
                                 Status <= GrantGiven;
                             end
                             else
-                                GNTFlag = 0;    
+                                GNTFlag = 0;
                         end
                 GrantGiven:
                         begin
@@ -88,21 +88,36 @@ always @ (posedge CLK, RST_N)
                             if (ReadFlag)
                             begin
                                 if(!DEVSEL_N)       // End of burst?
-                                begin
-                                    memory [0] = FORCED_ADDRESS;
-                                    ADreg = memory [0];    //for debuging
-                                    Status <= DataPhase2;
-                                end
+                                    begin
+                                        memory [0] = FORCED_ADDRESS;
+                                        ADreg = memory [0];    //for debuging
+                                        Status <= DataPhase2;
+                                    end
                                 else
                                 if(!GNT_N)
-                                    if (!REQ_N)         // onother transaction required
-                                        MasterFlag = 1;
+                                    if (!REQ_N)
+                                        begin
+                                            MasterFlag <= 1;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            Status     <= AssertedMaster;
+                                        end
                                     else
                                         begin 
+                                            //Remove Grant For this master
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
+                                            //Status <= default;
+
                                         end
+                                else 
+                                    begin
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                        //Status <= default;
+                                    end
                             end
                             else if (WriteFlag)
                                 begin 
@@ -136,13 +151,28 @@ always @ (posedge CLK, RST_N)
                                 else
                                 if(!GNT_N)
                                     if (!REQ_N)
-                                        MasterFlag = 1;
+                                        begin
+                                            MasterFlag <= 1;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            Status     <= AssertedMaster;
+                                        end
                                     else
                                         begin 
+                                            //Remove Grant For this master
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
+                                            //Status <= default;
+
                                         end
+                                else 
+                                    begin
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                        //Status <= default;
+                                    end
                             end
                             else if (WriteFlag)
                                 begin 
@@ -173,16 +203,31 @@ always @ (posedge CLK, RST_N)
                                     ADreg = memory [2];    //for debuging
                                     Status <= DataPhase4;
                                 end
-                                else            // if operation with target is Done check for another Transaction request before Rising Frame 
+                                 else
                                 if(!GNT_N)
                                     if (!REQ_N)
-                                        MasterFlag = 1;
+                                        begin
+                                            MasterFlag <= 1;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            Status     <= AssertedMaster;
+                                        end
                                     else
                                         begin 
+                                            //Remove Grant For this master
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
+                                            //Status <= default;
+
                                         end
+                                else 
+                                    begin
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                        //Status <= default;
+                                    end
                             end
                             else if (WriteFlag)
                                 begin 
@@ -213,16 +258,31 @@ always @ (posedge CLK, RST_N)
                                     //ADreg = memory [3];    //for debuging
                                     Status <= DataPhase5;
                                 end
-                                else
+                                 else
                                 if(!GNT_N)
                                     if (!REQ_N)
-                                        MasterFlag = 1;
+                                        begin
+                                            MasterFlag <= 1;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            Status     <= AssertedMaster;
+                                        end
                                     else
                                         begin 
+                                            //Remove Grant For this master
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
+                                           // Status <= default;
+
                                         end
+                                else 
+                                    begin
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                       // Status <= default;
+                                    end
                             end
                             else if (WriteFlag)
                                 begin 
@@ -253,16 +313,31 @@ always @ (posedge CLK, RST_N)
                                     //ADreg = memory [3];    //for debuging
                                     Status <= DataPhase6;
                                 end
-                                else
+                                 else
                                 if(!GNT_N)
                                     if (!REQ_N)
-                                        MasterFlag = 1;
+                                        begin
+                                            MasterFlag <= 1;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            Status     <= AssertedMaster;
+                                        end
                                     else
                                         begin 
+                                            //Remove Grant For this master
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
+                                            //Status <= default;
+
                                         end
+                                else 
+                                    begin
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                        //Status <= default;
+                                    end
                             end
                             else if (WriteFlag)
                                 begin 
@@ -293,16 +368,31 @@ always @ (posedge CLK, RST_N)
                                     //ADreg = memory [3];    //for debuging
                                     Status <= DataPhase7;
                                 end
-                                else
+                                 else
                                 if(!GNT_N)
                                     if (!REQ_N)
-                                        MasterFlag = 1;
+                                        begin
+                                            MasterFlag <= 1;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            Status     <= AssertedMaster;
+                                        end
                                     else
                                         begin 
+                                            //Remove Grant For this master
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
+                                            //Status <= default;
+
                                         end
+                                else 
+                                    begin
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                        //Status <= default;
+                                    end
                             end
                             else if (WriteFlag)
                                 begin 
@@ -336,13 +426,28 @@ always @ (posedge CLK, RST_N)
                                 else
                                 if(!GNT_N)
                                     if (!REQ_N)
-                                        MasterFlag = 1;
+                                        begin
+                                            MasterFlag <= 1;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            Status     <= AssertedMaster;
+                                        end
                                     else
                                         begin 
+                                            //Remove Grant For this master
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
+                                            //Status <= default;
+
                                         end
+                                else 
+                                    begin
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                        //Status <= default;
+                                    end
                             end
                             else if (WriteFlag)
                                 begin 
@@ -373,16 +478,31 @@ always @ (posedge CLK, RST_N)
                                     //ADreg = memory [3];    //for debuging
                                     Status <= DataPhase9;
                                 end
-                                else
+                                 else
                                 if(!GNT_N)
                                     if (!REQ_N)
-                                        MasterFlag = 1;
+                                        begin
+                                            MasterFlag <= 1;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            Status     <= AssertedMaster;
+                                        end
                                     else
                                         begin 
+                                            //Remove Grant For this master
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
+                                           // Status <= default;
+
                                         end
+                                else 
+                                    begin
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                       // Status <= default;
+                                    end
                             end
                             else if (WriteFlag)
                                 begin 
@@ -410,18 +530,33 @@ always @ (posedge CLK, RST_N)
                                 begin
                                     memory [8]= FORCED_ADDRESS;
                                     //ADreg = memory [3];    //for debuging
-                                    Status <= DataPhase10;
+                                    Status <= OverFlowed;
                                 end
-                                else
+                                 else
                                 if(!GNT_N)
                                     if (!REQ_N)
-                                        MasterFlag = 1;
+                                        begin
+                                            MasterFlag <= 1;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            Status     <= AssertedMaster;
+                                        end
                                     else
                                         begin 
+                                            //Remove Grant For this master
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
+                                           // Status <= default;
+
                                         end
+                                else 
+                                    begin
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                       // Status <= default;
+                                    end
                             end
                             else if (WriteFlag)
                                 begin 
@@ -432,7 +567,7 @@ always @ (posedge CLK, RST_N)
                                     end
                                     else
                                     if(!GNT_N)
-                                        if (!REQ_N)         // onother transaction required
+                                        if (!REQ_N)         // onother transaction required OFCOURSE not neceserally same SLAVE device So DEVSEL assumed 1 (controlled bt FRAME_N)
                                             MasterFlag = 1;
                                         else
                                             begin 
@@ -442,22 +577,32 @@ always @ (posedge CLK, RST_N)
                                             end
                                 end
                         end
-                OverFlowed:         // Need to reset Memory ? ------- if not Granted? (for every Data Phase also) ---------- Slave's DEVSEL be affected by FRAME
+                OverFlowed:       // Need to reset Memory ? ------- if not Granted? (for every Data Phase also) ---------- Slave's DEVSEL be affected by FRAME
                         begin
                             if(!GNT_N)
-                                if (!REQ_N)             
-                                    MasterFlag = 1;
-                                else
-                                    begin 
-                                        MasterFlag <= 0;                   
+                                if (!REQ_N)
+                                    begin
+                                        MasterFlag <= 1;
                                         FRAME_Nreg <= 1;
                                         IRDY_Nreg  <= 1;
                                         Status     <= AssertedMaster;
                                     end
-                            else 
-                            begin
+                                else
+                                    begin 
+                                        //Remove Grant For this master
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                        //Status <= default;
 
-                            end
+                                    end
+                            else 
+                                begin
+                                    MasterFlag <= 0;
+                                    FRAME_Nreg <= 1;
+                                    IRDY_Nreg  <= 1;
+                                   // Status <= default;
+                                end
                         end
 
                 default : /* default */;
