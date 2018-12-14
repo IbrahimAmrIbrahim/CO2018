@@ -3,7 +3,6 @@ INFO: [VRFC 10-311] analyzing module device_A
 INFO: [VRFC 10-311] analyzing module arbiter_priority
 INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
 INFO: [VRFC 10-311] analyzing module arbiter_FCFS
-INFO: [VRFC 10-311] analyzing module FCFO_Protocall
 INFO: [VRFC 10-311] analyzing module REQ_THREADER
 INFO: [VRFC 10-311] analyzing module memory
 INFO: [VRFC 10-311] analyzing module PCI

@@ -621,25 +621,32 @@ module arbiter_priority(GNT_Neg , REQ_Neg , FRAME_Neg ,clk, RST_Neg);
 output reg [7:0] GNT_Neg;
 input [7:0] REQ_Neg;
 input FRAME_Neg,RST_Neg,clk;
+reg EN;
+
+always @(negedge FRAME_Neg)
+begin
+EN <= 1'b1;
+end
 
 always @(posedge clk)
 begin
     if(~RST_Neg)
     begin
         GNT_Neg <= 8'b1111_1111;
+        EN <= 1'b1;
     end
-    else if(FRAME_Neg)
+    else if(FRAME_Neg && EN)
     begin
         casez(REQ_Neg)
-            8'bzzzz_zzz0:GNT_Neg <= 8'b1111_1110;
-            8'bzzzz_zz01:GNT_Neg <= 8'b1111_1101;
-            8'bzzzz_z011:GNT_Neg <= 8'b1111_1011;
-            8'bzzzz_0111:GNT_Neg <= 8'b1111_0111;
-            8'bzzz0_1111:GNT_Neg <= 8'b1110_1111;
-            8'bzz01_1111:GNT_Neg <= 8'b1101_1111;
-            8'bz011_1111:GNT_Neg <= 8'b1011_1111;
-            8'b0111_1111:GNT_Neg <= 8'b0111_1111;
-            default:GNT_Neg <= 8'b1111_1111;
+            8'bzzzz_zzz0:begin GNT_Neg <= 8'b1111_1110; EN <= 1'b0; end
+            8'bzzzz_zz01:begin GNT_Neg <= 8'b1111_1101; EN <= 1'b0; end
+            8'bzzzz_z011:begin GNT_Neg <= 8'b1111_1011; EN <= 1'b0; end
+            8'bzzzz_0111:begin GNT_Neg <= 8'b1111_0111; EN <= 1'b0; end
+            8'bzzz0_1111:begin GNT_Neg <= 8'b1110_1111; EN <= 1'b0; end
+            8'bzz01_1111:begin GNT_Neg <= 8'b1101_1111; EN <= 1'b0; end
+            8'bz011_1111:begin GNT_Neg <= 8'b1011_1111; EN <= 1'b0; end
+            8'b0111_1111:begin GNT_Neg <= 8'b0111_1111; EN <= 1'b0; end
+            default:begin GNT_Neg <= 8'b1111_1111; EN <= 1'b1; end
         endcase
     end
 end
