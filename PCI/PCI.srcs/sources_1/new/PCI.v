@@ -796,7 +796,7 @@ begin
     end
     else if(FRAME_Neg)
     begin
-       GNT=memory_out;
+       GNT <= memory_out;
     end
  end
 endmodule
@@ -816,7 +816,7 @@ output reg [7:0]THREADING_REQ6;
 output reg [7:0]THREADING_REQ7;
 reg [7:0]THREADING_REQ[0:7]; // memory
 reg flag;// finished all if
-reg [2:0] step,location,free_location;
+reg [2:0] step,location;
 //if 0 get out 
 //if all 1 output =1111_1111
 
@@ -907,9 +907,7 @@ begin
             step=step+1;
         end
 
-        free_location=location;
-      
-        case(free_location)
+        case(location)
             0:begin
                 THREADING_REQ[0]= 8'b1111_1111 ;
                 THREADING_REQ[1]= 8'b1111_1111 ;
@@ -976,18 +974,17 @@ begin
     end
         
     if(flag==1)
-        begin
-            
-            THREADING_REQ0=THREADING_REQ[0];
-            THREADING_REQ1=THREADING_REQ[1];
-            THREADING_REQ2=THREADING_REQ[2];
-            THREADING_REQ3=THREADING_REQ[3];
-            THREADING_REQ4=THREADING_REQ[4];
-            THREADING_REQ5=THREADING_REQ[5];
-            THREADING_REQ6=THREADING_REQ[6];
-            THREADING_REQ7=THREADING_REQ[7];
-        end      
-    end
+    begin
+        THREADING_REQ0=THREADING_REQ[0];
+        THREADING_REQ1=THREADING_REQ[1];
+        THREADING_REQ2=THREADING_REQ[2];
+        THREADING_REQ3=THREADING_REQ[3];
+        THREADING_REQ4=THREADING_REQ[4];
+        THREADING_REQ5=THREADING_REQ[5];
+        THREADING_REQ6=THREADING_REQ[6];
+        THREADING_REQ7=THREADING_REQ[7];
+    end      
+end
 endmodule
 
 module memory(IN0,IN1,IN2,IN3,IN4,IN5,IN6,IN7,OUT1,CLK);
@@ -1162,7 +1159,7 @@ begin
         endcase
                            
 //CHECK MEMORY INSIDE THE NEW DATA  AND REMOVE THE UNFOUND REQUESTS
-//===================================================================\\
+//===================================================================
             
         casez(IN0)
             MEGA_MIND[0]: ;
@@ -1293,24 +1290,15 @@ begin
             end
         endcase
 
-        OUT1 = MEGA_MIND[0];
-        MEGA_DUMY[0] = MEGA_MIND[0];
-        MEGA_DUMY[1] = MEGA_MIND[1];
-        MEGA_DUMY[2] = MEGA_MIND[2];
-        MEGA_DUMY[3] = MEGA_MIND[3];
-        MEGA_DUMY[4] = MEGA_MIND[4];
-        MEGA_DUMY[5] = MEGA_MIND[5];
-        MEGA_DUMY[6] = MEGA_MIND[6];
-        MEGA_DUMY[7] = MEGA_MIND[7];   
-        
-        MEGA_MIND[0] = MEGA_DUMY[1];
-        MEGA_MIND[1] = MEGA_DUMY[2];
-        MEGA_MIND[2] = MEGA_DUMY[3];
-        MEGA_MIND[3] = MEGA_DUMY[4];
-        MEGA_MIND[4] = MEGA_DUMY[5];
-        MEGA_MIND[5] = MEGA_DUMY[6];
-        MEGA_MIND[6] = MEGA_DUMY[7];
-        MEGA_MIND[7] = 8'b1111_1111;
+        OUT1 <= MEGA_MIND[0];
+        MEGA_MIND[0] <= MEGA_MIND[1];
+        MEGA_MIND[0] <= MEGA_MIND[2];
+        MEGA_MIND[0] <= MEGA_MIND[3];
+        MEGA_MIND[0] <= MEGA_MIND[4];
+        MEGA_MIND[0] <= MEGA_MIND[5];
+        MEGA_MIND[0] <= MEGA_MIND[6];
+        MEGA_MIND[0] <= MEGA_MIND[7];
+        MEGA_MIND[0] <= 8'b1111_1111;   
         
         if(OUT1 != 8'b1111_1111)
           free_location = free_location - 1;   
