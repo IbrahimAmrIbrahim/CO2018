@@ -1,0 +1,141 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Fri Dec 14 16:47:56 2018
+# Process ID: 11648
+# Current directory: F:/pci dream/PCI
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7012 F:\pci dream\PCI\PCI.xpr
+# Log file: F:/pci dream/PCI/vivado.log
+# Journal file: F:/pci dream/PCI\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {F:/pci dream/PCI/PCI.xpr}
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'.
+open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:08 . Memory (MB): peak = 841.359 ; gain = 113.086
+update_compile_order -fileset sources_1
+set_property top tb_arbiter_priority [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_priority' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_priority_vlog.prj"
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_priority_behav xil_defaultlib.tb_arbiter_priority xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.arbiter_priority
+Compiling module xil_defaultlib.tb_arbiter_priority
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_priority_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '5' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_priority_behav -key {Behavioral:sim_1:Functional:tb_arbiter_priority} -tclbatch {tb_arbiter_priority.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_priority.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = x  GNT = xxxxxxxx  RST = x
+                   2 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0
+                   7 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 1
+                  17 REQ = 00000111  FRAME = 1  GNT = 11111111  RST = 1
+                  25 REQ = 00000111  FRAME = 0  GNT = 11111111  RST = 1
+                  27 REQ = 00000100  FRAME = 0  GNT = 11111111  RST = 1
+                  37 REQ = 00000110  FRAME = 0  GNT = 11111111  RST = 1
+                  47 REQ = 00000100  FRAME = 0  GNT = 11111111  RST = 1
+                  50 REQ = 00000100  FRAME = 1  GNT = 11111111  RST = 1
+                  55 REQ = 00000100  FRAME = 1  GNT = 11111110  RST = 1
+                  57 REQ = 00000111  FRAME = 1  GNT = 11111110  RST = 1
+                  65 REQ = 00000111  FRAME = 1  GNT = 11110111  RST = 1
+                  75 REQ = 00000111  FRAME = 0  GNT = 11110111  RST = 1
+                  77 REQ = 00000001  FRAME = 0  GNT = 11110111  RST = 1
+                  87 REQ = 00000110  FRAME = 0  GNT = 11110111  RST = 1
+                  97 REQ = 00000100  FRAME = 0  GNT = 11110111  RST = 1
+                 100 REQ = 00000100  FRAME = 1  GNT = 11110111  RST = 1
+                 105 REQ = 00000100  FRAME = 1  GNT = 11111110  RST = 1
+                 107 REQ = 00000111  FRAME = 1  GNT = 11111110  RST = 1
+                 115 REQ = 00000111  FRAME = 1  GNT = 11110111  RST = 1
+                 117 REQ = 00000010  FRAME = 1  GNT = 11110111  RST = 1
+                 125 REQ = 00000010  FRAME = 0  GNT = 11110111  RST = 1
+                 127 REQ = 00000011  FRAME = 0  GNT = 11110111  RST = 1
+                 137 REQ = 00000111  FRAME = 0  GNT = 11110111  RST = 1
+                 147 REQ = 00000011  FRAME = 0  GNT = 11110111  RST = 1
+                 150 REQ = 00000011  FRAME = 1  GNT = 11110111  RST = 1
+                 155 REQ = 00000011  FRAME = 1  GNT = 11111011  RST = 1
+                 157 REQ = 00000001  FRAME = 1  GNT = 11111011  RST = 1
+                 165 REQ = 00000001  FRAME = 1  GNT = 11111101  RST = 1
+                 167 REQ = 00000011  FRAME = 1  GNT = 11111101  RST = 1
+                 175 REQ = 00000011  FRAME = 0  GNT = 11111101  RST = 1
+                 197 REQ = 00000110  FRAME = 0  GNT = 11111101  RST = 1
+                 200 REQ = 00000110  FRAME = 1  GNT = 11111101  RST = 1
+                 205 REQ = 00000110  FRAME = 1  GNT = 11111110  RST = 1
+                 207 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 225 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 250 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 275 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 300 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 325 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 350 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 375 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 400 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 425 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 450 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 475 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 500 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 525 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 550 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 575 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 600 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 625 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 650 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 675 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 700 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 725 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 750 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 775 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 800 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 825 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 850 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 875 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 900 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 925 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                 950 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+                 975 REQ = 00000010  FRAME = 0  GNT = 11111110  RST = 1
+                1000 REQ = 00000010  FRAME = 1  GNT = 11111110  RST = 1
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_priority_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 891.398 ; gain = 25.953
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting Vivado at Fri Dec 14 18:29:08 2018...
