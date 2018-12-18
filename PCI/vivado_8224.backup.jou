@@ -1,0 +1,20 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Fri Dec 14 01:01:59 2018
+# Process ID: 8224
+# Current directory: F:/pci dream/PCI
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent17776 F:\pci dream\PCI\PCI.xpr
+# Log file: F:/pci dream/PCI/vivado.log
+# Journal file: F:/pci dream/PCI\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {F:/pci dream/PCI/PCI.xpr}
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_fcfs [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
