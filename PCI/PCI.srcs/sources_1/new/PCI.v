@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module device_A(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N);
+module device_A(Output0,Output1,CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, MIN_ADDRESS);
 
 parameter MyAddress = 32'hAA, TargetAddress = 32'hBC;
 parameter AssertedMaster = 4'b0000, GrantGiven = 4'b0001, FrameAsserted = 4'b0010;
@@ -8,37 +8,48 @@ parameter DataPhase1 = 4'b0011, DataPhase2 = 4'b0100, DataPhase3 = 4'b0101, Data
 parameter DataPhase6 = 4'b1000, DataPhase7 = 4'b1001, DataPhase8 = 4'b1010, DataPhase9 = 4'b1011, OverFlowed = 4'b1100;
 
 input CLK, RST_N, GNT_N, FORCED_REQ_N;
+input [31:0] MIN_ADDRESS;
 input [31:0] FORCED_ADDRESS;
 input [3:0] FORCED_CBE_N;
 inout [31:0] AD;	
 inout [3:0] CBE_N;
 inout FRAME_N, IRDY_N, TRDY_N, DEVSEL_N; 
 output REQ_N;
+output [31:0] Output1, Output0;
 reg [31:0] ADreg; 
 reg [3:0] CBE_Nreg; 
 reg [3:0] Status = 0;
 reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
 reg MasterFlag = 0, GNTFlag = 0, ReadFlag = 0, WriteFlag = 0;
-reg [31:0] value1;
-reg [31:0] value2;
-reg [31:0] value3;
-reg [31:0] value4;
 
 reg [31:0] memory [0:9];
 initial
 memory [9] = 32'hAAAA_AAAA; 
 
+assign Output0 = memory [0];
+assign Output1 = memory [1];
+
 assign REQ_N = FORCED_REQ_N;
 
 assign AD      = ADreg;	        assign CBE_N    = CBE_Nreg;
 assign FRAME_N = FRAME_Nreg;	assign IRDY_N   = IRDY_Nreg;
-assign TRDY_N  = TRDY_Nreg;	    //assign DEVSEL_N = DEVSEL_Nreg;
+//assign TRDY_N  = TRDY_Nreg;	    //assign DEVSEL_N = DEVSEL_Nreg;
 
 always @ (posedge CLK, RST_N)
     if (!RST_N)
         begin
-         ADreg = {(32){1'bz}} ; CBE_Nreg = 4'bzzzz ; FRAME_Nreg = 1; IRDY_Nreg = 1; TRDY_Nreg = 1; DEVSEL_Nreg = 1;
-         MasterFlag = 0;   
+		ADreg <= {(32){1'bz}} ; CBE_Nreg <= 4'bzzzz ; FRAME_Nreg <= 1; IRDY_Nreg <= 1; TRDY_Nreg <= 1; DEVSEL_Nreg <= 1;
+		MasterFlag <= 0; Status <= AssertedMaster; 
+		memory[0] <= {MIN_ADDRESS [15:0],{16'h0001}};
+		memory[1] <= {MIN_ADDRESS [15:0],{16'h0002}};
+		memory[2] <= {MIN_ADDRESS [15:0],{16'h0003}};
+		memory[3] <= {MIN_ADDRESS [15:0],{16'h0004}};
+		memory[4] <= {MIN_ADDRESS [15:0],{16'h0005}};
+		memory[5] <= {MIN_ADDRESS [15:0],{16'h0006}};
+		memory[6] <= {MIN_ADDRESS [15:0],{16'h0007}};
+		memory[7] <= {MIN_ADDRESS [15:0],{16'h0008}};
+		memory[8] <= {MIN_ADDRESS [15:0],{16'h0009}};
+		memory[9] <= {MIN_ADDRESS [15:0],{16'h000A}}; 
         end
     else
 	begin 
@@ -65,8 +76,8 @@ always @ (posedge CLK, RST_N)
                         end
                 FrameAsserted:
                         begin 
-                            IRDY_Nreg <= 0;
 
+                        IRDY_Nreg <= 0;
                             if (CBE_N == 4'b0110)       //Read Operation
                                 begin
                                     ReadFlag  <= 1;
@@ -87,7 +98,8 @@ always @ (posedge CLK, RST_N)
                         begin
                             if (ReadFlag)
                             begin
-                                if(!DEVSEL_N)       // End of burst?
+                                if(!DEVSEL_N)
+                                	if (!TRDY_N)    // End of burst?
                                     begin
                                         memory [0] = FORCED_ADDRESS;
                                         ADreg = memory [0];    //for debuging
@@ -121,11 +133,15 @@ always @ (posedge CLK, RST_N)
                             end
                             else if (WriteFlag)
                                 begin 
-                                    if(!DEVSEL_N)       // End of burst?
+                                    if(!DEVSEL_N)
                                     begin
-                                        ADreg  <= memory [9];
-                                        Status <= DataPhase2;
-                                    end
+	                                    if (!TRDY_N)       // End of burst?
+	                                    begin
+	                                    	
+	                                        ADreg  <= memory [9];
+	                                        Status <= DataPhase2;
+	                                    end
+                                	end
                                     else
                                     if(!GNT_N)
                                         if (!REQ_N)         // onother transaction required
@@ -176,11 +192,16 @@ always @ (posedge CLK, RST_N)
                             end
                             else if (WriteFlag)
                                 begin 
-                                    if(!DEVSEL_N)       // End of burst?
-                                    begin
-                                        ADreg  <= memory [9];
-                                        Status <= DataPhase2;
-                                    end
+                                    if(!DEVSEL_N)
+                                    begin 
+                                    	
+	                                    if (!TRDY_N)
+	                                    begin
+	                                  
+	                                        ADreg  <= memory [2];
+	                                        Status <= DataPhase2;
+	                                    end
+                                	end
                                     else
                                     if(!GNT_N)
                                         if (!REQ_N)         // onother transaction required
@@ -233,7 +254,7 @@ always @ (posedge CLK, RST_N)
                                 begin 
                                     if(!DEVSEL_N)       // End of burst?
                                     begin
-                                        ADreg  <= memory [9];
+                                        ADreg  <= memory [5];
                                         Status <= DataPhase2;
                                     end
                                     else
@@ -609,8 +630,9 @@ always @ (posedge CLK, RST_N)
             endcase
         end
         else begin
-            if(AD == MyAddress && IRDY_N)
+            if(((AD >= MIN_ADDRESS) && (AD <= (MIN_ADDRESS + 10))) && IRDY_N)
                 DEVSEL_Nreg <= 0;
+
         end
         
     end
