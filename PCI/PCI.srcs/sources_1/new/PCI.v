@@ -5,7 +5,7 @@ module device_A(Output0,Output1,CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, 
 parameter MyAddress = 32'hAA, TargetAddress = 32'hBC;
 parameter AssertedMaster = 4'b0000, GrantGiven = 4'b0001, FrameAsserted = 4'b0010;
 parameter DataPhase1 = 4'b0011, DataPhase2 = 4'b0100, DataPhase3 = 4'b0101, DataPhase4 = 4'b0110, DataPhase5 = 4'b0111;
-parameter DataPhase6 = 4'b1000, DataPhase7 = 4'b1001, DataPhase8 = 4'b1010, DataPhase9 = 4'b1011, OverFlowed = 4'b1100;
+parameter DataPhase6 = 4'b1000, DataPhase7 = 4'b1001, DataPhase8 = 4'b1010, DataPhase9 = 4'b1011, DataPhase10 = 4'b1100,OverFlowed = 4'b1101;
 
 input CLK, RST_N, GNT_N, FORCED_REQ_N;
 input [31:0] MIN_ADDRESS;
@@ -91,7 +91,8 @@ always @ (posedge CLK, RST_N)
                                     ReadFlag  <= 0;
                                     WriteFlag <= 1;
                                     ADreg     <= memory[9];
-                                    CBE_Nreg  <= 4'b0000;    // Also Write operation's Dataphase 1
+                                    CBE_Nreg  <= 4'b0000;   // Also Write operation's Dataphase 1
+                                    Status	  <= DataPhase1;
                                 end
                         end
                 DataPhase1:
@@ -99,14 +100,17 @@ always @ (posedge CLK, RST_N)
                             if (ReadFlag)
                             begin
                                 if(!DEVSEL_N)
+                            	begin
                                 	if (!TRDY_N)    // End of burst?
                                     begin
                                         memory [0] = FORCED_ADDRESS;
-                                        ADreg = memory [0];    //for debuging
-                                        Status <= DataPhase2;
+                                        ADreg 	   = memory [0];    //for debuging
+                                        Status	  <= DataPhase2;
                                     end
+                            	end
                                 else
                                 if(!GNT_N)
+                        		begin
                                     if (!REQ_N)
                                         begin
                                             MasterFlag <= 1;
@@ -123,6 +127,7 @@ always @ (posedge CLK, RST_N)
                                             //Status <= default;
 
                                         end
+                        		end
                                 else 
                                     begin
                                         MasterFlag <= 0;
@@ -138,34 +143,55 @@ always @ (posedge CLK, RST_N)
 	                                    if (!TRDY_N)       // End of burst?
 	                                    begin
 	                                    	
-	                                        ADreg  <= memory [9];
+	                                        ADreg  <= memory [8];
 	                                        Status <= DataPhase2;
 	                                    end
                                 	end
                                     else
                                     if(!GNT_N)
-                                        if (!REQ_N)         // onother transaction required
-                                            MasterFlag = 1;
-                                        else
-                                            begin 
-                                                MasterFlag <= 0;
-                                                FRAME_Nreg <= 1;
-                                                IRDY_Nreg  <= 1;
-                                            end
-                                end
+		                        		begin
+		                                    if (!REQ_N)
+		                                        begin
+		                                            MasterFlag <= 1;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            Status     <= AssertedMaster;
+		                                        end
+		                                    else
+		                                        begin 
+		                                            //Remove Grant For this master
+		                                            MasterFlag <= 0;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            //Status <= default;
+
+		                                        end
+		                        		end
+	                                else 
+	                                    begin
+	                                        MasterFlag <= 0;
+	                                        FRAME_Nreg <= 1;
+	                                        IRDY_Nreg  <= 1;
+	                                        //Status <= default;
+	                                    end
+	                            end
                         end
                 DataPhase2:
                         begin
                             if (ReadFlag)
                             begin
                                 if(!DEVSEL_N)
-                                begin
-                                    memory [1]= FORCED_ADDRESS;
-                                    ADreg = memory [1];    //for debuging
-                                    Status <= DataPhase3;
-                                end
+                            	begin
+                                	if (!TRDY_N)    // End of burst?
+                                    begin
+                                        memory [1] = FORCED_ADDRESS;
+                                        ADreg = memory [1];    //for debuging
+                                        Status <= DataPhase3;
+                                    end
+                            	end
                                 else
                                 if(!GNT_N)
+                        		begin
                                     if (!REQ_N)
                                         begin
                                             MasterFlag <= 1;
@@ -182,6 +208,7 @@ always @ (posedge CLK, RST_N)
                                             //Status <= default;
 
                                         end
+                        		end
                                 else 
                                     begin
                                         MasterFlag <= 0;
@@ -193,39 +220,59 @@ always @ (posedge CLK, RST_N)
                             else if (WriteFlag)
                                 begin 
                                     if(!DEVSEL_N)
-                                    begin 
-                                    	
-	                                    if (!TRDY_N)
+                                    begin
+	                                    if (!TRDY_N)       // End of burst?
 	                                    begin
-	                                  
-	                                        ADreg  <= memory [2];
-	                                        Status <= DataPhase2;
+	                                    	
+	                                        ADreg  <= memory [7];
+	                                        Status <= DataPhase3;
 	                                    end
                                 	end
                                     else
                                     if(!GNT_N)
-                                        if (!REQ_N)         // onother transaction required
-                                            MasterFlag = 1;
-                                        else
-                                            begin 
-                                                MasterFlag <= 0;
-                                                FRAME_Nreg <= 1;
-                                                IRDY_Nreg  <= 1;
-                                            end
-                                end
+		                        		begin
+		                                    if (!REQ_N)
+		                                        begin
+		                                            MasterFlag <= 1;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            Status     <= AssertedMaster;
+		                                        end
+		                                    else
+		                                        begin 
+		                                            //Remove Grant For this master
+		                                            MasterFlag <= 0;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            //Status <= default;
+
+		                                        end
+		                        		end
+	                                else 
+	                                    begin
+	                                        MasterFlag <= 0;
+	                                        FRAME_Nreg <= 1;
+	                                        IRDY_Nreg  <= 1;
+	                                        //Status <= default;
+	                                    end
+	                            end
                         end
                 DataPhase3:
-                        begin 
+                        begin
                             if (ReadFlag)
                             begin
                                 if(!DEVSEL_N)
-                                begin
-                                    memory [2]= FORCED_ADDRESS;
-                                    ADreg = memory [2];    //for debuging
-                                    Status <= DataPhase4;
-                                end
-                                 else
+                            	begin
+                                	if (!TRDY_N)    // End of burst?
+                                    begin
+                                        memory [2] = FORCED_ADDRESS;
+                                        ADreg = memory [2];    //for debuging
+                                        Status <= DataPhase4;
+                                    end
+                            	end
+                                else
                                 if(!GNT_N)
+                        		begin
                                     if (!REQ_N)
                                         begin
                                             MasterFlag <= 1;
@@ -242,6 +289,7 @@ always @ (posedge CLK, RST_N)
                                             //Status <= default;
 
                                         end
+                        		end
                                 else 
                                     begin
                                         MasterFlag <= 0;
@@ -252,35 +300,60 @@ always @ (posedge CLK, RST_N)
                             end
                             else if (WriteFlag)
                                 begin 
-                                    if(!DEVSEL_N)       // End of burst?
+                                    if(!DEVSEL_N)
                                     begin
-                                        ADreg  <= memory [5];
-                                        Status <= DataPhase2;
-                                    end
+	                                    if (!TRDY_N)       // End of burst?
+	                                    begin
+	                                    	
+	                                        ADreg  <= memory [6];
+	                                        Status <= DataPhase4;
+	                                    end
+                                	end
                                     else
                                     if(!GNT_N)
-                                        if (!REQ_N)         // onother transaction required
-                                            MasterFlag = 1;
-                                        else
-                                            begin 
-                                                MasterFlag <= 0;
-                                                FRAME_Nreg <= 1;
-                                                IRDY_Nreg  <= 1;
-                                            end
-                                end
+		                        		begin
+		                                    if (!REQ_N)
+		                                        begin
+		                                            MasterFlag <= 1;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            Status     <= AssertedMaster;
+		                                        end
+		                                    else
+		                                        begin 
+		                                            //Remove Grant For this master
+		                                            MasterFlag <= 0;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            //Status <= default;
+
+		                                        end
+		                        		end
+	                                else 
+	                                    begin
+	                                        MasterFlag <= 0;
+	                                        FRAME_Nreg <= 1;
+	                                        IRDY_Nreg  <= 1;
+	                                        //Status <= default;
+	                                    end
+	                            end
                         end
                 DataPhase4:
-                        begin 
+                        begin
                             if (ReadFlag)
                             begin
                                 if(!DEVSEL_N)
-                                begin
-                                    memory [3]= FORCED_ADDRESS;
-                                    //ADreg = memory [3];    //for debuging
-                                    Status <= DataPhase5;
-                                end
-                                 else
+                            	begin
+                                	if (!TRDY_N)    // End of burst?
+                                    begin
+                                        memory [3] = FORCED_ADDRESS;
+                                        ADreg = memory [3];    //for debuging
+                                        Status <= DataPhase5;
+                                    end
+                            	end
+                                else
                                 if(!GNT_N)
+                        		begin
                                     if (!REQ_N)
                                         begin
                                             MasterFlag <= 1;
@@ -294,48 +367,74 @@ always @ (posedge CLK, RST_N)
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
-                                           // Status <= default;
+                                            //Status <= default;
 
                                         end
+                        		end
                                 else 
                                     begin
                                         MasterFlag <= 0;
                                         FRAME_Nreg <= 1;
                                         IRDY_Nreg  <= 1;
-                                       // Status <= default;
+                                        //Status <= default;
                                     end
                             end
                             else if (WriteFlag)
                                 begin 
-                                    if(!DEVSEL_N)       // End of burst?
+                                    if(!DEVSEL_N)
                                     begin
-                                        ADreg  <= memory [9];
-                                        Status <= DataPhase2;
-                                    end
+	                                    if (!TRDY_N)       // End of burst?
+	                                    begin
+	                                    	
+	                                        ADreg  <= memory [5];
+	                                        Status <= DataPhase5;
+	                                    end
+                                	end
                                     else
                                     if(!GNT_N)
-                                        if (!REQ_N)         // onother transaction required
-                                            MasterFlag = 1;
-                                        else
-                                            begin 
-                                                MasterFlag <= 0;
-                                                FRAME_Nreg <= 1;
-                                                IRDY_Nreg  <= 1;
-                                            end
-                                end
+		                        		begin
+		                                    if (!REQ_N)
+		                                        begin
+		                                            MasterFlag <= 1;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            Status     <= AssertedMaster;
+		                                        end
+		                                    else
+		                                        begin 
+		                                            //Remove Grant For this master
+		                                            MasterFlag <= 0;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            //Status <= default;
+
+		                                        end
+		                        		end
+	                                else 
+	                                    begin
+	                                        MasterFlag <= 0;
+	                                        FRAME_Nreg <= 1;
+	                                        IRDY_Nreg  <= 1;
+	                                        //Status <= default;
+	                                    end
+	                            end
                         end
                 DataPhase5:         // Test Phase
                         begin
                             if (ReadFlag)
                             begin
                                 if(!DEVSEL_N)
-                                begin
-                                    memory [4]= FORCED_ADDRESS;
-                                    //ADreg = memory [3];    //for debuging
-                                    Status <= DataPhase6;
-                                end
-                                 else
+                            	begin
+                                	if (!TRDY_N)    // End of burst?
+                                    begin
+                                        memory [4] = FORCED_ADDRESS;
+                                        ADreg = memory [4];    //for debuging
+                                        Status <= DataPhase6;
+                                    end
+                            	end
+                                else
                                 if(!GNT_N)
+                        		begin
                                     if (!REQ_N)
                                         begin
                                             MasterFlag <= 1;
@@ -352,6 +451,7 @@ always @ (posedge CLK, RST_N)
                                             //Status <= default;
 
                                         end
+                        		end
                                 else 
                                     begin
                                         MasterFlag <= 0;
@@ -362,35 +462,60 @@ always @ (posedge CLK, RST_N)
                             end
                             else if (WriteFlag)
                                 begin 
-                                    if(!DEVSEL_N)       // End of burst?
+                                    if(!DEVSEL_N)
                                     begin
-                                        ADreg  <= memory [9];
-                                        Status <= DataPhase2;
-                                    end
+	                                    if (!TRDY_N)       // End of burst?
+	                                    begin
+	                                    	
+	                                        ADreg  <= memory [4];
+	                                        Status <= DataPhase6;
+	                                    end
+                                	end
                                     else
                                     if(!GNT_N)
-                                        if (!REQ_N)         // onother transaction required
-                                            MasterFlag = 1;
-                                        else
-                                            begin 
-                                                MasterFlag <= 0;
-                                                FRAME_Nreg <= 1;
-                                                IRDY_Nreg  <= 1;
-                                            end
-                                end
+		                        		begin
+		                                    if (!REQ_N)
+		                                        begin
+		                                            MasterFlag <= 1;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            Status     <= AssertedMaster;
+		                                        end
+		                                    else
+		                                        begin 
+		                                            //Remove Grant For this master
+		                                            MasterFlag <= 0;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            //Status <= default;
+
+		                                        end
+		                        		end
+	                                else 
+	                                    begin
+	                                        MasterFlag <= 0;
+	                                        FRAME_Nreg <= 1;
+	                                        IRDY_Nreg  <= 1;
+	                                        //Status <= default;
+	                                    end
+	                            end
                         end
                 DataPhase6:         // Test Phase
                         begin
                             if (ReadFlag)
                             begin
                                 if(!DEVSEL_N)
-                                begin
-                                    memory [5]= FORCED_ADDRESS;
-                                    //ADreg = memory [3];    //for debuging
-                                    Status <= DataPhase7;
-                                end
-                                 else
+                            	begin
+                                	if (!TRDY_N)    // End of burst?
+                                    begin
+                                        memory [5] = FORCED_ADDRESS;
+                                        ADreg = memory [5];    //for debuging
+                                        Status <= DataPhase7;
+                                    end
+                            	end
+                                else
                                 if(!GNT_N)
+                        		begin
                                     if (!REQ_N)
                                         begin
                                             MasterFlag <= 1;
@@ -407,6 +532,7 @@ always @ (posedge CLK, RST_N)
                                             //Status <= default;
 
                                         end
+                        		end
                                 else 
                                     begin
                                         MasterFlag <= 0;
@@ -417,35 +543,60 @@ always @ (posedge CLK, RST_N)
                             end
                             else if (WriteFlag)
                                 begin 
-                                    if(!DEVSEL_N)       // End of burst?
+                                    if(!DEVSEL_N)
                                     begin
-                                        ADreg  <= memory [9];
-                                        Status <= DataPhase2;
-                                    end
+	                                    if (!TRDY_N)       // End of burst?
+	                                    begin
+	                                    	
+	                                        ADreg  <= memory [3];
+	                                        Status <= DataPhase7;
+	                                    end
+                                	end
                                     else
                                     if(!GNT_N)
-                                        if (!REQ_N)         // onother transaction required
-                                            MasterFlag = 1;
-                                        else
-                                            begin 
-                                                MasterFlag <= 0;
-                                                FRAME_Nreg <= 1;
-                                                IRDY_Nreg  <= 1;
-                                            end
-                                end
+		                        		begin
+		                                    if (!REQ_N)
+		                                        begin
+		                                            MasterFlag <= 1;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            Status     <= AssertedMaster;
+		                                        end
+		                                    else
+		                                        begin 
+		                                            //Remove Grant For this master
+		                                            MasterFlag <= 0;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            //Status <= default;
+
+		                                        end
+		                        		end
+	                                else 
+	                                    begin
+	                                        MasterFlag <= 0;
+	                                        FRAME_Nreg <= 1;
+	                                        IRDY_Nreg  <= 1;
+	                                        //Status <= default;
+	                                    end
+	                            end
                         end
                 DataPhase7:         // Test Phase
                         begin
                             if (ReadFlag)
                             begin
                                 if(!DEVSEL_N)
-                                begin
-                                    memory [6]= FORCED_ADDRESS;
-                                    //ADreg = memory [3];    //for debuging
-                                    Status <= DataPhase8;
-                                end
+                            	begin
+                                	if (!TRDY_N)    // End of burst?
+                                    begin
+                                        memory [6] = FORCED_ADDRESS;
+                                        ADreg = memory [6];    //for debuging
+                                        Status <= DataPhase8;
+                                    end
+                            	end
                                 else
                                 if(!GNT_N)
+                        		begin
                                     if (!REQ_N)
                                         begin
                                             MasterFlag <= 1;
@@ -462,6 +613,7 @@ always @ (posedge CLK, RST_N)
                                             //Status <= default;
 
                                         end
+                        		end
                                 else 
                                     begin
                                         MasterFlag <= 0;
@@ -472,35 +624,60 @@ always @ (posedge CLK, RST_N)
                             end
                             else if (WriteFlag)
                                 begin 
-                                    if(!DEVSEL_N)       // End of burst?
+                                    if(!DEVSEL_N)
                                     begin
-                                        ADreg  <= memory [9];
-                                        Status <= DataPhase2;
-                                    end
+	                                    if (!TRDY_N)       // End of burst?
+	                                    begin
+	                                    	
+	                                        ADreg  <= memory [2];
+	                                        Status <= DataPhase8;
+	                                    end
+                                	end
                                     else
                                     if(!GNT_N)
-                                        if (!REQ_N)         // onother transaction required
-                                            MasterFlag = 1;
-                                        else
-                                            begin 
-                                                MasterFlag <= 0;
-                                                FRAME_Nreg <= 1;
-                                                IRDY_Nreg  <= 1;
-                                            end
-                                end
+		                        		begin
+		                                    if (!REQ_N)
+		                                        begin
+		                                            MasterFlag <= 1;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            Status     <= AssertedMaster;
+		                                        end
+		                                    else
+		                                        begin 
+		                                            //Remove Grant For this master
+		                                            MasterFlag <= 0;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            //Status <= default;
+
+		                                        end
+		                        		end
+	                                else 
+	                                    begin
+	                                        MasterFlag <= 0;
+	                                        FRAME_Nreg <= 1;
+	                                        IRDY_Nreg  <= 1;
+	                                        //Status <= default;
+	                                    end
+	                            end
                         end
                 DataPhase8:         // Test Phase
                         begin
                             if (ReadFlag)
                             begin
                                 if(!DEVSEL_N)
-                                begin
-                                    memory [7]= FORCED_ADDRESS;
-                                    //ADreg = memory [3];    //for debuging
-                                    Status <= DataPhase9;
-                                end
-                                 else
+                            	begin
+                                	if (!TRDY_N)    // End of burst?
+                                    begin
+                                        memory [7] = FORCED_ADDRESS;
+                                        ADreg = memory [7];    //for debuging
+                                        Status <= DataPhase9;
+                                    end
+                            	end
+                                else
                                 if(!GNT_N)
+                        		begin
                                     if (!REQ_N)
                                         begin
                                             MasterFlag <= 1;
@@ -514,47 +691,74 @@ always @ (posedge CLK, RST_N)
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
-                                           // Status <= default;
+                                            //Status <= default;
 
                                         end
+                        		end
                                 else 
                                     begin
                                         MasterFlag <= 0;
                                         FRAME_Nreg <= 1;
                                         IRDY_Nreg  <= 1;
-                                       // Status <= default;
+                                        //Status <= default;
                                     end
                             end
                             else if (WriteFlag)
                                 begin 
-                                    if(!DEVSEL_N)       // End of burst?
+                                    if(!DEVSEL_N)
                                     begin
-                                        ADreg  <= memory [9];
-                                        Status <= DataPhase2;
-                                    end
+	                                    if (!TRDY_N)       // End of burst?
+	                                    begin
+	                                    	
+	                                        ADreg  <= memory [1];
+	                                        Status <= DataPhase9;
+	                                    end
+                                	end
                                     else
                                     if(!GNT_N)
-                                        if (!REQ_N)         // onother transaction required
-                                            MasterFlag = 1;
-                                        else
-                                            begin 
-                                                MasterFlag <= 0;
-                                                FRAME_Nreg <= 1;
-                                                IRDY_Nreg  <= 1;
-                                            end
-                                end                        end
+		                        		begin
+		                                    if (!REQ_N)
+		                                        begin
+		                                            MasterFlag <= 1;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            Status     <= AssertedMaster;
+		                                        end
+		                                    else
+		                                        begin 
+		                                            //Remove Grant For this master
+		                                            MasterFlag <= 0;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            //Status <= default;
+
+		                                        end
+		                        		end
+	                                else 
+	                                    begin
+	                                        MasterFlag <= 0;
+	                                        FRAME_Nreg <= 1;
+	                                        IRDY_Nreg  <= 1;
+	                                        //Status <= default;
+	                                    end
+	                            end
+                        end                      
                 DataPhase9:         // Test Phase
-                        begin
+                       begin
                             if (ReadFlag)
                             begin
                                 if(!DEVSEL_N)
-                                begin
-                                    memory [8]= FORCED_ADDRESS;
-                                    //ADreg = memory [3];    //for debuging
-                                    Status <= OverFlowed;
-                                end
-                                 else
+                            	begin
+                                	if (!TRDY_N)    // End of burst?
+                                    begin
+                                        memory [8] = FORCED_ADDRESS;
+                                        ADreg = memory [8];    //for debuging
+                                        Status <= DataPhase10;
+                                    end
+                            	end
+                                else
                                 if(!GNT_N)
+                        		begin
                                     if (!REQ_N)
                                         begin
                                             MasterFlag <= 1;
@@ -568,36 +772,141 @@ always @ (posedge CLK, RST_N)
                                             MasterFlag <= 0;
                                             FRAME_Nreg <= 1;
                                             IRDY_Nreg  <= 1;
-                                           // Status <= default;
+                                            //Status <= default;
 
                                         end
+                        		end
                                 else 
                                     begin
                                         MasterFlag <= 0;
                                         FRAME_Nreg <= 1;
                                         IRDY_Nreg  <= 1;
-                                       // Status <= default;
+                                        //Status <= default;
                                     end
                             end
                             else if (WriteFlag)
                                 begin 
-                                    if(!DEVSEL_N)       // End of burst?
+                                    if(!DEVSEL_N)
                                     begin
-                                        ADreg  <= memory [9];
-                                        Status <= OverFlowed;
-                                    end
+	                                    if (!TRDY_N)       // End of burst?
+	                                    begin
+	                                    	
+	                                        ADreg  <= memory [0];
+	                                        Status <= DataPhase10;
+	                                    end
+                                	end
                                     else
                                     if(!GNT_N)
-                                        if (!REQ_N)         // onother transaction required OFCOURSE not neceserally same SLAVE device So DEVSEL assumed 1 (controlled bt FRAME_N)
-                                            MasterFlag = 1;
-                                        else
-                                            begin 
-                                                MasterFlag <= 0;
-                                                FRAME_Nreg <= 1;
-                                                IRDY_Nreg  <= 1;
-                                            end
-                                end
+		                        		begin
+		                                    if (!REQ_N)
+		                                        begin
+		                                            MasterFlag <= 1;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            Status     <= AssertedMaster;
+		                                        end
+		                                    else
+		                                        begin 
+		                                            //Remove Grant For this master
+		                                            MasterFlag <= 0;
+		                                            FRAME_Nreg <= 1;
+		                                            IRDY_Nreg  <= 1;
+		                                            //Status <= default;
+
+		                                        end
+		                        		end
+	                                else 
+	                                    begin
+	                                        MasterFlag <= 0;
+	                                        FRAME_Nreg <= 1;
+	                                        IRDY_Nreg  <= 1;
+	                                        //Status <= default;
+	                                    end
+	                            end
                         end
+                
+                DataPhase10:
+                begin
+                            if (ReadFlag)
+                            begin
+                                if(!DEVSEL_N)
+                            	begin
+                                	if (!TRDY_N)    // End of burst?
+                                    begin
+                                        memory [9] = FORCED_ADDRESS;
+                                        ADreg = memory [9];    //for debuging
+                                        Status <= OverFlowed;
+                                    end
+                            	end
+                                else
+                                if(!GNT_N)
+                        		begin
+                                    if (!REQ_N)
+                                        begin
+                                            MasterFlag <= 1;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            Status     <= AssertedMaster;
+                                        end
+                                    else
+                                        begin 
+                                            //Remove Grant For this master
+                                            MasterFlag <= 0;
+                                            FRAME_Nreg <= 1;
+                                            IRDY_Nreg  <= 1;
+                                            //Status <= default;
+
+                                        end
+                        		end
+                                else 
+                                    begin
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                        //Status <= default;
+                                    end
+                            end
+                            else if (WriteFlag)
+                                 begin 
+                            //         if(!DEVSEL_N)
+                            //         begin
+	                           //          if (!TRDY_N)       // End of burst?
+	                           //          begin
+	                                    	
+	                           //              ADreg  <= memory [0];
+	                           //              Status <= OverFlowed;
+	                           //          end
+                            //     	end
+                            //         else
+                            //         if(!GNT_N)
+		                        		// begin
+		                          //           if (!REQ_N)
+		                          //               begin
+		                          //                   MasterFlag <= 1;
+		                          //                   FRAME_Nreg <= 1;
+		                          //                   IRDY_Nreg  <= 1;
+		                          //                   Status     <= AssertedMaster;
+		                          //               end
+		                          //           else
+		                          //               begin 
+		                          //                   //Remove Grant For this master
+		                          //                   MasterFlag <= 0;
+		                          //                   FRAME_Nreg <= 1;
+		                          //                   IRDY_Nreg  <= 1;
+		                          //                   //Status <= default;
+
+		                          //               end
+		                        		// end
+	                           //      else 
+	                           //          begin
+	                           //              MasterFlag <= 0;
+	                           //              FRAME_Nreg <= 1;
+	                           //              IRDY_Nreg  <= 1;
+	                           //              //Status <= default;
+	                           //          end
+	                           end
+                       end
+
                 OverFlowed:       // Need to reset Memory ? ------- if not Granted? (for every Data Phase also) ---------- Slave's DEVSEL be affected by FRAME
                         begin
                             if(!GNT_N)
