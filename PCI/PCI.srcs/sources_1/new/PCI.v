@@ -2,20 +2,25 @@
 
 module device_A(Output0,Output1,CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, MIN_ADDRESS);
 
-parameter MyAddress = 32'hAA, TargetAddress = 32'hBC;
+//parameter MyAddress = 32'hAA, TargetAddress = 32'hBC;
 parameter AssertedMaster = 4'b0000, GrantGiven = 4'b0001, FrameAsserted = 4'b0010;
 parameter DataPhase1 = 4'b0011, DataPhase2 = 4'b0100, DataPhase3 = 4'b0101, DataPhase4 = 4'b0110, DataPhase5 = 4'b0111;
 parameter DataPhase6 = 4'b1000, DataPhase7 = 4'b1001, DataPhase8 = 4'b1010, DataPhase9 = 4'b1011, OverFlowed = 4'b1100;
 
-input CLK, RST_N, GNT_N, FORCED_REQ_N;
+input FORCED_REQ_N;
 input [31:0] MIN_ADDRESS;
 input [31:0] FORCED_ADDRESS;
 input [3:0] FORCED_CBE_N;
+
+input CLK, RST_N, GNT_N;
+
 inout [31:0] AD;	
 inout [3:0] CBE_N;
-inout FRAME_N, IRDY_N, TRDY_N, DEVSEL_N; 
+inout FRAME_N, IRDY_N, TRDY_N, DEVSEL_N;
+
 output REQ_N;
 output [31:0] Output1, Output0;
+
 reg [31:0] ADreg; 
 reg [3:0] CBE_Nreg; 
 reg [3:0] Status = 0;
@@ -23,8 +28,9 @@ reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
 reg MasterFlag = 0, GNTFlag = 0, ReadFlag = 0, WriteFlag = 0;
 
 reg [31:0] memory [0:9];
-initial
+/*initial
 memory [9] = 32'hAAAA_AAAA; 
+*/
 
 assign Output0 = memory [0];
 assign Output1 = memory [1];
@@ -38,8 +44,14 @@ assign FRAME_N = FRAME_Nreg;	assign IRDY_N   = IRDY_Nreg;
 always @ (posedge CLK, RST_N)
     if (!RST_N)
         begin
-		ADreg <= {(32){1'bz}} ; CBE_Nreg <= 4'bzzzz ; FRAME_Nreg <= 1; IRDY_Nreg <= 1; TRDY_Nreg <= 1; DEVSEL_Nreg <= 1;
-		MasterFlag <= 0; Status <= AssertedMaster; 
+		ADreg <= {(32){1'bz}} ;
+		CBE_Nreg <= 4'bzzzz ;
+        FRAME_Nreg <= 1;
+        IRDY_Nreg <= 1; 
+        TRDY_Nreg <= 1; 
+        DEVSEL_Nreg <= 1;
+		MasterFlag <= 0; 
+		Status <= AssertedMaster; 
 		memory[0] <= {MIN_ADDRESS [15:0],{16'h0001}};
 		memory[1] <= {MIN_ADDRESS [15:0],{16'h0002}};
 		memory[2] <= {MIN_ADDRESS [15:0],{16'h0003}};
