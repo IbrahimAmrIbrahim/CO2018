@@ -1,13 +1,13 @@
 `timescale 1ns / 1ps
 
-module device_A(Output0,Output1,CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, MIN_ADDRESS);
+module device_A(Output0,Output1,CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, Forced_DataTfNo, MIN_ADDRESS);
 
-//parameter MyAddress = 32'hAA, TargetAddress = 32'hBC;
-parameter AssertedMaster = 4'b0000, GrantGiven = 4'b0001, FrameAsserted = 4'b0010;
-parameter DataPhase1 = 4'b0011, DataPhase2 = 4'b0100, DataPhase3 = 4'b0101, DataPhase4 = 4'b0110, DataPhase5 = 4'b0111;
-parameter DataPhase6 = 4'b1000, DataPhase7 = 4'b1001, DataPhase8 = 4'b1010, DataPhase9 = 4'b1011, DataPhase10 = 4'b1100,OverFlowed = 4'b1101;
+parameter TransactionStart = 4'b0000, GrantGiven = 4'b0001, FrameAsserted = 4'b0010;
+parameter DataPhase1 = 4'b0100, DataPhase2 = 4'b0101, DataPhase3 = 4'b0110, DataPhase4 = 4'b0111, DataPhase5 = 4'b1000;
+parameter DataPhase6 = 4'b1001, DataPhase7 = 4'b1010, DataPhase8 = 4'b1011, DataPhase9 = 4'b1100, DataPhase10 = 4'b1101,OverFlowed = 4'b1110;
 
 input FORCED_REQ_N;
+input [4:0] Forced_DataTfNo;
 input [31:0] MIN_ADDRESS;
 input [31:0] FORCED_ADDRESS;
 input [3:0] FORCED_CBE_N;
@@ -25,33 +25,283 @@ reg [31:0] ADreg;
 reg [3:0] CBE_Nreg; 
 reg [3:0] Status = 0;
 reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
-reg MasterFlag = 0, GNTFlag = 0, ReadFlag = 0, WriteFlag = 0;
+reg MasterFlag = 0, ReadFlag = 0, WriteFlag = 0;
 
 reg [31:0] memory [0:9];
-/*initial
-memory [9] = 32'hAAAA_AAAA; 
-*/
+
+
+assign REQ_N = FORCED_REQ_N;
+assign AD = ADreg;	       
+assign CBE_N = CBE_Nreg;
+assign FRAME_N = FRAME_Nreg;	
+assign IRDY_N = IRDY_Nreg;
+assign TRDY_N = TRDY_Nreg;	    
+assign DEVSEL_N = DEVSEL_Nreg;
 
 assign Output0 = memory [0];
 assign Output1 = memory [1];
 
-assign REQ_N = FORCED_REQ_N;
-
-assign AD      = ADreg;	        assign CBE_N    = CBE_Nreg;
-assign FRAME_N = FRAME_Nreg;	assign IRDY_N   = IRDY_Nreg;
-//assign TRDY_N  = TRDY_Nreg;	    //assign DEVSEL_N = DEVSEL_Nreg;
+always @ (negedge CLK)
+begin
+	if (RST_N)
+	begin
+		if(MasterFlag)
+		begin
+			case (Status)
+			GrantGiven:
+			begin
+				FRAME_Nreg <= 0;
+				ADreg    <= FORCED_ADDRESS;
+				CBE_Nreg <= FORCED_CBE_N;
+				Status   <= FrameAsserted;
+			end
+			FrameAsserted: 
+			begin 
+				IRDY_Nreg <= 0;
+				if (CBE_N == 4'b0110)       //Read Operation
+				begin
+					ReadFlag  <= 1;
+					WriteFlag <= 0;
+					ADreg    <= {(32){1'bz}};
+					CBE_Nreg <= 4'b0000;
+					Status   <= DataPhase1;
+				end
+				else if (CBE_N == 4'b0111) // Write Operation
+				begin
+					ReadFlag  <= 0;
+					WriteFlag <= 1;
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							ADreg  <= memory [0];
+							CBE_Nreg  <= FORCED_CBE_N;
+							Status <= DataPhase1;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase1:
+			begin
+				if (WriteFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							ADreg  <= memory [1];
+							CBE_Nreg  <= FORCED_CBE_N;
+							Status <= DataPhase2;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase2:
+			begin
+				if (WriteFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							ADreg  <= memory [2];
+							CBE_Nreg  <= FORCED_CBE_N;
+							Status <= DataPhase3;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase3:
+			begin
+				if (WriteFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							ADreg  <= memory [3];
+							CBE_Nreg  <= FORCED_CBE_N;
+							Status <= DataPhase4;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase4:
+			begin
+				if (WriteFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							ADreg  <= memory [4];
+							CBE_Nreg  <= FORCED_CBE_N;
+							Status <= DataPhase5;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase5:
+			begin
+				if (WriteFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							ADreg  <= memory [5];
+							CBE_Nreg  <= FORCED_CBE_N;
+							Status <= DataPhase6;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase6:
+			begin
+				if (WriteFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							ADreg  <= memory [6];
+							CBE_Nreg  <= FORCED_CBE_N;
+							Status <= DataPhase7;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase7:
+			begin
+				if (WriteFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							ADreg  <= memory [7];
+							CBE_Nreg  <= FORCED_CBE_N;
+							Status <= DataPhase8;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase8:
+			begin
+				if (WriteFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							ADreg  <= memory [8];
+							CBE_Nreg  <= FORCED_CBE_N;
+							Status <= DataPhase9;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase9:
+			begin
+				if (WriteFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							ADreg  <= memory [9];
+							CBE_Nreg  <= FORCED_CBE_N;
+							Status <= OverFlowed; /*__Need to change__*/
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			endcase
+		end
+	end
+end
 
 always @ (posedge CLK, RST_N)
     if (!RST_N)
-        begin
-		ADreg <= {(32){1'bz}} ;
-		CBE_Nreg <= 4'bzzzz ;
-        FRAME_Nreg <= 1;
-        IRDY_Nreg <= 1; 
-        TRDY_Nreg <= 1; 
-        DEVSEL_Nreg <= 1;
-		MasterFlag <= 0; 
-		Status <= AssertedMaster; 
+	begin
+		ADreg <= {(32){1'bz}};
+		CBE_Nreg <= 4'bzzzz;
+		FRAME_Nreg <= 1'bz;
+		IRDY_Nreg <= 1'bz; 
+		TRDY_Nreg <= 1'bz; 
+		DEVSEL_Nreg <= 1'bz;
+		MasterFlag <= 1'b0; 
+		Status <= TransactionStart; 
 		memory[0] <= {MIN_ADDRESS [15:0],{16'h0001}};
 		memory[1] <= {MIN_ADDRESS [15:0],{16'h0002}};
 		memory[2] <= {MIN_ADDRESS [15:0],{16'h0003}};
@@ -62,862 +312,227 @@ always @ (posedge CLK, RST_N)
 		memory[7] <= {MIN_ADDRESS [15:0],{16'h0008}};
 		memory[8] <= {MIN_ADDRESS [15:0],{16'h0009}};
 		memory[9] <= {MIN_ADDRESS [15:0],{16'h000A}}; 
-        end
+	end
     else
 	begin 
-        if(!REQ_N || MasterFlag) //Then Device is Master
+        if(!GNT_N || MasterFlag) //Then Device is Master
         begin 
-        MasterFlag = 1;
-            case (Status)
-                AssertedMaster:
-                        begin 
-                            if(!GNT_N)
-                            begin
-                                GNTFlag = 1;
-                                Status <= GrantGiven;
-                            end
-                            else
-                                GNTFlag = 0;
-                        end
-                GrantGiven:
-                        begin
-                            FRAME_Nreg <= 0;
-                            ADreg    <= FORCED_ADDRESS;
-                            CBE_Nreg <= FORCED_CBE_N;
-                            Status   <= FrameAsserted;
-                        end
-                FrameAsserted:
-                        begin 
-
-                        IRDY_Nreg <= 0;
-                            if (CBE_N == 4'b0110)       //Read Operation
-                                begin
-                                    ReadFlag  <= 1;
-                                    WriteFlag <= 0;
-                                    ADreg    <= {(32){1'bz}};
-                                    CBE_Nreg <= 4'b0000;
-                                    Status   <= DataPhase1;
-                                end
-                            else if (CBE_N == 4'b0111) // Write Operation
-                                begin
-                                    ReadFlag  <= 0;
-                                    WriteFlag <= 1;
-                                    ADreg     <= memory[9];
-                                    CBE_Nreg  <= 4'b0000;   // Also Write operation's Dataphase 1
-                                    Status	  <= DataPhase1;
-                                end
-                        end
-                DataPhase1:
-                        begin
-                            if (ReadFlag)
-                            begin
-                                if(!DEVSEL_N)
-                            	begin
-                                	if (!TRDY_N)    // End of burst?
-                                    begin
-                                        memory [0] = FORCED_ADDRESS;
-                                        ADreg 	   = memory [0];    //for debuging
-                                        Status	  <= DataPhase2;
-                                    end
-                            	end
-                                else
-                                if(!GNT_N)
-                        		begin
-                                    if (!REQ_N)
-                                        begin
-                                            MasterFlag <= 1;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            Status     <= AssertedMaster;
-                                        end
-                                    else
-                                        begin 
-                                            //Remove Grant For this master
-                                            MasterFlag <= 0;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            //Status <= default;
-
-                                        end
-                        		end
-                                else 
-                                    begin
-                                        MasterFlag <= 0;
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 1;
-                                        //Status <= default;
-                                    end
-                            end
-                            else if (WriteFlag)
-                                begin 
-                                    if(!DEVSEL_N)
-                                    begin
-	                                    if (!TRDY_N)       // End of burst?
-	                                    begin
-	                                    	
-	                                        ADreg  <= memory [8];
-	                                        Status <= DataPhase2;
-	                                    end
-                                	end
-                                    else
-                                    if(!GNT_N)
-		                        		begin
-		                                    if (!REQ_N)
-		                                        begin
-		                                            MasterFlag <= 1;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            Status     <= AssertedMaster;
-		                                        end
-		                                    else
-		                                        begin 
-		                                            //Remove Grant For this master
-		                                            MasterFlag <= 0;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            //Status <= default;
-
-		                                        end
-		                        		end
-	                                else 
-	                                    begin
-	                                        MasterFlag <= 0;
-	                                        FRAME_Nreg <= 1;
-	                                        IRDY_Nreg  <= 1;
-	                                        //Status <= default;
-	                                    end
-	                            end
-                        end
-                DataPhase2:
-                        begin
-                            if (ReadFlag)
-                            begin
-                                if(!DEVSEL_N)
-                            	begin
-                                	if (!TRDY_N)    // End of burst?
-                                    begin
-                                        memory [1] = FORCED_ADDRESS;
-                                        ADreg = memory [1];    //for debuging
-                                        Status <= DataPhase3;
-                                    end
-                            	end
-                                else
-                                if(!GNT_N)
-                        		begin
-                                    if (!REQ_N)
-                                        begin
-                                            MasterFlag <= 1;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            Status     <= AssertedMaster;
-                                        end
-                                    else
-                                        begin 
-                                            //Remove Grant For this master
-                                            MasterFlag <= 0;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            //Status <= default;
-
-                                        end
-                        		end
-                                else 
-                                    begin
-                                        MasterFlag <= 0;
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 1;
-                                        //Status <= default;
-                                    end
-                            end
-                            else if (WriteFlag)
-                                begin 
-                                    if(!DEVSEL_N)
-                                    begin
-	                                    if (!TRDY_N)       // End of burst?
-	                                    begin
-	                                    	
-	                                        ADreg  <= memory [7];
-	                                        Status <= DataPhase3;
-	                                    end
-                                	end
-                                    else
-                                    if(!GNT_N)
-		                        		begin
-		                                    if (!REQ_N)
-		                                        begin
-		                                            MasterFlag <= 1;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            Status     <= AssertedMaster;
-		                                        end
-		                                    else
-		                                        begin 
-		                                            //Remove Grant For this master
-		                                            MasterFlag <= 0;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            //Status <= default;
-
-		                                        end
-		                        		end
-	                                else 
-	                                    begin
-	                                        MasterFlag <= 0;
-	                                        FRAME_Nreg <= 1;
-	                                        IRDY_Nreg  <= 1;
-	                                        //Status <= default;
-	                                    end
-	                            end
-                        end
-                DataPhase3:
-                        begin
-                            if (ReadFlag)
-                            begin
-                                if(!DEVSEL_N)
-                            	begin
-                                	if (!TRDY_N)    // End of burst?
-                                    begin
-                                        memory [2] = FORCED_ADDRESS;
-                                        ADreg = memory [2];    //for debuging
-                                        Status <= DataPhase4;
-                                    end
-                            	end
-                                else
-                                if(!GNT_N)
-                        		begin
-                                    if (!REQ_N)
-                                        begin
-                                            MasterFlag <= 1;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            Status     <= AssertedMaster;
-                                        end
-                                    else
-                                        begin 
-                                            //Remove Grant For this master
-                                            MasterFlag <= 0;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            //Status <= default;
-
-                                        end
-                        		end
-                                else 
-                                    begin
-                                        MasterFlag <= 0;
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 1;
-                                        //Status <= default;
-                                    end
-                            end
-                            else if (WriteFlag)
-                                begin 
-                                    if(!DEVSEL_N)
-                                    begin
-	                                    if (!TRDY_N)       // End of burst?
-	                                    begin
-	                                    	
-	                                        ADreg  <= memory [6];
-	                                        Status <= DataPhase4;
-	                                    end
-                                	end
-                                    else
-                                    if(!GNT_N)
-		                        		begin
-		                                    if (!REQ_N)
-		                                        begin
-		                                            MasterFlag <= 1;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            Status     <= AssertedMaster;
-		                                        end
-		                                    else
-		                                        begin 
-		                                            //Remove Grant For this master
-		                                            MasterFlag <= 0;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            //Status <= default;
-
-		                                        end
-		                        		end
-	                                else 
-	                                    begin
-	                                        MasterFlag <= 0;
-	                                        FRAME_Nreg <= 1;
-	                                        IRDY_Nreg  <= 1;
-	                                        //Status <= default;
-	                                    end
-	                            end
-                        end
-                DataPhase4:
-                        begin
-                            if (ReadFlag)
-                            begin
-                                if(!DEVSEL_N)
-                            	begin
-                                	if (!TRDY_N)    // End of burst?
-                                    begin
-                                        memory [3] = FORCED_ADDRESS;
-                                        ADreg = memory [3];    //for debuging
-                                        Status <= DataPhase5;
-                                    end
-                            	end
-                                else
-                                if(!GNT_N)
-                        		begin
-                                    if (!REQ_N)
-                                        begin
-                                            MasterFlag <= 1;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            Status     <= AssertedMaster;
-                                        end
-                                    else
-                                        begin 
-                                            //Remove Grant For this master
-                                            MasterFlag <= 0;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            //Status <= default;
-
-                                        end
-                        		end
-                                else 
-                                    begin
-                                        MasterFlag <= 0;
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 1;
-                                        //Status <= default;
-                                    end
-                            end
-                            else if (WriteFlag)
-                                begin 
-                                    if(!DEVSEL_N)
-                                    begin
-	                                    if (!TRDY_N)       // End of burst?
-	                                    begin
-	                                    	
-	                                        ADreg  <= memory [5];
-	                                        Status <= DataPhase5;
-	                                    end
-                                	end
-                                    else
-                                    if(!GNT_N)
-		                        		begin
-		                                    if (!REQ_N)
-		                                        begin
-		                                            MasterFlag <= 1;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            Status     <= AssertedMaster;
-		                                        end
-		                                    else
-		                                        begin 
-		                                            //Remove Grant For this master
-		                                            MasterFlag <= 0;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            //Status <= default;
-
-		                                        end
-		                        		end
-	                                else 
-	                                    begin
-	                                        MasterFlag <= 0;
-	                                        FRAME_Nreg <= 1;
-	                                        IRDY_Nreg  <= 1;
-	                                        //Status <= default;
-	                                    end
-	                            end
-                        end
-                DataPhase5:         // Test Phase
-                        begin
-                            if (ReadFlag)
-                            begin
-                                if(!DEVSEL_N)
-                            	begin
-                                	if (!TRDY_N)    // End of burst?
-                                    begin
-                                        memory [4] = FORCED_ADDRESS;
-                                        ADreg = memory [4];    //for debuging
-                                        Status <= DataPhase6;
-                                    end
-                            	end
-                                else
-                                if(!GNT_N)
-                        		begin
-                                    if (!REQ_N)
-                                        begin
-                                            MasterFlag <= 1;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            Status     <= AssertedMaster;
-                                        end
-                                    else
-                                        begin 
-                                            //Remove Grant For this master
-                                            MasterFlag <= 0;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            //Status <= default;
-
-                                        end
-                        		end
-                                else 
-                                    begin
-                                        MasterFlag <= 0;
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 1;
-                                        //Status <= default;
-                                    end
-                            end
-                            else if (WriteFlag)
-                                begin 
-                                    if(!DEVSEL_N)
-                                    begin
-	                                    if (!TRDY_N)       // End of burst?
-	                                    begin
-	                                    	
-	                                        ADreg  <= memory [4];
-	                                        Status <= DataPhase6;
-	                                    end
-                                	end
-                                    else
-                                    if(!GNT_N)
-		                        		begin
-		                                    if (!REQ_N)
-		                                        begin
-		                                            MasterFlag <= 1;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            Status     <= AssertedMaster;
-		                                        end
-		                                    else
-		                                        begin 
-		                                            //Remove Grant For this master
-		                                            MasterFlag <= 0;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            //Status <= default;
-
-		                                        end
-		                        		end
-	                                else 
-	                                    begin
-	                                        MasterFlag <= 0;
-	                                        FRAME_Nreg <= 1;
-	                                        IRDY_Nreg  <= 1;
-	                                        //Status <= default;
-	                                    end
-	                            end
-                        end
-                DataPhase6:         // Test Phase
-                        begin
-                            if (ReadFlag)
-                            begin
-                                if(!DEVSEL_N)
-                            	begin
-                                	if (!TRDY_N)    // End of burst?
-                                    begin
-                                        memory [5] = FORCED_ADDRESS;
-                                        ADreg = memory [5];    //for debuging
-                                        Status <= DataPhase7;
-                                    end
-                            	end
-                                else
-                                if(!GNT_N)
-                        		begin
-                                    if (!REQ_N)
-                                        begin
-                                            MasterFlag <= 1;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            Status     <= AssertedMaster;
-                                        end
-                                    else
-                                        begin 
-                                            //Remove Grant For this master
-                                            MasterFlag <= 0;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            //Status <= default;
-
-                                        end
-                        		end
-                                else 
-                                    begin
-                                        MasterFlag <= 0;
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 1;
-                                        //Status <= default;
-                                    end
-                            end
-                            else if (WriteFlag)
-                                begin 
-                                    if(!DEVSEL_N)
-                                    begin
-	                                    if (!TRDY_N)       // End of burst?
-	                                    begin
-	                                    	
-	                                        ADreg  <= memory [3];
-	                                        Status <= DataPhase7;
-	                                    end
-                                	end
-                                    else
-                                    if(!GNT_N)
-		                        		begin
-		                                    if (!REQ_N)
-		                                        begin
-		                                            MasterFlag <= 1;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            Status     <= AssertedMaster;
-		                                        end
-		                                    else
-		                                        begin 
-		                                            //Remove Grant For this master
-		                                            MasterFlag <= 0;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            //Status <= default;
-
-		                                        end
-		                        		end
-	                                else 
-	                                    begin
-	                                        MasterFlag <= 0;
-	                                        FRAME_Nreg <= 1;
-	                                        IRDY_Nreg  <= 1;
-	                                        //Status <= default;
-	                                    end
-	                            end
-                        end
-                DataPhase7:         // Test Phase
-                        begin
-                            if (ReadFlag)
-                            begin
-                                if(!DEVSEL_N)
-                            	begin
-                                	if (!TRDY_N)    // End of burst?
-                                    begin
-                                        memory [6] = FORCED_ADDRESS;
-                                        ADreg = memory [6];    //for debuging
-                                        Status <= DataPhase8;
-                                    end
-                            	end
-                                else
-                                if(!GNT_N)
-                        		begin
-                                    if (!REQ_N)
-                                        begin
-                                            MasterFlag <= 1;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            Status     <= AssertedMaster;
-                                        end
-                                    else
-                                        begin 
-                                            //Remove Grant For this master
-                                            MasterFlag <= 0;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            //Status <= default;
-
-                                        end
-                        		end
-                                else 
-                                    begin
-                                        MasterFlag <= 0;
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 1;
-                                        //Status <= default;
-                                    end
-                            end
-                            else if (WriteFlag)
-                                begin 
-                                    if(!DEVSEL_N)
-                                    begin
-	                                    if (!TRDY_N)       // End of burst?
-	                                    begin
-	                                    	
-	                                        ADreg  <= memory [2];
-	                                        Status <= DataPhase8;
-	                                    end
-                                	end
-                                    else
-                                    if(!GNT_N)
-		                        		begin
-		                                    if (!REQ_N)
-		                                        begin
-		                                            MasterFlag <= 1;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            Status     <= AssertedMaster;
-		                                        end
-		                                    else
-		                                        begin 
-		                                            //Remove Grant For this master
-		                                            MasterFlag <= 0;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            //Status <= default;
-
-		                                        end
-		                        		end
-	                                else 
-	                                    begin
-	                                        MasterFlag <= 0;
-	                                        FRAME_Nreg <= 1;
-	                                        IRDY_Nreg  <= 1;
-	                                        //Status <= default;
-	                                    end
-	                            end
-                        end
-                DataPhase8:         // Test Phase
-                        begin
-                            if (ReadFlag)
-                            begin
-                                if(!DEVSEL_N)
-                            	begin
-                                	if (!TRDY_N)    // End of burst?
-                                    begin
-                                        memory [7] = FORCED_ADDRESS;
-                                        ADreg = memory [7];    //for debuging
-                                        Status <= DataPhase9;
-                                    end
-                            	end
-                                else
-                                if(!GNT_N)
-                        		begin
-                                    if (!REQ_N)
-                                        begin
-                                            MasterFlag <= 1;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            Status     <= AssertedMaster;
-                                        end
-                                    else
-                                        begin 
-                                            //Remove Grant For this master
-                                            MasterFlag <= 0;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            //Status <= default;
-
-                                        end
-                        		end
-                                else 
-                                    begin
-                                        MasterFlag <= 0;
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 1;
-                                        //Status <= default;
-                                    end
-                            end
-                            else if (WriteFlag)
-                                begin 
-                                    if(!DEVSEL_N)
-                                    begin
-	                                    if (!TRDY_N)       // End of burst?
-	                                    begin
-	                                    	
-	                                        ADreg  <= memory [1];
-	                                        Status <= DataPhase9;
-	                                    end
-                                	end
-                                    else
-                                    if(!GNT_N)
-		                        		begin
-		                                    if (!REQ_N)
-		                                        begin
-		                                            MasterFlag <= 1;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            Status     <= AssertedMaster;
-		                                        end
-		                                    else
-		                                        begin 
-		                                            //Remove Grant For this master
-		                                            MasterFlag <= 0;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            //Status <= default;
-
-		                                        end
-		                        		end
-	                                else 
-	                                    begin
-	                                        MasterFlag <= 0;
-	                                        FRAME_Nreg <= 1;
-	                                        IRDY_Nreg  <= 1;
-	                                        //Status <= default;
-	                                    end
-	                            end
-                        end                      
-                DataPhase9:         // Test Phase
-                       begin
-                            if (ReadFlag)
-                            begin
-                                if(!DEVSEL_N)
-                            	begin
-                                	if (!TRDY_N)    // End of burst?
-                                    begin
-                                        memory [8] = FORCED_ADDRESS;
-                                        ADreg = memory [8];    //for debuging
-                                        Status <= DataPhase10;
-                                    end
-                            	end
-                                else
-                                if(!GNT_N)
-                        		begin
-                                    if (!REQ_N)
-                                        begin
-                                            MasterFlag <= 1;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            Status     <= AssertedMaster;
-                                        end
-                                    else
-                                        begin 
-                                            //Remove Grant For this master
-                                            MasterFlag <= 0;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            //Status <= default;
-
-                                        end
-                        		end
-                                else 
-                                    begin
-                                        MasterFlag <= 0;
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 1;
-                                        //Status <= default;
-                                    end
-                            end
-                            else if (WriteFlag)
-                                begin 
-                                    if(!DEVSEL_N)
-                                    begin
-	                                    if (!TRDY_N)       // End of burst?
-	                                    begin
-	                                    	
-	                                        ADreg  <= memory [0];
-	                                        Status <= DataPhase10;
-	                                    end
-                                	end
-                                    else
-                                    if(!GNT_N)
-		                        		begin
-		                                    if (!REQ_N)
-		                                        begin
-		                                            MasterFlag <= 1;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            Status     <= AssertedMaster;
-		                                        end
-		                                    else
-		                                        begin 
-		                                            //Remove Grant For this master
-		                                            MasterFlag <= 0;
-		                                            FRAME_Nreg <= 1;
-		                                            IRDY_Nreg  <= 1;
-		                                            //Status <= default;
-
-		                                        end
-		                        		end
-	                                else 
-	                                    begin
-	                                        MasterFlag <= 0;
-	                                        FRAME_Nreg <= 1;
-	                                        IRDY_Nreg  <= 1;
-	                                        //Status <= default;
-	                                    end
-	                            end
-                        end
-                
-                DataPhase10:
-                begin
-                            if (ReadFlag)
-                            begin
-                                if(!DEVSEL_N)
-                            	begin
-                                	if (!TRDY_N)    // End of burst?
-                                    begin
-                                        memory [9] = FORCED_ADDRESS;
-                                        ADreg = memory [9];    //for debuging
-                                        Status <= OverFlowed;
-                                    end
-                            	end
-                                else
-                                if(!GNT_N)
-                        		begin
-                                    if (!REQ_N)
-                                        begin
-                                            MasterFlag <= 1;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            Status     <= AssertedMaster;
-                                        end
-                                    else
-                                        begin 
-                                            //Remove Grant For this master
-                                            MasterFlag <= 0;
-                                            FRAME_Nreg <= 1;
-                                            IRDY_Nreg  <= 1;
-                                            //Status <= default;
-
-                                        end
-                        		end
-                                else 
-                                    begin
-                                        MasterFlag <= 0;
-                                        FRAME_Nreg <= 1;
-                                        IRDY_Nreg  <= 1;
-                                        //Status <= default;
-                                    end
-                            end
-                            else if (WriteFlag)
-                                 begin 
-                            //         if(!DEVSEL_N)
-                            //         begin
-	                           //          if (!TRDY_N)       // End of burst?
-	                           //          begin
-	                                    	
-	                           //              ADreg  <= memory [0];
-	                           //              Status <= OverFlowed;
-	                           //          end
-                            //     	end
-                            //         else
-                            //         if(!GNT_N)
-		                        		// begin
-		                          //           if (!REQ_N)
-		                          //               begin
-		                          //                   MasterFlag <= 1;
-		                          //                   FRAME_Nreg <= 1;
-		                          //                   IRDY_Nreg  <= 1;
-		                          //                   Status     <= AssertedMaster;
-		                          //               end
-		                          //           else
-		                          //               begin 
-		                          //                   //Remove Grant For this master
-		                          //                   MasterFlag <= 0;
-		                          //                   FRAME_Nreg <= 1;
-		                          //                   IRDY_Nreg  <= 1;
-		                          //                   //Status <= default;
-
-		                          //               end
-		                        		// end
-	                           //      else 
-	                           //          begin
-	                           //              MasterFlag <= 0;
-	                           //              FRAME_Nreg <= 1;
-	                           //              IRDY_Nreg  <= 1;
-	                           //              //Status <= default;
-	                           //          end
-	                           end
-                       end
+			MasterFlag = 1;
+		    case (Status)
+			TransactionStart:
+			begin
+				Status <= GrantGiven;
+			end
+			DataPhase1:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory[0] = AD;
+							Status <= DataPhase2;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase2:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory [1] = AD;
+							Status <= DataPhase3;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase3:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory [2] = AD;
+							Status <= DataPhase4;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase4:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory [3] = AD;
+							Status <= DataPhase5;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase5:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory [4] = AD;
+							Status <= DataPhase6;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase6:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory [5] = AD;
+							Status <= DataPhase7;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;						
+					end
+				end
+			end
+			DataPhase7:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory [6] = AD;
+							Status <= DataPhase8;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase8:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory [7] = AD;
+							Status <= DataPhase9;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end                      
+			DataPhase9:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory [8] = AD;
+							Status <= DataPhase10;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
+			DataPhase10:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory [9] = AD;
+							Status <= OverFlowed;
+						end
+					end
+					else
+					begin
+						MasterFlag <= 0;
+						FRAME_Nreg <= 1;
+						IRDY_Nreg  <= 1;
+						Status <= TransactionStart;
+					end
+				end
+			end
 
                 OverFlowed:       // Need to reset Memory ? ------- if not Granted? (for every Data Phase also) ---------- Slave's DEVSEL be affected by FRAME
                         begin
@@ -927,7 +542,7 @@ always @ (posedge CLK, RST_N)
                                         MasterFlag <= 1;
                                         FRAME_Nreg <= 1;
                                         IRDY_Nreg  <= 1;
-                                        Status     <= AssertedMaster;
+                                        Status     <= TransactionStart;
                                     end
                                 else
                                     begin 
@@ -947,7 +562,7 @@ always @ (posedge CLK, RST_N)
                                 end
                         end
 
-                default : /* default */;
+                default: /* default */;
             endcase
         end
         else begin
@@ -960,18 +575,18 @@ always @ (posedge CLK, RST_N)
 
 endmodule
 
-module arbiter_priority(GNT_Neg , REQ_Neg , FRAME_Neg ,clk, RST_Neg);
+module arbiter_priority(GNT_Neg , REQ_Neg , FRAME_Neg , RST_Neg);
 output reg [7:0] GNT_Neg;
 input [7:0] REQ_Neg;
-input FRAME_Neg,RST_Neg,clk;
+input FRAME_Neg,RST_Neg;
 reg EN;
 
 always @(negedge FRAME_Neg)
 begin
-EN <= 1'b1;
+	EN <= 1'b1;
 end
 
-always @(posedge clk)
+always @(REQ_Neg)
 begin
     if(~RST_Neg)
     begin
@@ -995,133 +610,139 @@ begin
 end
 endmodule
 
-module arbiter_RobinRound(GNT_Neg , REQ_Neg , FRAME_Neg ,clk, RST_Neg);
+module arbiter_RobinRound(GNT_Neg , REQ_Neg , FRAME_Neg , RST_Neg);
 output reg [7:0] GNT_Neg;
 input [7:0] REQ_Neg;
-input FRAME_Neg,RST_Neg,clk;
+input FRAME_Neg,RST_Neg;
 
+reg EN;
 reg [2:0] counter;
 
-always @(posedge clk)
+always @(negedge FRAME_Neg)
+begin
+	EN <= 1'b1;
+end
+
+always @(REQ_Neg)
 begin
     if(~RST_Neg)
     begin
         GNT_Neg <= 8'b1111_1111;
         counter <= 3'b000;
     end
-    else if(FRAME_Neg)
+    else if(FRAME_Neg && EN)
     begin
         case(counter)
             3'b000:
                 begin
                     casez(REQ_Neg)
-                        8'bzzzz_zzz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; end
-                        8'bzzzz_zz01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; end
-                        8'bzzzz_z011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; end
-                        8'bzzzz_0111:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; end
-                        8'bzzz0_1111:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; end
-                        8'bzz01_1111:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; end
-                        8'bz011_1111:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; end
-                        8'b0111_1111:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; end
-                        default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b000; end
+                        8'bzzzz_zzz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0; end
+                        8'bzzzz_zz01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0; end
+                        8'bzzzz_z011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0; end
+                        8'bzzzz_0111:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0; end
+                        8'bzzz0_1111:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0; end
+                        8'bzz01_1111:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0; end
+                        8'bz011_1111:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0; end
+                        8'b0111_1111:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0; end
+                        default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b000; EN <= 1'b1; end
                     endcase
                 end
             3'b001:
                 begin
                     casez(REQ_Neg)
-                        8'bzzzz_zz0z:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; end
-                        8'bzzzz_z01z:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; end
-                        8'bzzzz_011z:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; end
-                        8'bzzz0_111z:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; end
-                        8'bzz01_111z:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; end
-                        8'bz011_111z:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; end
-                        8'b0111_111z:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; end
-                        8'b1111_1110:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; end
-                        default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b001; end
+                        8'bzzzz_zz0z:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0; end
+                        8'bzzzz_z01z:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0; end
+                        8'bzzzz_011z:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0; end
+                        8'bzzz0_111z:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0; end
+                        8'bzz01_111z:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0; end
+                        8'bz011_111z:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0; end
+                        8'b0111_111z:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0; end
+                        8'b1111_1110:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0; end
+                        default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b001; EN <= 1'b1; end
                     endcase
                 end
             3'b010:
                 begin
                     casez(REQ_Neg)
-                        8'bzzzz_z0zz:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; end
-                        8'bzzzz_01zz:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; end
-                        8'bzzz0_11zz:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; end
-                        8'bzz01_11zz:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; end
-                        8'bz011_11zz:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; end
-                        8'b0111_11zz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; end
-                        8'b1111_11z0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; end
-                        8'b1111_1101:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; end
-                        default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b010; end
+                        8'bzzzz_z0zz:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0; end
+                        8'bzzzz_01zz:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0; end
+                        8'bzzz0_11zz:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0; end
+                        8'bzz01_11zz:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0; end
+                        8'bz011_11zz:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0; end
+                        8'b0111_11zz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0; end
+                        8'b1111_11z0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0; end
+                        8'b1111_1101:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0; end
+                        default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b010; EN <= 1'b1; end
                     endcase
                 end
             3'b011:
                 begin
                     casez(REQ_Neg)
-                        8'bzzzz_0zzz:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; end
-                        8'bzzz0_1zzz:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; end
-                        8'bzz01_1zzz:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; end
-                        8'bz011_1zzz:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; end
-                        8'b0111_1zzz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; end
-                        8'b1111_1zz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; end
-                        8'b1111_1z01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; end
-                        8'b1111_1011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; end
-                        default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b011; end
+                        8'bzzzz_0zzz:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0; end
+                        8'bzzz0_1zzz:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0; end
+                        8'bzz01_1zzz:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0; end
+                        8'bz011_1zzz:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0; end
+                        8'b0111_1zzz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0; end
+                        8'b1111_1zz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0; end
+                        8'b1111_1z01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0; end
+                        8'b1111_1011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0; end
+                        default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b011; EN <= 1'b1; end
                     endcase                
                 end
             3'b100:
                 begin
                     casez(REQ_Neg)
-                    8'bzzz0_zzzz:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; end
-                    8'bzz01_zzzz:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; end
-                    8'bz011_zzzz:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; end
-                    8'b0111_zzzz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; end
-                    8'b1111_zzz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; end
-                    8'b1111_zz01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; end
-                    8'b1111_z011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; end
-                    8'b1111_0111:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; end
-                    default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b100; end
+						8'bzzz0_zzzz:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0; end
+						8'bzz01_zzzz:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0; end
+						8'bz011_zzzz:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0; end
+						8'b0111_zzzz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0; end
+						8'b1111_zzz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0; end
+						8'b1111_zz01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0; end
+						8'b1111_z011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0; end
+						8'b1111_0111:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0; end
+						default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b100; EN <= 1'b1; end
                 endcase                
                 end
             3'b101:
                 begin
                     casez(REQ_Neg)
-                    8'bzz0z_zzzz:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; end
-                    8'bz01z_zzzz:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; end
-                    8'b011z_zzzz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; end
-                    8'b111z_zzz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; end
-                    8'b111z_zz01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; end
-                    8'b111z_z011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; end
-                    8'b111z_0111:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; end
-                    8'b1110_1111:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; end
-                    default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b101; end
+						8'bzz0z_zzzz:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0; end
+						8'bz01z_zzzz:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0; end
+						8'b011z_zzzz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0; end
+						8'b111z_zzz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0; end
+						8'b111z_zz01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0; end
+						8'b111z_z011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0; end
+						8'b111z_0111:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0; end
+						8'b1110_1111:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0; end
+						default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b101; EN <= 1'b1; end
                 endcase                
                 end
             3'b110:
                 begin
                     casez(REQ_Neg)
-                    8'bz0zz_zzzz:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; end
-                    8'b01zz_zzzz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; end
-                    8'b11zz_zzz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; end
-                    8'b11zz_zz01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; end
-                    8'b11zz_z011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; end
-                    8'b11zz_0111:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; end
-                    8'b11z0_1111:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; end
-                    8'b1101_1111:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; end
-                    default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b110; end
+						8'bz0zz_zzzz:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0; end
+						8'b01zz_zzzz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0; end
+						8'b11zz_zzz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0; end
+						8'b11zz_zz01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0; end
+						8'b11zz_z011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0; end
+						8'b11zz_0111:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0; end
+						8'b11z0_1111:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0; end
+						8'b1101_1111:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0; end
+						default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b110; EN <= 1'b1; end
                 endcase               
                 end
             3'b111:
                 begin
                     casez(REQ_Neg)
-                    8'b0zzz_zzzz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; end
-                    8'b1zzz_zzz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; end
-                    8'b1zzz_zz01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; end
-                    8'b1zzz_z011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; end
-                    8'b1zzz_0111:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; end
-                    8'b1zz0_1111:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; end
-                    8'b1z01_1111:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; end
-                    8'b1011_1111:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; end
-                    default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b111; end
+						8'b0zzz_zzzz:begin GNT_Neg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0; end
+						8'b1zzz_zzz0:begin GNT_Neg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0; end
+						8'b1zzz_zz01:begin GNT_Neg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0; end
+						8'b1zzz_z011:begin GNT_Neg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0; end
+						8'b1zzz_0111:begin GNT_Neg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0; end
+						8'b1zz0_1111:begin GNT_Neg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0; end
+						8'b1z01_1111:begin GNT_Neg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0; end
+						8'b1011_1111:begin GNT_Neg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0; end
+						default: begin GNT_Neg <= 8'b1111_1111; counter = 3'b111; EN <= 1'b1; end
                 endcase                
                 end
         endcase
@@ -2028,4 +1649,100 @@ end
 
 
 arbiter_FCFS arbiter_FCFS_test(GNT,REQ,FRAME,clk,RST,EN);
+endmodule
+
+
+module device_tb();
+
+wire [31:0] Output0, Output1;
+
+reg FORCED_REQ_N;
+reg [31:0] MIN_ADDRESS;
+reg [31:0] FORCED_ADDRESS;
+reg [3:0] FORCED_CBE_N;
+
+reg CLK, RST_N, GNT_N;
+
+wire [31:0] AD;	
+wire [3:0] CBE_N;
+wire FRAME_N, IRDY_N, TRDY_N, DEVSEL_N;
+
+reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
+reg [31:0] ADreg;	
+reg [3:0] CBE_Nreg;
+
+wire REQ_N;
+
+assign FRAME_N = FRAME_Nreg;
+assign IRDY_N = IRDY_Nreg;
+assign TRDY_N = TRDY_Nreg;
+assign DEVSEL_N = DEVSEL_Nreg;
+assign AD = ADreg;
+assign CBE_N = CBE_Nreg;
+
+
+initial
+begin
+CLK <= 0;
+RST_N <= 0;
+MIN_ADDRESS <= 32'h0000_0001;
+IRDY_Nreg <= 1'bz;
+TRDY_Nreg <= 1'bz;
+FRAME_Nreg <= 1'bz;
+DEVSEL_Nreg <= 1'bz;
+CBE_Nreg <= 4'bzzzz;
+ADreg <= {(32){1'bz}};
+#12
+RST_N <= 1;
+FORCED_REQ_N <= 0;
+FORCED_ADDRESS <= 32'h0000_0002;
+FORCED_CBE_N <= 4'b0110;
+#10
+GNT_N <= 0;
+#10
+DEVSEL_Nreg <= 0;
+#20
+TRDY_Nreg <= 0;
+ADreg <= 32'h1000_0000;
+#10
+ADreg <= 32'h2000_0000;
+#10
+ADreg <= 32'h3000_0000;
+#10
+ADreg <= 32'h4000_0000;
+#10
+ADreg <= 32'h5000_0000;
+#10
+ADreg <= 32'h6000_0000;
+#10
+ADreg <= 32'h7000_0000;
+#10
+ADreg <= 32'h8000_0000;
+#10
+ADreg <= 32'h9000_0000;
+#10
+ADreg <= 32'hA000_0000;
+
+
+#10
+DEVSEL_Nreg <= 1;
+ADreg <= {(32){1'bz}};
+#10
+FORCED_CBE_N <= 4'b0111;
+#10
+#10
+GNT_N <= 0;
+#20
+TRDY_Nreg <= 0;
+DEVSEL_Nreg <= 0;
+
+
+end
+
+always
+begin
+#5 CLK = ~CLK;
+end
+device_A device_tb(Output0,Output1,CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, MIN_ADDRESS);
+
 endmodule
