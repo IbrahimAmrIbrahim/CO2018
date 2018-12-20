@@ -26,6 +26,7 @@ reg [3:0] CBE_Nreg;
 reg [3:0] Status;
 reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
 reg MasterFlag , ReadFlag, WriteFlag;
+reg SlaveFlag;
 
 reg [31:0] memory [0:9];
 
@@ -288,30 +289,268 @@ begin
 			end
 			endcase
 		end
+		else 
+		begin
+			case (Status)
+			GrantGiven:
+			begin
+				DEVSEL_Nreg <= 0;
+				TRDY_Nreg <= 0; 
+				if (CBE_N == 4'b0110)       //Read Operation by master
+				begin
+					ReadFlag  <= 1;
+					WriteFlag <= 0;
+				end
+				else if (CBE_N == 4'b0111) // Write Operation by master
+				begin
+					ReadFlag  <= 0;
+					WriteFlag <= 1;
+				end
+				Status   <= DataPhase1;
+			end
+			// FrameAsserted: 
+			// begin 
+			// 	IRDY_Nreg <= 0;
+			// 	if (CBE_N == 4'b0110)       //Read Operation
+			// 	begin
+			// 		ReadFlag  <= 1;
+			// 		WriteFlag <= 0;
+			// 		ADreg    <= {(32){1'bz}};
+			// 		CBE_Nreg <= 4'b0000;
+			// 		Status   <= DataPhase1;
+			// 	end
+			// 	else if (CBE_N == 4'b0111) // Write Operation
+			// 	begin
+			// 		ReadFlag  <= 0;
+			// 		WriteFlag <= 1;
+			// 		if(!DEVSEL_N)
+			// 		begin
+			// 			if (!TRDY_N)
+			// 			begin
+			// 				ADreg  <= memory [0];
+			// 				CBE_Nreg  <= FORCED_CBE_N;
+			// 				Status <= DataPhase1;
+			// 			end
+			// 		end
+			// 		else
+			// 		begin
+			// 			MasterFlag <= 0;
+			// 			FRAME_Nreg <= 1;
+			// 			IRDY_Nreg  <= 1;
+			// 			Status <= TransactionStart;
+			// 		end
+			// 	end
+			// end
+			DataPhase1:
+			begin
+				if (ReadFlag)
+				begin
+						if (!TRDY_N)
+						begin
+							if(CBE_N [0] == 0)
+							 ADreg [7:0] = memory    [0] [7:0];
+							if(CBE_N [1] == 0)
+							 ADreg [15:8] = memory   [0] [15:8];
+							if(CBE_N [2] == 0)
+							 ADreg [23:16] = memory  [0] [23:16];
+							if(CBE_N [3] == 0)
+							 ADreg [31:24]  = memory [0] [31:24];
+
+							Status <= DataPhase2;
+						end
+									end
+			end
+			DataPhase2:
+			begin
+				if (ReadFlag)
+				begin
+						if (!TRDY_N)
+						begin
+							if(CBE_N [0] == 0)
+							 ADreg [7:0] = memory    [1] [7:0];
+							if(CBE_N [1] == 0)
+							 ADreg [15:8] = memory   [1] [15:8];
+							if(CBE_N [2] == 0)
+							 ADreg [23:16] = memory  [1] [23:16];
+							if(CBE_N [3] == 0)
+							 ADreg [31:24]  = memory [1] [31:24];
+							Status <= DataPhase3;
+						end
+				
+					
+				end
+			end
+			DataPhase3:
+			begin
+				if (ReadFlag)
+				begin
+				
+						if (!TRDY_N)
+						begin
+							if(CBE_N [0] == 0)
+							 ADreg [7:0] = memory    [2] [7:0];
+							if(CBE_N [1] == 0)
+							 ADreg [15:8] = memory   [2] [15:8];
+							if(CBE_N [2] == 0)
+							 ADreg [23:16] = memory  [2] [23:16];
+							if(CBE_N [3] == 0)
+							 ADreg [31:24]  = memory [2] [31:24];
+							Status <= DataPhase4;
+						end
+				
+					
+				end
+			end
+			DataPhase4:
+			begin
+				if (ReadFlag)
+				begin
+				
+						if (!TRDY_N)
+						begin
+							if(CBE_N [0] == 0)
+							 ADreg [7:0] = memory    [3] [7:0];
+							if(CBE_N [1] == 0)
+							 ADreg [15:8] = memory   [3] [15:8];
+							if(CBE_N [2] == 0)
+							 ADreg [23:16] = memory  [3] [23:16];
+							if(CBE_N [3] == 0)
+							 ADreg [31:24]  = memory [3] [31:24];
+							Status <= DataPhase5;
+						end
+				
+					
+				end
+			end
+			DataPhase5:
+			begin
+				if (ReadFlag)
+				begin
+				
+						if (!TRDY_N)
+						begin
+							if(CBE_N [0] == 0)
+							 ADreg [7:0] = memory    [4] [7:0];
+							if(CBE_N [1] == 0)
+							 ADreg [15:8] = memory   [4] [15:8];
+							if(CBE_N [2] == 0)
+							 ADreg [23:16] = memory  [4] [23:16];
+							if(CBE_N [3] == 0)
+							 ADreg [31:24]  = memory [4] [31:24];
+							Status <= DataPhase6;
+						end
+				
+					
+				end
+			end
+			DataPhase6:
+			begin
+				if (ReadFlag)
+				begin
+					
+						if (!TRDY_N)
+						begin
+							if(CBE_N [0] == 0)
+							 ADreg [7:0] = memory    [5] [7:0];
+							if(CBE_N [1] == 0)
+							 ADreg [15:8] = memory   [5] [15:8];
+							if(CBE_N [2] == 0)
+							 ADreg [23:16] = memory  [5] [23:16];
+							if(CBE_N [3] == 0)
+							 ADreg [31:24]  = memory [5] [31:24];
+							Status <= DataPhase7;
+						end
+				
+					
+				end
+			end
+			DataPhase7:
+			begin
+				if (ReadFlag)
+				begin
+				
+						if (!TRDY_N)
+						begin
+							if(CBE_N [0] == 0)
+							 ADreg [7:0] = memory    [6] [7:0];
+							if(CBE_N [1] == 0)
+							 ADreg [15:8] = memory   [6] [15:8];
+							if(CBE_N [2] == 0)
+							 ADreg [23:16] = memory  [6] [23:16];
+							if(CBE_N [3] == 0)
+							 ADreg [31:24]  = memory [6] [31:24];
+							Status <= DataPhase8;
+						end
+				
+					
+				end
+			end
+			DataPhase8:
+			begin
+				if (ReadFlag)
+				begin
+				
+						if (!TRDY_N)
+						begin
+							if(CBE_N [0] == 0)
+							 ADreg [7:0] = memory    [7] [7:0];
+							if(CBE_N [1] == 0)
+							 ADreg [15:8] = memory   [7] [15:8];
+							if(CBE_N [2] == 0)
+							 ADreg [23:16] = memory  [7] [23:16];
+							if(CBE_N [3] == 0)
+							 ADreg [31:24]  = memory [7] [31:24];
+							Status <= DataPhase9;
+						end
+				
+					
+				end
+			end
+			DataPhase9:
+			begin
+				if (ReadFlag)
+				begin
+						if (!TRDY_N)
+						begin
+							if(CBE_N [0] == 0)
+							 ADreg [7:0] = memory    [8] [7:0];
+							if(CBE_N [1] == 0)
+							 ADreg [15:8] = memory   [8] [15:8];
+							if(CBE_N [2] == 0)
+							 ADreg [23:16] = memory  [8] [23:16];
+							if(CBE_N [3] == 0)
+							 ADreg [31:24]  = memory [8] [31:24];
+							Status <= OverFlowed; /*__Need to change__*/
+						end
+				end
+			end
+			endcase
+		end
 	end
 end
 
 always @ (posedge CLK, RST_N)
     if (!RST_N)
 	begin
-		ADreg <= {(32){1'bz}};
-		CBE_Nreg <= 4'bzzzz;
-		FRAME_Nreg <= 1'b1;
-		IRDY_Nreg <= 1'b1; 
-		TRDY_Nreg <= 1'b1; 
+		ADreg       <= {(32){1'bz}};
+		CBE_Nreg    <= 4'bzzzz;
+		FRAME_Nreg  <= 1'b1;
+		IRDY_Nreg   <= 1'b1; 
+		TRDY_Nreg   <= 1'b1; 
 		DEVSEL_Nreg <= 1'b1;
-		MasterFlag <= 1'b0; 
-		Status <= TransactionStart; 
-		memory[0] <= {MIN_ADDRESS [15:0],{16'h0001}};
-		memory[1] <= {MIN_ADDRESS [15:0],{16'h0002}};
-		memory[2] <= {MIN_ADDRESS [15:0],{16'h0003}};
-		memory[3] <= {MIN_ADDRESS [15:0],{16'h0004}};
-		memory[4] <= {MIN_ADDRESS [15:0],{16'h0005}};
-		memory[5] <= {MIN_ADDRESS [15:0],{16'h0006}};
-		memory[6] <= {MIN_ADDRESS [15:0],{16'h0007}};
-		memory[7] <= {MIN_ADDRESS [15:0],{16'h0008}};
-		memory[8] <= {MIN_ADDRESS [15:0],{16'h0009}};
-		memory[9] <= {MIN_ADDRESS [15:0],{16'h000A}}; 
+		MasterFlag  <= 1'b0; 
+		SlaveFlag   <= 1'b0;
+		Status      <= TransactionStart; 
+		memory[0]   <= {MIN_ADDRESS [15:0],{16'h0001}};
+		memory[1]   <= {MIN_ADDRESS [15:0],{16'h0002}};
+		memory[2]   <= {MIN_ADDRESS [15:0],{16'h0003}};
+		memory[3]   <= {MIN_ADDRESS [15:0],{16'h0004}};
+		memory[4]   <= {MIN_ADDRESS [15:0],{16'h0005}};
+		memory[5]   <= {MIN_ADDRESS [15:0],{16'h0006}};
+		memory[6]   <= {MIN_ADDRESS [15:0],{16'h0007}};
+		memory[7]   <= {MIN_ADDRESS [15:0],{16'h0008}};
+		memory[8]   <= {MIN_ADDRESS [15:0],{16'h0009}};
+		memory[9]   <= {MIN_ADDRESS [15:0],{16'h000A}}; 
 	end
     else
 	begin 
@@ -324,6 +563,158 @@ always @ (posedge CLK, RST_N)
 				Status <= GrantGiven;
 				TRDY_Nreg <= 1'bz; 
 				DEVSEL_Nreg <= 1'bz;
+			end
+			DataPhase1:
+			begin
+				if (WriteFlag)
+					begin
+						if (!IRDY_N)
+						begin
+							memory[0] <= AD;
+							Status <= DataPhase2;
+						end
+					end
+			end
+			DataPhase2:
+			begin
+				if (WriteFlag)
+					begin
+						if (!IRDY_N)
+						begin
+							memory[1] <= AD;
+							Status <= DataPhase2;
+						end
+					end
+			end
+			DataPhase3:
+			begin
+				if (WriteFlag)
+					begin
+						if (!IRDY_N)
+						begin
+							memory[2] <= AD;
+							Status <= DataPhase2;
+						end
+					end
+			end
+			DataPhase4:
+			begin
+				if (WriteFlag)
+					begin
+						if (!IRDY_N)
+						begin
+							memory[3] <= AD;
+							Status <= DataPhase2;
+						end
+					end
+			end
+			DataPhase5:
+			begin
+				if (WriteFlag)
+					begin
+						if (!IRDY_N)
+						begin
+							memory[4] <= AD;
+							Status <= DataPhase2;
+						end
+					end
+			end
+			DataPhase6:
+			begin
+				if (WriteFlag)
+					begin
+						if (!IRDY_N)
+						begin
+							memory[5] <= AD;
+							Status <= DataPhase2;
+						end
+					end
+			end
+			DataPhase7:
+			begin
+				if (WriteFlag)
+					begin
+						if (!IRDY_N)
+						begin
+							memory[6] <= AD;
+							Status <= DataPhase2;
+						end
+					end
+			end
+			DataPhase8:
+			begin
+				if (WriteFlag)
+					begin
+						if (!IRDY_N)
+						begin
+							memory[7] <= AD;
+							Status <= DataPhase2;
+						end
+					end
+			end    
+			DataPhase9:
+			begin
+				if (WriteFlag)
+					begin
+						if (!IRDY_N)
+						begin
+							memory[8] <= AD;
+							Status <= DataPhase2;
+						end
+					end
+			end
+			DataPhase10:
+			begin
+				if (WriteFlag)
+					begin
+						if (!IRDY_N)
+						begin
+							memory[9] <= AD;
+							Status <= DataPhase2;
+						end
+					end
+			end
+
+                OverFlowed:       // Need to reset Memory ? ------- if not Granted? (for every Data Phase also) ---------- Slave's DEVSEL be affected by FRAME
+                        begin
+                            if(!GNT_N)
+                                if (!REQ_N)
+                                    begin
+                                        MasterFlag <= 1;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                        Status     <= TransactionStart;
+                                    end
+                                else
+                                    begin 
+                                        //Remove Grant For this master
+                                        MasterFlag <= 0;
+                                        FRAME_Nreg <= 1;
+                                        IRDY_Nreg  <= 1;
+                                        //Status <= default;
+
+                                    end
+                            else 
+                                begin
+                                    MasterFlag <= 0;
+                                    FRAME_Nreg <= 1;
+                                    IRDY_Nreg  <= 1;
+                                   // Status <= default;
+                                end
+                        end
+
+                default: /* default */;
+            endcase
+        end
+        else if (IRDY_N || SlaveFlag)  	//Device is Slave Slave
+        begin
+        	if((AD >= MIN_ADDRESS) && (AD <= (MIN_ADDRESS + 10))|| SlaveFlag)
+        	begin 
+            case (Status)
+			TransactionStart:
+			begin
+				SlaveFlag <= 1;
+				Status <= GrantGiven;
 			end
 			DataPhase1:
 			begin
@@ -565,13 +956,20 @@ always @ (posedge CLK, RST_N)
                         end
 
                 default: /* default */;
-            endcase
-        end
-        else begin
-            if(((AD >= MIN_ADDRESS) && (AD <= (MIN_ADDRESS + 10))) && IRDY_N)
-                DEVSEL_Nreg <= 0;
-
-        end
+        	endcase
+        	end
+		end
+   // 		else
+   // 		begin
+   // 			ADreg <= {(32){1'bz}};
+			// CBE_Nreg <= 4'bzzzz;
+			// FRAME_Nreg <= 1'bz;
+			// IRDY_Nreg <= 1'bz; 
+			// TRDY_Nreg <= 1'bz; 
+			// DEVSEL_Nreg <= 1'bz;
+			// MasterFlag <= 1'b0; 
+			// Status <= TransactionStart; 
+   // 		end
         
     end
 
