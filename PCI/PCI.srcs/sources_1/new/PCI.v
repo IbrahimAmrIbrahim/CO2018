@@ -289,7 +289,7 @@ begin
 			end
 			endcase
 		end
-		else 
+		else if (SlaveFlag)
 		begin
 			case (Status)
 			GrantGiven:
@@ -560,8 +560,8 @@ always @ (posedge CLK, RST_N)
 		    case (Status)
 			TransactionStart:
 			begin
-				Status <= GrantGiven;
-				TRDY_Nreg <= 1'bz; 
+				Status      <= GrantGiven;
+				TRDY_Nreg   <= 1'bz; 
 				DEVSEL_Nreg <= 1'bz;
 			end
 			DataPhase1:
