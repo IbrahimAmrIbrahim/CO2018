@@ -26,17 +26,17 @@ reg [3:0] CBE_Nreg;
 reg [3:0] Status;
 reg [3:0] Counter;
 reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
-reg MasterFlag , ReadFlag, WriteFlag;
+reg MasterFlag, SlaveFlag, ReadFlag, WriteFlag;
 
 reg [31:0] memory [0:9];
 
 
-assign REQ_N = FORCED_REQ_N;
-assign AD = ADreg;	       
-assign CBE_N = CBE_Nreg;
-assign FRAME_N = FRAME_Nreg;	
-assign IRDY_N = IRDY_Nreg;
-assign TRDY_N = TRDY_Nreg;	    
+assign REQ_N    = FORCED_REQ_N;
+assign AD       = ADreg;	       
+assign CBE_N    = CBE_Nreg;
+assign FRAME_N  = FRAME_Nreg;	
+assign IRDY_N   = IRDY_Nreg;
+assign TRDY_N   = TRDY_Nreg;	    
 assign DEVSEL_N = DEVSEL_Nreg;
 
 assign Output0 = memory [0];
@@ -52,9 +52,9 @@ begin
 			GrantGiven:
 			begin
 				FRAME_Nreg <= 1'b0;
-				ADreg    <= FORCED_ADDRESS;
-				CBE_Nreg <= FORCED_CBE_N;
-				Status   <= FrameAsserted;
+				ADreg      <= FORCED_ADDRESS;
+				CBE_Nreg   <= FORCED_CBE_N;
+				Status     <= FrameAsserted;
 			end
 			FrameAsserted: 
 			begin 
@@ -63,9 +63,9 @@ begin
 				begin
 					ReadFlag  <= 1'b1;
 					WriteFlag <= 1'b0;
-					ADreg    <= {(32){1'bz}};
-					CBE_Nreg <= 4'b0000;
-					Status   <= DataPhase;
+					ADreg     <= {(32){1'bz}};
+					CBE_Nreg  <= 4'b0000;
+					Status    <= DataPhase;
 				end
 				else if (CBE_N == 4'b0111) // Write Operation
 				begin
@@ -75,19 +75,19 @@ begin
 					begin
 						if (!TRDY_N)
 						begin
-							ADreg  <= memory [Counter];
+							ADreg     <= memory [Counter];
 							CBE_Nreg  <= FORCED_CBE_N;
-							Status <= DataPhase;
-							Counter <= Counter + 1;
+							Status    <= DataPhase;
+							Counter   <= Counter + 1;
 						end
 					end
 					else
 					begin
 						MasterFlag <= 1'b0;
 						FRAME_Nreg <= 1'b1;
-						IRDY_Nreg  <= 1'b1;
-						Counter <= 4'b0000;
-						Status <= TransactionStart;
+						IRDY_Nreg  <= 1'bz;
+						Counter    <= 4'b0000;
+						Status     <= TransactionStart;
 					end
 				end
 			end
@@ -99,18 +99,58 @@ begin
 					begin
 						if (!TRDY_N)
 						begin
-							ADreg  <= memory [Counter];
+							ADreg     <= memory [Counter];
 							CBE_Nreg  <= FORCED_CBE_N;
-							Counter <= Counter + 1;
+							Counter   <= Counter + 1;
 						end
 					end
 					else
 					begin
 						MasterFlag <= 1'b0;
 						FRAME_Nreg <= 1'b1;
-						IRDY_Nreg  <= 1'b1;
-						Counter <= 4'b0000;
-						Status <= TransactionStart;
+						IRDY_Nreg  <= 1'bz;
+						Counter    <= 4'b0000;
+						Status     <= TransactionStart;
+					end
+				end
+			end
+			endcase
+		end
+		else if(SlaveFlag)
+		begin
+			case (Status)
+			GrantGiven:
+			begin
+				DEVSEL_Nreg <= 0;
+				TRDY_Nreg <= 0; 
+				if (CBE_N == 4'b0110)       //Read Operation by master
+				begin
+					ReadFlag  <= 1;
+					WriteFlag <= 0;
+				end
+				else if (CBE_N == 4'b0111) // Write Operation by master
+				begin
+					ReadFlag  <= 0;
+					WriteFlag <= 1;
+				end
+				Status <= DataPhase;
+			end
+			DataPhase:
+			begin
+				if (ReadFlag)
+				begin
+					if (!TRDY_N)
+					begin
+						if(CBE_N [0] == 0)
+							ADreg [7:0]   = memory[0][7:0];
+						if(CBE_N [1] == 0)
+							ADreg [15:8]  = memory[0][15:8];
+						if(CBE_N [2] == 0)
+							ADreg [23:16] = memory[0][23:16];
+						if(CBE_N [3] == 0)
+							ADreg [31:24] = memory[0][31:24];
+
+						Counter <= Counter + 1;
 					end
 				end
 			end
@@ -148,8 +188,8 @@ always @ (posedge CLK, RST_N)
 		case (Status)
 		TransactionStart:
 		begin
-			Status <= GrantGiven;
-			TRDY_Nreg <= 1'bz; 
+			Status      <= GrantGiven;
+			TRDY_Nreg   <= 1'bz; 
 			DEVSEL_Nreg <= 1'bz;
 		end
 		DataPhase:
@@ -160,27 +200,48 @@ always @ (posedge CLK, RST_N)
 				begin
 					if (!TRDY_N)
 					begin
-						memory[Counter] = AD;
-						Counter <= Counter + 1;
+						memory[Counter] <= AD;
+						Counter         <= Counter + 1;
 					end
 				end
 				else
 				begin
-					MasterFlag <= 0;
-					FRAME_Nreg <= 1;
-					IRDY_Nreg  <= 1;
-					Counter <= 4'b0000;
-					Status <= TransactionStart;
+					MasterFlag <= 1'b0;
+					FRAME_Nreg <= 1'b1;
+					IRDY_Nreg  <= 1'bz;
+					Counter    <= 4'b0000;
+					Status     <= TransactionStart;
 				end
 			end
 		end
 		endcase
 	end
-	else
+	else if (IRDY_N || SlaveFlag)  	//Device is Slave
 	begin
-		if(((AD >= MIN_ADDRESS) && (AD <= (MIN_ADDRESS + 10))) && IRDY_N)
-			DEVSEL_Nreg <= 0;
-
+		if(((AD >= MIN_ADDRESS) && (AD <= (MIN_ADDRESS + 10))) || SlaveFlag)
+		begin
+			case (Status)
+			TransactionStart:
+			begin
+				SlaveFlag <= 1;
+				Status <= GrantGiven;
+			end
+			DataPhase:
+			begin
+				if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N)
+						begin
+							memory[Counter] = AD;
+							Counter = Counter + 1;
+						end
+					end
+				end
+			end
+			endcase
+		end		
 	end
  endmodule
 
