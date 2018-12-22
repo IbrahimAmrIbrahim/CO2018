@@ -1352,8 +1352,3 @@ source PCI_tb.tcl
 # run 1000ns
 INFO: [USF-XSim-96] XSim completed. Design snapshot 'PCI_tb_behav' loaded.
 INFO: [USF-XSim-97] XSim simulation ran for 1000ns
-update_compile_order -fileset sources_1
-close_sim
-INFO: [Simtcl 6-16] Simulation closed
-exit
-INFO: [Common 17-206] Exiting Vivado at Sat Dec 22 23:02:21 2018...

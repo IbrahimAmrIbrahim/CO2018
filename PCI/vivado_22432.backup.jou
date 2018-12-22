@@ -79,5 +79,3 @@ source PCI_tb.tcl
 close_sim
 launch_simulation
 source PCI_tb.tcl
-update_compile_order -fileset sources_1
-close_sim

@@ -2,5 +2,5 @@
 2018.2
 Jun 14 2018
 20:41:02
-F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim/glbl.v,1544742064,verilog,,,,glbl,,,,,,,,
-F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v,1545073394,verilog,,,,PCI;REQ_THREADER;arbiter_FCFS;arbiter_RobinRound;arbiter_priority;device_A;memory;tb_RTH_AND_MEMORY;tb_arbiter_FCFS;tb_arbiter_RobinRound;tb_arbiter_priority;tb_fcfs,,,,,,,,
+F:/REP/CO2018/PCI/PCI.sim/sim_1/behav/xsim/glbl.v,1545482385,verilog,,,,glbl,,,,,,,,
+F:/REP/CO2018/PCI/PCI.srcs/sources_1/new/PCI.v,1545516208,verilog,,,,PCI;PCI_tb;REQ_THREADER;arbiter_FCFS;arbiter_RobinRound;arbiter_priority;device;memory;tb_RTH_AND_MEMORY;tb_arbiter_FCFS;tb_arbiter_RobinRound;tb_arbiter_priority;tb_fcfs,,,,,,,,
