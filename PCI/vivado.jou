@@ -2,67 +2,80 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Mon Dec 17 18:11:31 2018
-# Process ID: 12148
-# Current directory: F:/pci dream/PCI
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent15912 F:\pci dream\PCI\PCI.xpr
-# Log file: F:/pci dream/PCI/vivado.log
-# Journal file: F:/pci dream/PCI\vivado.jou
+# Start of session at: Sat Dec 22 21:26:28 2018
+# Process ID: 22432
+# Current directory: F:/REP/CO2018/PCI
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent20608 F:\REP\CO2018\PCI\PCI.xpr
+# Log file: F:/REP/CO2018/PCI/vivado.log
+# Journal file: F:/REP/CO2018/PCI\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project {F:/pci dream/PCI/PCI.xpr}
+open_project F:/REP/CO2018/PCI/PCI.xpr
 update_compile_order -fileset sources_1
 launch_simulation
+source PCI.tcl
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_arbiter_FCFS [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation
+launch_simulation
 source tb_arbiter_FCFS.tcl
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top PCI_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
+current_sim simulation_2
+close_sim
+close_sim
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl
 close_sim
 launch_simulation
-source tb_arbiter_FCFS.tcl
-close_sim
-launch_simulation
-source tb_arbiter_FCFS.tcl
-close_sim
-launch_simulation
-source tb_arbiter_FCFS.tcl
+source PCI_tb.tcl

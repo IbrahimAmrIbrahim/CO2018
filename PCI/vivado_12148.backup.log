@@ -1,0 +1,1526 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Mon Dec 17 18:11:31 2018
+# Process ID: 12148
+# Current directory: F:/pci dream/PCI
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent15912 F:\pci dream\PCI\PCI.xpr
+# Log file: F:/pci dream/PCI/vivado.log
+# Journal file: F:/pci dream/PCI\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {F:/pci dream/PCI/PCI.xpr}
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'.
+open_project: Time (s): cpu = 00:00:16 ; elapsed = 00:00:10 . Memory (MB): peak = 855.824 ; gain = 114.395
+update_compile_order -fileset sources_1
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+
+****** Webtalk v2018.2 (64-bit)
+  **** SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+  **** IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source F:/pci -notrace
+couldn't read file "F:/pci": permission denied
+INFO: [Common 17-206] Exiting Webtalk at Mon Dec 17 18:20:11 2018...
+run_program: Time (s): cpu = 00:00:01 ; elapsed = 00:00:06 . Memory (MB): peak = 897.828 ; gain = 0.000
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 00000001  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 00000001  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 00000001  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 00000001  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 00000001  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 00000001  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 00000001  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:05 ; elapsed = 00:00:11 . Memory (MB): peak = 920.000 ; gain = 22.172
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = 00000000  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 00000001  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 00000001  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:06 . Memory (MB): peak = 923.957 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 00000000  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  15 REQ = 11111101  FRAME = 1  GNT = 00000001  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 00000001  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 00000001  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 00000001  RST = 1 EN=x
+                  45 REQ = 10010110  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 00000000  RST = 1 EN=x
+                  55 REQ = 10011110  FRAME = 0  GNT = 00000001  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 00000001  RST = 1 EN=x
+                  65 REQ = 10111010  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 929.027 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 00000000  RST = 0 EN=x
+                  10 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  15 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  25 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  35 REQ = 10010111  FRAME = 0  GNT = 11111111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  45 REQ = 10010110  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 00000000  RST = 1 EN=x
+                  55 REQ = 10011110  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  65 REQ = 10111010  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 00000000  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 932.570 ; gain = 0.527
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                  10 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  15 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  25 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  35 REQ = 10010111  FRAME = 0  GNT = 11111111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  45 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  55 REQ = 10011110  FRAME = 0  GNT = 11011111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 11011111  RST = 1 EN=x
+                  65 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  75 REQ = 11111010  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  85 REQ = 11111011  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  95 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                 105 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  10 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  20 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  30 REQ = 11110101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111111  RST = 1 EN=x
+                  40 REQ = 10010111  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  50 REQ = 10010110  FRAME = 1  GNT = 11011111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11011111  RST = 1 EN=x
+                  60 REQ = 10011110  FRAME = 0  GNT = 10111111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  70 REQ = 10111010  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  80 REQ = 11111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  90 REQ = 11111011  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                 100 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:05 . Memory (MB): peak = 937.754 ; gain = 1.168
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+ERROR: [VRFC 10-91] FRAME is not declared [F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v:969]
+ERROR: [VRFC 10-2787] module memory ignored due to previous errors [F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v:969]
+INFO: [VRFC 10-311] analyzing module PCI
+ERROR: [VRFC 10-2787] module PCI ignored due to previous errors [F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v:1413]
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+ERROR: [VRFC 10-2787] module tb_RTH_AND_MEMORY ignored due to previous errors [F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v:1419]
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+ERROR: [VRFC 10-2787] module tb_arbiter_priority ignored due to previous errors [F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v:1495]
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+ERROR: [VRFC 10-2787] module tb_arbiter_RobinRound ignored due to previous errors [F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v:1535]
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+ERROR: [VRFC 10-2787] module tb_fcfs ignored due to previous errors [F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v:1574]
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+ERROR: [VRFC 10-2787] module tb_arbiter_FCFS ignored due to previous errors [F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v:1609]
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim/xvlog.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim/xvlog.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  15 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  35 REQ = 10010111  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  45 REQ = 10010110  FRAME = 1  GNT = 11011111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11011111  RST = 1 EN=x
+                  55 REQ = 10011110  FRAME = 0  GNT = 10111111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  65 REQ = 10111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  75 REQ = 11111010  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  95 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 942.305 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  15 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  35 REQ = 10010111  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  45 REQ = 10010110  FRAME = 1  GNT = 11011111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11011111  RST = 1 EN=x
+                  55 REQ = 10011110  FRAME = 0  GNT = 10111111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  65 REQ = 10111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  75 REQ = 11111010  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  95 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  15 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  35 REQ = 10010111  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  45 REQ = 10010110  FRAME = 1  GNT = 11011111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11011111  RST = 1 EN=x
+                  55 REQ = 10011110  FRAME = 0  GNT = 10111111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  65 REQ = 10111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  75 REQ = 11111010  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  95 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 973.676 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  15 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  25 REQ = 11110101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111111  RST = 1 EN=x
+                  35 REQ = 10010111  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  45 REQ = 10010110  FRAME = 1  GNT = 11011111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11011111  RST = 1 EN=x
+                  55 REQ = 10011110  FRAME = 0  GNT = 10111111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  65 REQ = 10111010  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  75 REQ = 11111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  85 REQ = 11111011  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  95 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:05 . Memory (MB): peak = 973.676 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  15 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  35 REQ = 10010111  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  45 REQ = 10010110  FRAME = 1  GNT = 11011111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11011111  RST = 1 EN=x
+                  55 REQ = 10011110  FRAME = 0  GNT = 10111111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  65 REQ = 10111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  75 REQ = 11111010  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  95 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 973.676 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  20 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  40 REQ = 10010111  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  50 REQ = 10010110  FRAME = 1  GNT = 11011111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11011111  RST = 1 EN=x
+                  60 REQ = 10011110  FRAME = 0  GNT = 10111111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  70 REQ = 10111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  80 REQ = 11111010  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                 100 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:07 . Memory (MB): peak = 973.676 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  10 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  20 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  50 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  70 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  80 REQ = 11111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  90 REQ = 11111011  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                 100 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:06 . Memory (MB): peak = 973.676 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  10 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = xxxxxxxx  RST = 1 EN=x
+                  20 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  50 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  70 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  80 REQ = 11111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  90 REQ = 11111011  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                 100 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 973.676 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  20 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  50 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  70 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  80 REQ = 11111010  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 11111110  RST = 1 EN=x
+                  90 REQ = 11111011  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 11111011  RST = 1 EN=x
+                 100 REQ = 11111111  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 973.676 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  50 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  70 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 973.676 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111111  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  50 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  70 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:05 . Memory (MB): peak = 973.676 ; gain = 0.000
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_arbiter_FCFS' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_arbiter_FCFS_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "F:/pci dream/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module device_A
+INFO: [VRFC 10-311] analyzing module arbiter_priority
+INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module arbiter_FCFS
+INFO: [VRFC 10-311] analyzing module REQ_THREADER
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-311] analyzing module PCI
+INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
+INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
+INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
+INFO: [VRFC 10-311] analyzing module tb_fcfs
+INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 66223dc40a1b4371b9bedc03532d6795 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_arbiter_FCFS_behav xil_defaultlib.tb_arbiter_FCFS xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REQ_THREADER
+Compiling module xil_defaultlib.memory
+Compiling module xil_defaultlib.arbiter_FCFS
+Compiling module xil_defaultlib.tb_arbiter_FCFS
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_arbiter_FCFS_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'F:/pci dream/PCI/PCI.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_arbiter_FCFS_behav -key {Behavioral:sim_1:Functional:tb_arbiter_FCFS} -tclbatch {tb_arbiter_FCFS.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+source tb_arbiter_FCFS.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+                   0 REQ = xxxxxxxx  FRAME = 1  GNT = xxxxxxxx  RST = 0 EN=x
+                   5 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 0 EN=x
+                  12 REQ = xxxxxxxx  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  13 REQ = 11111101  FRAME = 1  GNT = 11111111  RST = 1 EN=x
+                  20 REQ = 11111101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  23 REQ = 11110101  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  33 REQ = 10010111  FRAME = 0  GNT = 11111101  RST = 1 EN=x
+                  43 REQ = 10010110  FRAME = 1  GNT = 11111101  RST = 1 EN=x
+                  50 REQ = 10010110  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  53 REQ = 10011110  FRAME = 0  GNT = 11110111  RST = 1 EN=x
+                  63 REQ = 10111010  FRAME = 1  GNT = 11110111  RST = 1 EN=x
+                  70 REQ = 10111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  73 REQ = 11111010  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  83 REQ = 11111011  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+                  93 REQ = 11111111  FRAME = 1  GNT = 10111111  RST = 1 EN=x
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_arbiter_FCFS_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 973.676 ; gain = 0.000
