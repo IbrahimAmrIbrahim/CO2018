@@ -1,4 +1,4 @@
-Running: xsim.dir/PCI_tb_behav/xsimk.exe -simmode gui -wdb PCI_tb_behav.wdb -simrunnum 0 -socket 50290
+Running: xsim.dir/PCI_tb_behav/xsimk.exe -simmode gui -wdb PCI_tb_behav.wdb -simrunnum 0 -socket 29440
 Design successfully loaded
-Design Loading Memory Usage: 4896 KB (Peak: 4896 KB)
-Design Loading CPU Usage: 15 ms
+Design Loading Memory Usage: 4924 KB (Peak: 4924 KB)
+Design Loading CPU Usage: 31 ms

@@ -39,9 +39,6 @@ assign IRDY_N   = IRDY_Nreg;
 assign TRDY_N   = TRDY_Nreg;	    
 assign DEVSEL_N = DEVSEL_Nreg;
 
-assign Output0 = memory [0];
-assign Output1 = memory [1];
-
 always @ (DEVSEL_N)
 begin
 	if(DEVSEL_N == 0)
@@ -84,16 +81,16 @@ begin
 					ReadFlag  <= 1'b0;
 					WriteFlag <= 1'b1;
 					ADreg     <= memory [Counter];
-					CBE_Nreg  <= FORCED_CBE_N;
+					CBE_Nreg  <= 4'b000;   // No Effect
 					Counter   <= Counter + 1;
 					if(Counter == (Forced_DataTfNo - 1))
 					begin
-						FRAME_Nreg <= 1;
+						FRAME_Nreg <= 1'b1;
 						Status <= Finish;
 					end
 					else
 					begin
-						Status    <= DataPhase;
+						Status <= DataPhase;
 					end
 				end
 
@@ -111,15 +108,41 @@ begin
 						if (!IRDY_N)
 						begin
 							ADreg     <= memory [Counter];
-							CBE_Nreg  <= FORCED_CBE_N;
+							CBE_Nreg  <= 4'b0000; //Need to change
 							Counter   <= Counter + 1;
 							if((Counter == (Forced_DataTfNo - 1)) || (Counter == 8))
 							begin
-								FRAME_Nreg <= 1;
+								FRAME_Nreg <= 1'b1;
 								if(!TRDY_N)
 								begin
-								Status <= Finish;
+								Status <= Ending_Transaction;
 								end
+							end
+						end
+					end
+					else
+					begin
+						MasterFlag <= 1'b0;
+						FRAME_Nreg <= 1'b1;
+						IRDY_Nreg  <= 1'b1;
+						Counter    <= 4'b0000;
+						Status     <= Finish;
+					end
+				end
+				else if (ReadFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N && !IRDY_N)
+						begin
+							if((Counter == (Forced_DataTfNo - 1)) || (Counter == 8))
+							begin
+								FRAME_Nreg <= 1'b1;
+							end
+							else if((Counter == (Forced_DataTfNo)) || (Counter == 9))
+							begin
+								IRDY_Nreg  <= 1'b1;
+								Status <= Finish;
 							end
 						end
 					end
@@ -135,7 +158,8 @@ begin
 			end
 			Ending_Transaction:
 			begin 
-				FRAME_Nreg <= 1;
+				IRDY_Nreg  <= 1'b1;
+				ADreg     <= {(32){1'bz}};
 				Status   <= Finish;
 			end
 			Finish:
@@ -178,10 +202,6 @@ begin
 					begin
 						ADreg <= memory[Counter];
 						Counter <= Counter + 1;
-						if(!IRDY_N && FRAME_N)
-						begin
-							Status   <= Ending_Transaction;
-						end
 					end
 				end
 			end
@@ -207,6 +227,7 @@ begin
 end
 
 always @ (posedge CLK)
+begin
     if (RST_N)
 	begin
 		if((!GNT_N && !REQ_N && BusStatus) || MasterFlag ) //Then Device is Master
@@ -226,20 +247,8 @@ always @ (posedge CLK)
 						if (!TRDY_N && !IRDY_N)
 						begin
 							memory[Counter] <= AD;
-							Counter         <= Counter + 1;
-							if((Counter == (Forced_DataTfNo - 1)) || (Counter == 8) )
-							begin
-								Status <= Ending_Transaction;
-							end
+							Counter <= Counter + 1;
 						end
-					end
-					else
-					begin
-						MasterFlag <= 1'b0;
-						FRAME_Nreg <= 1'b1;
-						IRDY_Nreg  <= 1'b1;
-						Counter    <= 4'b0000;
-						Status     <= Finish;
 					end
 				end
 			end
@@ -262,14 +271,13 @@ always @ (posedge CLK)
 						if (!TRDY_N && !IRDY_N)
 						begin
 							if(CBE_N [0] == 0)
-								memory[0][7:0]  <= AD [7:0];
+								memory[Counter][7:0]  <= AD [7:0];
 							if(CBE_N [1] == 0)
-								memory[0][15:8] <= AD [15:8];
+								memory[Counter][15:8] <= AD [15:8];
 							if(CBE_N [2] == 0)
-								memory[0][23:16] <= AD [23:16];
+								memory[Counter][23:16] <= AD [23:16];
 							if(CBE_N [3] == 0)
-							    memory[0][31:24] <=	AD [31:24];
-
+							    memory[Counter][31:24] <=	AD [31:24];
 							Counter <= Counter + 1;
 							if(FRAME_N)
 							begin
@@ -277,35 +285,44 @@ always @ (posedge CLK)
 							end
 						end
 					end
-				end
+					else if (ReadFlag)
+					begin
+						if(!IRDY_N && FRAME_N)
+							begin
+								Status <= Ending_Transaction;
+							end
+						end
+					end
 				endcase
 			end		
 		end
 	end
-	always @ (negedge RST_N)
-	begin 
-		ADreg <= {(32){1'bz}};
-		CBE_Nreg <= 4'bzzzz;
-		FRAME_Nreg <= 1'bz;
-		IRDY_Nreg <= 1'bz; 
-		TRDY_Nreg <= 1'bz; 
-		DEVSEL_Nreg <= 1'bz;
-		MasterFlag <= 1'b0; 
-		SlaveFlag <= 1'b0; 
-		Counter <= 4'b0000;
-		BusStatus <= BusFree;
-		Status <= TransactionStart; 
-		memory[0] <= {MIN_ADDRESS [15:0],{16'h0001}};
-		memory[1] <= {MIN_ADDRESS [15:0],{16'h0002}};
-		memory[2] <= {MIN_ADDRESS [15:0],{16'h0003}};
-		memory[3] <= {MIN_ADDRESS [15:0],{16'h0004}};
-		memory[4] <= {MIN_ADDRESS [15:0],{16'h0005}};
-		memory[5] <= {MIN_ADDRESS [15:0],{16'h0006}};
-		memory[6] <= {MIN_ADDRESS [15:0],{16'h0007}};
-		memory[7] <= {MIN_ADDRESS [15:0],{16'h0008}};
-		memory[8] <= {MIN_ADDRESS [15:0],{16'h0009}};
-		memory[9] <= {MIN_ADDRESS [15:0],{16'h000A}}; 
-	end	
+end
+
+always @ (negedge RST_N)
+begin 
+	ADreg <= {(32){1'bz}};
+	CBE_Nreg <= 4'bzzzz;
+	FRAME_Nreg <= 1'bz;
+	IRDY_Nreg <= 1'bz; 
+	TRDY_Nreg <= 1'bz; 
+	DEVSEL_Nreg <= 1'bz;
+	MasterFlag <= 1'b0; 
+	SlaveFlag <= 1'b0; 
+	Counter <= 4'b0000;
+	BusStatus <= BusFree;
+	Status <= TransactionStart; 
+	memory[0] <= {MIN_ADDRESS [15:0],{16'h0001}};
+	memory[1] <= {MIN_ADDRESS [15:0],{16'h0002}};
+	memory[2] <= {MIN_ADDRESS [15:0],{16'h0003}};
+	memory[3] <= {MIN_ADDRESS [15:0],{16'h0004}};
+	memory[4] <= {MIN_ADDRESS [15:0],{16'h0005}};
+	memory[5] <= {MIN_ADDRESS [15:0],{16'h0006}};
+	memory[6] <= {MIN_ADDRESS [15:0],{16'h0007}};
+	memory[7] <= {MIN_ADDRESS [15:0],{16'h0008}};
+	memory[8] <= {MIN_ADDRESS [15:0],{16'h0009}};
+	memory[9] <= {MIN_ADDRESS [15:0],{16'h000A}}; 
+end	
 endmodule
 
 module arbiter_priority(GNT_Neg , REQ_Neg , FRAME_Neg , RST_Neg);
@@ -313,11 +330,6 @@ output reg [7:0] GNT_Neg;
 input [7:0] REQ_Neg;
 input FRAME_Neg,RST_Neg;
 reg EN, BusStatus;
-
-always @(negedge FRAME_Neg)
-begin
-	EN <= 1'b1;
-end
 
 always @(FRAME_Neg , REQ_Neg , BusStatus , RST_Neg)
 begin
@@ -327,6 +339,10 @@ begin
         BusStatus <= 1'b1;
         EN <= 1'b1;
     end
+	else if(FRAME_Neg == 1'b0)
+	begin
+		EN <= 1'b1;
+	end
     else if((FRAME_Neg && EN) || (BusStatus))
     begin
         casez(REQ_Neg)
@@ -1129,7 +1145,7 @@ begin
  endmodule
 
 
-module PCI(CLK,RST_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, Forced_DataTfNo,grant);
+module PCI(CLK,RST_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, Forced_DataTfNo);
 
 input CLK,RST_N;
 wire FRAME_N, IRDY_N, TRDY_N, DEVSEL_N;
@@ -1147,10 +1163,8 @@ device B(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[1], GNT
 device C(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[2], GNT_N[2], FORCED_REQ_N[2], FORCED_ADDRESS, FORCED_CBE_N, Forced_DataTfNo, 32'h0000_0014);
 device D(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[3], GNT_N[3], FORCED_REQ_N[3], FORCED_ADDRESS, FORCED_CBE_N, Forced_DataTfNo, 32'h0000_001E);
 device E(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[4], GNT_N[4], FORCED_REQ_N[4], FORCED_ADDRESS, FORCED_CBE_N, Forced_DataTfNo, 32'h0000_0028);
-output  [7:0]grant;
 
-arbiter_FCFS arbiter1(GNT_N , REQ_N , FRAME_N,CLK, RST_N,1);
-assign grant=GNT_N;
+arbiter_priority arbiter1(GNT_N , REQ_N , FRAME_N, RST_N);
 endmodule
 
 
@@ -1504,7 +1518,6 @@ module PCI_tb();
  reg [31:0] FORCED_ADDRESS;
  reg [3:0] FORCED_CBE_N;
  reg [3:0] Forced_DataTfNo;
- wire [7:0]grant;
  reg CLK, RST_N;
 
  initial
@@ -1517,10 +1530,10 @@ module PCI_tb();
  FORCED_ADDRESS <= 32'h0000_0000;
  FORCED_CBE_N <= 4'b0111;
  Forced_DataTfNo <= 5;
- #70
- RST_N <= 0;
- #12
- RST_N <= 1;
+ #55
+ //RST_N <= 0;
+ //#12
+// RST_N <= 1;
  FORCED_REQ_N <= 8'b1111_0111;
  FORCED_ADDRESS <= 32'h0000_0028;
  FORCED_CBE_N <= 4'b0110;
@@ -1532,7 +1545,7 @@ module PCI_tb();
  #5 CLK = ~CLK;
  end
  
- PCI pci(CLK,RST_N,FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, Forced_DataTfNo,grant);
+ PCI pci(CLK,RST_N,FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, Forced_DataTfNo);
 
  endmodule
 
