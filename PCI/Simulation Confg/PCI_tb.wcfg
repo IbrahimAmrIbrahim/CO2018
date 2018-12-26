@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="PCI_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="PCI_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="105600001fs"></ZoomEndTime>
+      <Cursor1Time time="50000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="100"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="19" />
+   <wvobject fp_name="/PCI_tb/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/RST_N" type="logic">
+      <obj_property name="ElementShortName">RST_N</obj_property>
+      <obj_property name="ObjectShortName">RST_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/mode" type="array">
+      <obj_property name="ElementShortName">mode[1:0]</obj_property>
+      <obj_property name="ObjectShortName">mode[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/REQ_N" type="array">
+      <obj_property name="ElementShortName">REQ_N[7:0]</obj_property>
+      <obj_property name="ObjectShortName">REQ_N[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/GNT_N" type="array">
+      <obj_property name="ElementShortName">GNT_N[7:0]</obj_property>
+      <obj_property name="ObjectShortName">GNT_N[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/FRAME_N" type="logic">
+      <obj_property name="ElementShortName">FRAME_N</obj_property>
+      <obj_property name="ObjectShortName">FRAME_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/IRDY_N" type="logic">
+      <obj_property name="ElementShortName">IRDY_N</obj_property>
+      <obj_property name="ObjectShortName">IRDY_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/TRDY_N" type="logic">
+      <obj_property name="ElementShortName">TRDY_N</obj_property>
+      <obj_property name="ObjectShortName">TRDY_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/DEVSEL_N" type="logic">
+      <obj_property name="ElementShortName">DEVSEL_N</obj_property>
+      <obj_property name="ObjectShortName">DEVSEL_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/CBE_N" type="array">
+      <obj_property name="ElementShortName">CBE_N[3:0]</obj_property>
+      <obj_property name="ObjectShortName">CBE_N[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/AD" type="array">
+      <obj_property name="ElementShortName">AD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">AD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/A/memory" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="label">Mem_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/B/memory" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="label">Mem_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/C/memory" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="label">Mem_C</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/D/memory" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="label">Mem_D</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/E/memory" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="label">Mem_E</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/F/memory" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="label">Mem_F</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/G/memory" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="label">Mem_G</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCI_tb/pci/H/memory" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:9][31:0]</obj_property>
+      <obj_property name="label">Mem_H</obj_property>
+   </wvobject>
+</wave_config>

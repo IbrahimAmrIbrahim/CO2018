@@ -1,7 +1,5 @@
 INFO: [VRFC 10-2263] Analyzing Verilog file "E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/Lectures/Computer Organization/Project/CO2018/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module device
-INFO: [VRFC 10-2458] undeclared symbol Output0, assumed default net type wire [E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/Lectures/Computer Organization/Project/CO2018/PCI/PCI.srcs/sources_1/new/PCI.v:42]
-INFO: [VRFC 10-2458] undeclared symbol Output1, assumed default net type wire [E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/Lectures/Computer Organization/Project/CO2018/PCI/PCI.srcs/sources_1/new/PCI.v:43]
 INFO: [VRFC 10-311] analyzing module arbiter_priority
 INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
 INFO: [VRFC 10-311] analyzing module arbiter_FCFS
