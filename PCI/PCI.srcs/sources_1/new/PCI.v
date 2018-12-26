@@ -1241,7 +1241,7 @@ endmodule
 
 
 
- module tb_RTH_AND_MEMORY();
+/* module tb_RTH_AND_MEMORY();
  reg[7:0]in;
  reg clk;
  wire [7:0]gnt_out,gnt_out2,fl;
@@ -1582,7 +1582,7 @@ endmodule
 // device_A device_tb(Output0,Output1,CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N,DataTfNo, MIN_ADDRESS);
 
 // endmodule
-
+*/
 module PCI_tb();
 
 reg [7:0] FORCED_REQ_N;
