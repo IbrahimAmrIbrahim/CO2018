@@ -6,9 +6,4 @@ INFO: [VRFC 10-311] analyzing module arbiter_FCFS
 INFO: [VRFC 10-311] analyzing module REQ_THREADER
 INFO: [VRFC 10-311] analyzing module memory
 INFO: [VRFC 10-311] analyzing module PCI
-INFO: [VRFC 10-311] analyzing module tb_RTH_AND_MEMORY
-INFO: [VRFC 10-311] analyzing module tb_arbiter_priority
-INFO: [VRFC 10-311] analyzing module tb_arbiter_RobinRound
-INFO: [VRFC 10-311] analyzing module tb_fcfs
-INFO: [VRFC 10-311] analyzing module tb_arbiter_FCFS
 INFO: [VRFC 10-311] analyzing module PCI_tb

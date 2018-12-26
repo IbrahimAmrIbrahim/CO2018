@@ -701,15 +701,6 @@ always@(posedge FRAME)
  ENABLE_TO_GNT=1;
  end
  
-always@(negedge FRAME)
- begin
- if(ON_OFF==3)
- begin
- if(OUT1!=8'b1111_1111)
- ENABLE_TO_GNT=0;
- end
- end
- 
 always@(negedge RESET)
 begin
 if(ON_OFF==3)
@@ -1174,7 +1165,10 @@ begin
        end
   end
   else
+  begin
   OUT1<=8'bzzzz_zzzz;
+  first_time=0;
+  end
   end
 endmodule
 
@@ -1651,18 +1645,26 @@ FORCED_CBE_N_B <= 4'b0111;
 Forced_DataTfNo_B <= 2;
 #30
 FORCED_CBE_N_B <= 4'b000;
-#50
-// FORCED_REQ_N <= 8'b1111_1010;
-// FORCED_ADDRESS_A <= 32'h0000_0014;
-// FORCED_ADDRESS_C <= 32'h0000_0000;
-// FORCED_CBE_N <= 4'b0111;
-// Forced_DataTfNo_A <= 2;
-// Forced_DataTfNo_C <= 1;
-// #30
-// FORCED_REQ_N <= 8'b1111_1011;
-// FORCED_ADDRESS_C <= 32'h0000_000A;
-// FORCED_CBE_N <= 4'b0111;
-// Forced_DataTfNo_C <= 1;
+#20
+FORCED_REQ_N <= 8'b1111_1010;
+FORCED_ADDRESS_A <= 32'h0000_0014;
+FORCED_ADDRESS_C <= 32'h0000_0003;
+FORCED_CBE_N_A <= 4'b0111;
+FORCED_CBE_N_C <= 4'b0111;
+Forced_DataTfNo_A <= 2;
+Forced_DataTfNo_C <= 1;
+#30
+FORCED_CBE_N_A <= 4'b000;
+#20
+FORCED_REQ_N <= 8'b1111_1011;
+#30
+FORCED_CBE_N_C <= 4'b000;
+#10
+FORCED_CBE_N_C <= 4'b0111;
+FORCED_ADDRESS_C <= 32'h0000_000E;
+#20
+FORCED_CBE_N_C <= 4'b000;
+#20
 
 // ____ PriorityArbiter ____
 /*
@@ -1707,7 +1709,7 @@ RST_N  <= 1;
 // ____ FCFSArbiter ____ 
 RST_N <= 0;
 mode <= 2'b11;
-#15
+#10
 RST_N  <= 1;
 
 FORCED_REQ_N <= 8'b1111_1101;
