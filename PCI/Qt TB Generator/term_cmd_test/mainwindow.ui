@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>794</width>
+    <height>592</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QLabel" name="Label1">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Master1</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>124</y>
+      <width>161</width>
+      <height>160</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QPushButton" name="Device2">
+       <property name="text">
+        <string>Device2</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Mode2"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Operation2"/>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="Time2">
+       <property name="placeholderText">
+        <string>Enter Delay Before REQ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="DtNo2">
+       <property name="placeholderText">
+        <string>Enter No of Words</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>124</y>
+      <width>161</width>
+      <height>160</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QPushButton" name="Device3">
+       <property name="text">
+        <string>Device3</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Mode3"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Operation3"/>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="Time3">
+       <property name="placeholderText">
+        <string>Enter Delay Before REQ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="DtNo3">
+       <property name="placeholderText">
+        <string>Enter No of Words</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>124</y>
+      <width>161</width>
+      <height>160</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QPushButton" name="Device4">
+       <property name="text">
+        <string>Device4</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Mode4"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Operation4"/>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="Time4">
+       <property name="placeholderText">
+        <string>Enter Delay Before REQ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="DtNo4">
+       <property name="placeholderText">
+        <string>Enter No of Words</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>290</y>
+      <width>161</width>
+      <height>160</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QPushButton" name="Device5">
+       <property name="text">
+        <string>Device5</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Mode5"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Operation5"/>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="Time5">
+       <property name="placeholderText">
+        <string>Enter Delay Before REQ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="DtNo5">
+       <property name="placeholderText">
+        <string>Enter No of Words</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>290</y>
+      <width>161</width>
+      <height>160</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_6">
+     <item>
+      <widget class="QPushButton" name="Device6">
+       <property name="text">
+        <string>Device6</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Mode6"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Operation6"/>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="Time6">
+       <property name="placeholderText">
+        <string>Enter Delay Before REQ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="DtNo6">
+       <property name="placeholderText">
+        <string>Enter No of Words</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>290</y>
+      <width>161</width>
+      <height>160</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_7">
+     <item>
+      <widget class="QPushButton" name="Device7">
+       <property name="text">
+        <string>Device7</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Mode7"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Operation7"/>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="Time7">
+       <property name="placeholderText">
+        <string>Enter Delay Before REQ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="DtNo7">
+       <property name="placeholderText">
+        <string>Enter No of Words</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>290</y>
+      <width>161</width>
+      <height>160</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_8">
+     <item>
+      <widget class="QPushButton" name="Device8">
+       <property name="text">
+        <string>Device8</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Mode8"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Operation8"/>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="Time8">
+       <property name="placeholderText">
+        <string>Enter Delay Before REQ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="DtNo8">
+       <property name="placeholderText">
+        <string>Enter No of Words</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="Generate">
+    <property name="geometry">
+     <rect>
+      <x>352</x>
+      <y>462</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Generate</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Label2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Master2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Label3">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Master3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Label4">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Master4</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Label5">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Slave1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Label6">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Slave2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Label7">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Slave3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Label8">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Slave4</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Delay_Label1">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>60</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dev1Delay</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Delay_Label2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>60</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dev2Delay</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Delay_Label3">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>60</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dev3Delay</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Delay_Label4">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>60</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dev4Delay</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Delay_Label5">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>90</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dev5Delay</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Delay_Label6">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>90</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dev6Delay</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Delay_Label7">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>90</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dev7Delay</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Delay_Label8">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>90</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dev8Delay</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>124</y>
+      <width>160</width>
+      <height>160</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_9">
+     <item>
+      <widget class="QPushButton" name="Device1">
+       <property name="text">
+        <string>Device1</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Mode1"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="Operation1"/>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="Time1">
+       <property name="placeholderText">
+        <string>Enter Delay Before REQ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="DtNo1">
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::TextEditorInteraction</set>
+       </property>
+       <property name="placeholderText">
+        <string>Enter No of Words</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>794</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
