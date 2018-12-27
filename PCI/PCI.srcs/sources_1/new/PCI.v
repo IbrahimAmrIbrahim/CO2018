@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module device(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, Forced_DataTfNo, MIN_ADDRESS);
+module device(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N, Forced_DataTfNo, MIN_ADDRESS, Forced_Frame, Forced_IRDY , Forced_TRDY);
 
 parameter BusFree = 1'b1 , BusBusy = 1'b0;
 parameter TransactionStart = 3'b000, GrantGiven = 3'b001, FrameAsserted = 3'b010;
@@ -11,6 +11,7 @@ input [3:0] Forced_DataTfNo;
 input [31:0] MIN_ADDRESS;
 input [31:0] FORCED_ADDRESS;
 input [3:0] FORCED_CBE_N;
+input Forced_Frame, Forced_IRDY, Forced_TRDY;
 
 input CLK, RST_N, GNT_N;
 
@@ -43,11 +44,11 @@ always @ (DEVSEL_N)
 begin
 	if(DEVSEL_N == 0)
 	begin
-		BusStatus = BusBusy;
+		BusStatus <= BusBusy;
 	end
 	if(DEVSEL_N == 1)
 	begin
-		BusStatus = BusFree;
+		BusStatus <= BusFree;
 	end
 end
 
@@ -67,7 +68,7 @@ begin
 			end
 			FrameAsserted: 
 			begin 
-				IRDY_Nreg <= 1'b0;
+				IRDY_Nreg <= Forced_IRDY;
 				if (CBE_N == 4'b0110)       //Read Operation
 				begin
 					ReadFlag  <= 1'b1;
@@ -82,40 +83,49 @@ begin
 					WriteFlag <= 1'b1;
 					ADreg     <= memory [Counter];
 					CBE_Nreg  <= FORCED_CBE_N;
-					Counter   <= Counter + 1;
 					if(Counter == (Forced_DataTfNo - 1))
 					begin
 						FRAME_Nreg <= 1'b1;
-						Status <= Finish;
 					end
-					else
-					begin
-						Status <= DataPhase;
-					end
+					Status <= DataPhase;
 				end
 			end
 			EndOfTurnaround:
 			begin 
 				Status <= DataPhase;
+				if(!DEVSEL_N)
+				begin
+					if (!TRDY_N)
+					begin
+						if((Counter == (Forced_DataTfNo - 1)) || (Counter == 8))
+						begin
+							FRAME_Nreg <= 1'b1;
+						end
+					end
+				end
+				else
+				begin
+					MasterFlag <= 1'b0;
+					FRAME_Nreg <= 1'b1;
+					IRDY_Nreg  <= 1'b1;
+					Counter    <= 4'b0000;
+					Status     <= Finish;
+				end
 			end
 			DataPhase:
 			begin
+				IRDY_Nreg <= Forced_IRDY;
 				if (WriteFlag)
 				begin
 					if(!DEVSEL_N)
 					begin
 						if (!IRDY_N)
 						begin
-							ADreg     <= memory [Counter];
-							CBE_Nreg  <= FORCED_CBE_N;
-							Counter   <= Counter + 1;
+							ADreg <= memory [Counter];
+							CBE_Nreg <= FORCED_CBE_N;
 							if((Counter == (Forced_DataTfNo - 1)) || (Counter == 8))
 							begin
 								FRAME_Nreg <= 1'b1;
-								if(!TRDY_N)
-								begin
-								Status <= Ending_Transaction;
-								end
 							end
 						end
 					end
@@ -132,7 +142,7 @@ begin
 				begin
 					if(!DEVSEL_N)
 					begin
-						if (!TRDY_N && !IRDY_N)
+						if (!TRDY_N)
 						begin
 							if((Counter == (Forced_DataTfNo - 1)) || (Counter == 8))
 							begin
@@ -202,7 +212,6 @@ begin
 					if (!TRDY_N)
 					begin
 						ADreg <= memory[Counter];
-						Counter <= Counter + 1;
 					end
 				end
 			end
@@ -234,11 +243,14 @@ begin
 	begin
 		if((!GNT_N && !REQ_N && BusStatus && !SlaveFlag) || MasterFlag ) //Then Device is Master
 		begin 
-			MasterFlag = 1;
+			MasterFlag <= 1'b1;
 			case (Status)
 			TransactionStart:
 			begin
-				Status <= GrantGiven;
+				if(Forced_Frame)
+				begin
+					Status <= GrantGiven;
+				end
 			end
 			DataPhase:
 			begin
@@ -250,6 +262,20 @@ begin
 						begin
 							memory[Counter] <= AD;
 							Counter <= Counter + 1;
+						end
+					end
+				end
+				if (WriteFlag)
+				begin
+					if(!DEVSEL_N)
+					begin
+						if (!TRDY_N && !IRDY_N)
+						begin
+							Counter <= Counter + 1;
+							if((Counter == (Forced_DataTfNo - 1)) || (Counter == 8))
+							begin
+								Status <= Ending_Transaction;
+							end
 						end
 					end
 				end
@@ -290,9 +316,13 @@ begin
 					end
 					else if (ReadFlag)
 					begin
-						if(!IRDY_N && FRAME_N)
-							begin
-								Status <= Ending_Transaction;
+						if(!IRDY_N)
+						begin
+							Counter <= Counter + 1;
+							if(FRAME_N)
+								begin
+									Status <= Ending_Transaction;
+								end
 							end
 						end
 					end
@@ -406,113 +436,113 @@ begin
 		3'b000:
 		begin
 		casez(REQ_N)
-			8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_zz01:begin GNT_Nreg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_z011:begin GNT_Nreg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_0111:begin GNT_Nreg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzz0_1111:begin GNT_Nreg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzz01_1111:begin GNT_Nreg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz011_1111:begin GNT_Nreg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b0111_1111:begin GNT_Nreg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			default: begin GNT_Nreg <= 8'b1111_1111; counter = 3'b000; EN <= 1'b1;BusStatus <= 1'b1; end
+			8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zz01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_z011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_0111:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_1111:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz01_1111:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz011_1111:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0111_1111:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b000; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase
 		end
 		3'b001:
 		begin
 		casez(REQ_N)
-			8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_z01z:begin GNT_Nreg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_011z:begin GNT_Nreg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzz0_111z:begin GNT_Nreg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzz01_111z:begin GNT_Nreg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz011_111z:begin GNT_Nreg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b0111_111z:begin GNT_Nreg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_1110:begin GNT_Nreg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			default: begin GNT_Nreg <= 8'b1111_1111; counter = 3'b001; EN <= 1'b1;BusStatus <= 1'b1; end
+			8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_z01z:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_011z:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_111z:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz01_111z:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz011_111z:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0111_111z:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1111_1110:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b001; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase
 		end
 		3'b010:
 		begin
 		casez(REQ_N)
-			8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_01zz:begin GNT_Nreg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzz0_11zz:begin GNT_Nreg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzz01_11zz:begin GNT_Nreg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz011_11zz:begin GNT_Nreg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b0111_11zz:begin GNT_Nreg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_11z0:begin GNT_Nreg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_1101:begin GNT_Nreg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			default: begin GNT_Nreg <= 8'b1111_1111; counter = 3'b010; EN <= 1'b1;BusStatus <= 1'b1; end
+			8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_01zz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_11zz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz01_11zz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz011_11zz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0111_11zz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1111_11z0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1111_1101:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b010; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase
 		end
 		3'b011:
 		begin
 		casez(REQ_N)
-			8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzz0_1zzz:begin GNT_Nreg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzz01_1zzz:begin GNT_Nreg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz011_1zzz:begin GNT_Nreg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b0111_1zzz:begin GNT_Nreg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_1zz0:begin GNT_Nreg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_1z01:begin GNT_Nreg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_1011:begin GNT_Nreg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			default: begin GNT_Nreg <= 8'b1111_1111; counter = 3'b011; EN <= 1'b1;BusStatus <= 1'b1; end
+			8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_1zzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz01_1zzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz011_1zzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0111_1zzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1111_1zz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1111_1z01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1111_1011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b011; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase                
 		end
 		3'b100:
 		begin
 		casez(REQ_N)
-			8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzz01_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz011_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b0111_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_zz01:begin GNT_Nreg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_z011:begin GNT_Nreg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_0111:begin GNT_Nreg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			default: begin GNT_Nreg <= 8'b1111_1111; counter = 3'b100; EN <= 1'b1;BusStatus <= 1'b1; end
+			8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz01_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz011_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0111_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1111_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1111_zz01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1111_z011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1111_0111:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b100; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase                
 		end
 		3'b101:
 		begin
 		casez(REQ_N)
-			8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz01z_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b011z_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b111z_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b111z_zz01:begin GNT_Nreg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b111z_z011:begin GNT_Nreg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b111z_0111:begin GNT_Nreg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1110_1111:begin GNT_Nreg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			default: begin GNT_Nreg <= 8'b1111_1111; counter = 3'b101; EN <= 1'b1;BusStatus <= 1'b1; end
+			8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz01z_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b011z_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b111z_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b111z_zz01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b111z_z011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b111z_0111:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1110_1111:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b101; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase                
 		end
 		3'b110:
 		begin
 		casez(REQ_N)
-			8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b01zz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b11zz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b11zz_zz01:begin GNT_Nreg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b11zz_z011:begin GNT_Nreg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b11zz_0111:begin GNT_Nreg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b11z0_1111:begin GNT_Nreg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1101_1111:begin GNT_Nreg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			default: begin GNT_Nreg <= 8'b1111_1111; counter = 3'b110; EN <= 1'b1;BusStatus <= 1'b1; end
+			8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b01zz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b11zz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b11zz_zz01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b11zz_z011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b11zz_0111:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b11z0_1111:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1101_1111:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b110; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase               
 		end
 		3'b111:
 		begin
 		casez(REQ_N)
-			8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter = 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1zzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter = 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1zzz_zz01:begin GNT_Nreg <= 8'b1111_1101; counter = 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1zzz_z011:begin GNT_Nreg <= 8'b1111_1011; counter = 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1zzz_0111:begin GNT_Nreg <= 8'b1111_0111; counter = 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1zz0_1111:begin GNT_Nreg <= 8'b1110_1111; counter = 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1z01_1111:begin GNT_Nreg <= 8'b1101_1111; counter = 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1011_1111:begin GNT_Nreg <= 8'b1011_1111; counter = 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			default: begin GNT_Nreg <= 8'b1111_1111; counter = 3'b111; EN <= 1'b1;BusStatus <= 1'b1; end
+			8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1zzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1zzz_zz01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1zzz_z011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1zzz_0111:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1zz0_1111:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1z01_1111:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b1011_1111:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b111; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase                
 	   end
 	endcase
@@ -1173,12 +1203,12 @@ begin
 endmodule
 
 
-module PCI(CLK, RST_N, FORCED_REQ_N, mode,
+module PCI(CLK, RST_N, FORCED_REQ_N, mode, Forced_Frame,Forced_IRDY, Forced_TRDY,
            FORCED_ADDRESS_A, FORCED_ADDRESS_B, FORCED_ADDRESS_C, FORCED_ADDRESS_D, FORCED_ADDRESS_E, FORCED_ADDRESS_F, FORCED_ADDRESS_G, FORCED_ADDRESS_H,
 		   FORCED_CBE_N_A, FORCED_CBE_N_B, FORCED_CBE_N_C, FORCED_CBE_N_D, FORCED_CBE_N_E, FORCED_CBE_N_F, FORCED_CBE_N_G, FORCED_CBE_N_H,
 		   Forced_DataTfNo_A, Forced_DataTfNo_B, Forced_DataTfNo_C, Forced_DataTfNo_D, Forced_DataTfNo_E, Forced_DataTfNo_F, Forced_DataTfNo_G, Forced_DataTfNo_H);
 
-input CLK,RST_N;
+input CLK,RST_N,Forced_Frame,Forced_IRDY, Forced_TRDY;
 input [1:0] mode;
 wire FRAME_N, IRDY_N, TRDY_N, DEVSEL_N;
 wire [31:0] AD;
@@ -1217,14 +1247,14 @@ wire [7:0] REQ_N;
 wire [7:0] GNT_N;
 
 
-device A(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[0], GNT_N[0], FORCED_REQ_N[0], FORCED_ADDRESS_A, FORCED_CBE_N_A, Forced_DataTfNo_A, 32'h0000_0000);
-device B(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[1], GNT_N[1], FORCED_REQ_N[1], FORCED_ADDRESS_B, FORCED_CBE_N_B, Forced_DataTfNo_B, 32'h0000_000A);
-device C(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[2], GNT_N[2], FORCED_REQ_N[2], FORCED_ADDRESS_C, FORCED_CBE_N_C, Forced_DataTfNo_C, 32'h0000_0014);
-device D(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[3], GNT_N[3], FORCED_REQ_N[3], FORCED_ADDRESS_D, FORCED_CBE_N_D, Forced_DataTfNo_D, 32'h0000_001E);
-device E(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[4], GNT_N[4], FORCED_REQ_N[4], FORCED_ADDRESS_E, FORCED_CBE_N_E, Forced_DataTfNo_E, 32'h0000_0028);
-device F(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[5], GNT_N[5], FORCED_REQ_N[5], FORCED_ADDRESS_F, FORCED_CBE_N_F, Forced_DataTfNo_F, 32'h0000_0032);
-device G(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[6], GNT_N[6], FORCED_REQ_N[6], FORCED_ADDRESS_G, FORCED_CBE_N_G, Forced_DataTfNo_G, 32'h0000_003C);
-device H(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[7], GNT_N[7], FORCED_REQ_N[7], FORCED_ADDRESS_H, FORCED_CBE_N_H, Forced_DataTfNo_H, 32'h0000_0046);
+device A(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[0], GNT_N[0], FORCED_REQ_N[0], FORCED_ADDRESS_A, FORCED_CBE_N_A, Forced_DataTfNo_A, 32'h0000_0000, Forced_Frame, Forced_IRDY, Forced_TRDY);
+device B(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[1], GNT_N[1], FORCED_REQ_N[1], FORCED_ADDRESS_B, FORCED_CBE_N_B, Forced_DataTfNo_B, 32'h0000_000A, Forced_Frame, Forced_IRDY, Forced_TRDY);
+device C(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[2], GNT_N[2], FORCED_REQ_N[2], FORCED_ADDRESS_C, FORCED_CBE_N_C, Forced_DataTfNo_C, 32'h0000_0014, Forced_Frame, Forced_IRDY, Forced_TRDY);
+device D(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[3], GNT_N[3], FORCED_REQ_N[3], FORCED_ADDRESS_D, FORCED_CBE_N_D, Forced_DataTfNo_D, 32'h0000_001E, Forced_Frame, Forced_IRDY, Forced_TRDY);
+device E(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[4], GNT_N[4], FORCED_REQ_N[4], FORCED_ADDRESS_E, FORCED_CBE_N_E, Forced_DataTfNo_E, 32'h0000_0028, Forced_Frame, Forced_IRDY, Forced_TRDY);
+device F(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[5], GNT_N[5], FORCED_REQ_N[5], FORCED_ADDRESS_F, FORCED_CBE_N_F, Forced_DataTfNo_F, 32'h0000_0032, Forced_Frame, Forced_IRDY, Forced_TRDY);
+device G(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[6], GNT_N[6], FORCED_REQ_N[6], FORCED_ADDRESS_G, FORCED_CBE_N_G, Forced_DataTfNo_G, 32'h0000_003C, Forced_Frame, Forced_IRDY, Forced_TRDY);
+device H(CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N[7], GNT_N[7], FORCED_REQ_N[7], FORCED_ADDRESS_H, FORCED_CBE_N_H, Forced_DataTfNo_H, 32'h0000_0046, Forced_Frame, Forced_IRDY, Forced_TRDY);
 
 arbiter_priority PriorityArbiter(GNT_N, REQ_N, FRAME_N, RST_N, mode);
 arbiter_RobinRound RobinRoundArbiter(GNT_N, REQ_N, FRAME_N, RST_N, mode);
@@ -1609,7 +1639,7 @@ reg [3:0] FORCED_CBE_N_G;
 reg [3:0] FORCED_CBE_N_H;
 
 
-reg CLK, RST_N;
+reg CLK, RST_N, Forced_Frame, Forced_IRDY, Forced_TRDY;
 reg [1:0] mode;
 
 /*
@@ -1630,21 +1660,26 @@ begin
 CLK <= 1'b0;
 RST_N <= 1'b0;
 mode <= 2'b00;
+Forced_Frame <= 1'b1;
+Forced_IRDY <= 1'b1;
 #10
 RST_N  <= 1;
+Forced_Frame <= 1'b1;
 FORCED_REQ_N <= 8'b1111_1110;
 FORCED_ADDRESS_A <= 32'h0000_000A;
 FORCED_CBE_N_A <= 4'b0111;
 Forced_DataTfNo_A <= 3;
 #10
-FORCED_CBE_N_A <= 4'b000;
+FORCED_CBE_N_A <= 4'b0000;
+#20
+Forced_IRDY <= 1'b0;
 #30
 FORCED_REQ_N <= 8'b1111_1101;
 FORCED_ADDRESS_B <= 32'h0000_0005;
 FORCED_CBE_N_B <= 4'b0111;
 Forced_DataTfNo_B <= 2;
 #30
-FORCED_CBE_N_B <= 4'b000;
+FORCED_CBE_N_B <= 4'b0000;
 #20
 FORCED_REQ_N <= 8'b1111_1010;
 FORCED_ADDRESS_A <= 32'h0000_0014;
@@ -1654,17 +1689,17 @@ FORCED_CBE_N_C <= 4'b0111;
 Forced_DataTfNo_A <= 2;
 Forced_DataTfNo_C <= 1;
 #30
-FORCED_CBE_N_A <= 4'b000;
+FORCED_CBE_N_A <= 4'b0000;
 #20
 FORCED_REQ_N <= 8'b1111_1011;
 #30
-FORCED_CBE_N_C <= 4'b000;
-#10
+FORCED_CBE_N_C <= 4'b0000;
+#20
 FORCED_CBE_N_C <= 4'b0111;
 FORCED_ADDRESS_C <= 32'h0000_000E;
 #20
 FORCED_CBE_N_C <= 4'b000;
-#20
+#40
 
 // ____ PriorityArbiter ____
 /*
@@ -1716,13 +1751,13 @@ FORCED_REQ_N <= 8'b1111_1101;
 FORCED_ADDRESS_B <= 32'h0000_0000;
 FORCED_CBE_N_B <= 4'b0111;
 Forced_DataTfNo_B <= 5;
-#30
+#20
 FORCED_CBE_N_B <= 4'b0000;
-#30
+#40
 FORCED_REQ_N <= 8'b1111_0111;
 FORCED_ADDRESS_D <= 32'h0000_0028;
 FORCED_CBE_N_D <= 4'b0110;
-Forced_DataTfNo_D <= 5;
+Forced_DataTfNo_D <= 1;
 #80
 FORCED_REQ_N <= 8'b1111_1111;
 #50
@@ -1747,7 +1782,7 @@ begin
 #5 CLK = ~CLK;
 end
 
-PCI pci(CLK, RST_N, FORCED_REQ_N, mode,
+PCI pci(CLK, RST_N, FORCED_REQ_N, mode,Forced_Frame,Forced_IRDY, Forced_TRDY,
         FORCED_ADDRESS_A, FORCED_ADDRESS_B, FORCED_ADDRESS_C, FORCED_ADDRESS_D, FORCED_ADDRESS_E, FORCED_ADDRESS_F, FORCED_ADDRESS_G, FORCED_ADDRESS_H,
 		FORCED_CBE_N_A, FORCED_CBE_N_B, FORCED_CBE_N_C, FORCED_CBE_N_D, FORCED_CBE_N_E, FORCED_CBE_N_F, FORCED_CBE_N_G, FORCED_CBE_N_H,
 		Forced_DataTfNo_A, Forced_DataTfNo_B, Forced_DataTfNo_C, Forced_DataTfNo_D, Forced_DataTfNo_E, Forced_DataTfNo_F, Forced_DataTfNo_G, Forced_DataTfNo_H);
