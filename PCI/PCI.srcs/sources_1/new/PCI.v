@@ -192,7 +192,7 @@ begin
 			GrantGiven:
 			begin
 				DEVSEL_Nreg <= 1'b0;
-				TRDY_Nreg <= 1'b0; 
+				TRDY_Nreg <= Forced_TRDY; 
 				if (CBE_N == 4'b0110)       //Read Operation by master
 				begin
 					ReadFlag  <= 1'b1;
@@ -207,6 +207,7 @@ begin
 			end
 			DataPhase:
 			begin
+				TRDY_Nreg <= Forced_TRDY;
 				if (ReadFlag)
 				begin
 					if (!TRDY_N)
@@ -247,7 +248,7 @@ begin
 			case (Status)
 			TransactionStart:
 			begin
-				if(Forced_Frame)
+				if(!Forced_Frame)
 				begin
 					Status <= GrantGiven;
 				end
@@ -289,9 +290,9 @@ begin
 				case (Status)
 				TransactionStart:
 				begin
-					SlaveFlag <= 1;
+					SlaveFlag <= 1'b1;
 					Status <= GrantGiven;
-					Counter <= (AD - MIN_ADDRESS );
+					Counter <= (AD - MIN_ADDRESS);
 				end
 				DataPhase:
 				begin
@@ -316,7 +317,7 @@ begin
 					end
 					else if (ReadFlag)
 					begin
-						if(!IRDY_N)
+						if(!IRDY_N && !TRDY_N)
 						begin
 							Counter <= Counter + 1;
 							if(FRAME_N)
@@ -719,10 +720,9 @@ input [7:0] IN0,IN1,IN2,IN3,IN4,IN5,IN6,IN7;
 output reg [7:0] OUT1;
 input [1:0]ON_OFF;
 input CLK,FRAME,RESET;
-reg [7:0]MEGA_MIND[0:7], shift_dumy[0:7],MEGA_DUMY[0:7];
+reg [7:0]MEGA_MIND[0:7];
 //flag1 equals ex
-reg first_time,not_first_time,ENABLE_TO_GNT;
-reg [1:0]flag;
+reg first_time,ENABLE_TO_GNT;
 reg [2:0]free_location;
 
 always@(posedge FRAME)
@@ -1129,26 +1129,7 @@ first_time=1;
  free_location=6;
  else if(IN7==8'b1111_1111) 
  free_location=7;  
-/* OUT1=MEGA_MIND[0];//==========
 
- MEGA_DUMY[0]=MEGA_MIND[0];
- MEGA_DUMY[1]=MEGA_MIND[1];
- MEGA_DUMY[2]=MEGA_MIND[2];
- MEGA_DUMY[3]=MEGA_MIND[3];
- MEGA_DUMY[4]=MEGA_MIND[4];
- MEGA_DUMY[5]=MEGA_MIND[5];
- MEGA_DUMY[6]=MEGA_MIND[6];
- MEGA_DUMY[7]=MEGA_MIND[7];  
- MEGA_MIND[0]=    MEGA_DUMY[1];
- MEGA_MIND[1]=    MEGA_DUMY[2];
- MEGA_MIND[2]=    MEGA_DUMY[3];
- MEGA_MIND[3]=    MEGA_DUMY[4];
- MEGA_MIND[4]=    MEGA_DUMY[5];
- MEGA_MIND[5]=    MEGA_DUMY[6];
- MEGA_MIND[6]=    MEGA_DUMY[7];
- MEGA_MIND[7]=    8'b1111_1111;
- if(OUT1!=8'b1111_1111)
- free_location=free_location-1;*/
 
  end
 
@@ -1262,351 +1243,6 @@ arbiter_FCFS FCFSArbiter(GNT_N, REQ_N, FRAME_N, CLK, RST_N, mode);
 
 endmodule
 
-
-
-
-/* module tb_RTH_AND_MEMORY();
- reg[7:0]in;
- reg clk;
- wire [7:0]gnt_out,gnt_out2,fl;
- reg [7:0] out0,out1,out2,out3,out4,out5,out6,out7;
- reg z=0;
- reg[7:0] y=8'b1111_1111;
- initial
- begin
- $monitor( "  out0 = %b out1 = %b out2 = %b out3 = %b out4 = %b  out5 = %b out6 = %b out7 = %b  gnt_out= %b  gnt_out2=%b  fl=%d" ,out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,gnt_out2,fl );
-   clk <= 0;
- $display("----0-----");
- out0=8'b1111_1110;
- out1=8'b1111_1101;
- out2=8'b1111_1111;
- out3=8'b1111_1111;
- out4=8'b1111_1111;
- out5=8'b1111_1111;
- out6=8'b1111_1111;
- out7=8'b1111_1111;
- #30
- $display("----1-----");
- out0<=8'b1111_1111;
- out1<=8'b1111_1111;
- out2<=8'b1111_1111;
- out3<=8'b1111_1111;
- out4<=8'b1111_1111;
- out5<=8'b1111_1111;
- out6<=8'b1111_1111;
- out7<=8'b1111_1111;
-
- #30
- $display("----2-----");
- out0<=8'b1111_1011;
- out1<=8'b1110_1111;
- out2<=8'b0111_1111;
- out3<=8'b1111_1111;
- out4<=8'b1111_1111;
- out5<=8'b1111_1111;
- out6<=8'b1111_1111;
- out7<=8'b1111_1111;
- #30
- $display("----3-----");
- out0<=8'b1111_1011;
- out1<=8'b1110_1111;
- out2<=8'b1011_1111;
- out3<=8'b0111_1111;
- out4<=8'b1111_1111;
- out5<=8'b1111_1111;
- out6<=8'b1111_1111;
- out7<=8'b1111_1111;
- #30
- $display("----4-----");
- out0<=8'b1111_1110;
- out1<=8'b1110_1111;
- out2<=8'b0111_1111;
- out3<=8'b1111_1111;
- out4<=8'b1111_1111;
- out5<=8'b1111_1111;
- out6<=8'b1111_1111;
- out7<=8'b1111_1111;
- 
-
- end
- always
- begin
-     #15
-     clk = ~clk;
- end
-
- memory a2(out0,out1,out2,out3,out4,out5,out6,out7,gnt_out,clk);
-
-
-
- endmodule
-
- module tb_arbiter_priority();
-
- wire [7:0] GNT;
- reg [7:0] REQ;
- reg FRAME,clk,RST;
-
- integer i;
- initial
- begin
-     $monitor($time ,, "REQ = %b  FRAME = %b  GNT = %b  RST = %b" , REQ , FRAME , GNT , RST);
-     #2
-     clk <= 0;
-     RST <= 0;
-     FRAME <= 1;
-     #5
-     RST <= 1;
-     for(i = 0 ; i < 20 ; i = i + 1)
-     begin
-         #10
-         REQ <= $urandom %8;
-         //  RST <= $urandom %2;
-     end
- end
-
- always
- begin
-     #25
-     FRAME = ~FRAME;
- end
-
- always
- begin
-     #5
-     clk = ~clk;
- end
-
-
- arbiter_priority arbiter_priority_test(GNT,REQ,FRAME,clk,RST);
- endmodule
-
- module tb_arbiter_RobinRound();
-
- wire [7:0] GNT;
- reg [7:0] REQ;
- reg FRAME,clk,RST;
-
- integer i;
- initial
-     begin
-     $monitor($time ,, "REQ = %b  FRAME = %b  GNT = %b  RST = %b" , REQ , FRAME , GNT , RST);
-     clk <= 0;
-     RST <= 0;
-     FRAME <= 1;
-     #8
-     RST <= 1;
-     for(i = 0 ; i < 20 ; i = i + 1)
-     begin
-         #10
-         REQ <= $urandom %8;
-         //  RST <= $urandom %2;
-     end
- end
-
- always
- begin
-     #25
-     FRAME = ~FRAME;
- end
-
- always
- begin
-     #5
-     clk = ~clk;
- end
-
-
- arbiter_RobinRound arbiter_RobinRound_test(GNT,REQ,FRAME,clk,RST);
- endmodule
-
- module tb_fcfs();
-
- wire [7:0] GNT;
- reg [7:0] REQ;
- reg FRAME,clk,RST;
-
- integer i;
- initial
-     begin
-     $monitor($time ,, "REQ = %b  FRAME = %b  GNT = %b  RST = %b" , REQ , FRAME , GNT , RST);
-     #2
-     clk <= 0;
-     RST <= 0;
-     FRAME <= 1;
-     #5
-     RST <= 1;
-         for(i = 0 ; i < 20 ; i = i + 1)
-     begin
-         #5
-         REQ <= $urandom %8;
-         //  RST <= $urandom %2;
-         // FRAME <= $urandom %2;
-     end
- end
-
- always
- begin
-     #5
-     clk = ~clk;
- end
-
-
- arbiter_FCFS arbiter_test(GNT,REQ,FRAME,clk,RST);
- endmodule
-
- module tb_arbiter_FCFS();
- wire EN;
- wire [7:0] GNT;
- reg [7:0] REQ;
- reg FRAME,clk,RST;
-
- integer i;
- initial
-     begin
-     $monitor($time ,, "REQ = %b  FRAME = %b  GNT = %b  RST = %b EN=%b" , REQ , FRAME , GNT , RST,EN);
-     clk <= 0;
-     RST <= 0;
-     FRAME <= 1;
-     #12
-     RST <= 1;
-     #1
-     REQ <= 8'b1111_1101;
-     #10
-     REQ <= 8'b1111_0101;
-     #10
-     FRAME <= 0;
-     REQ <= 8'b1001_0111;
-     #10
-     FRAME <= 1;
-     REQ <= 8'b1001_0110;
-     #10
-     FRAME <= 0;
-     REQ <= 8'b1001_1110;
-     #10
-     FRAME <= 1;
-     REQ <= 8'b1011_1010;
-     #10
-     REQ <= 8'b1111_1010; 
-     #10
-     REQ <= 8'b1111_1011; 
-     #10
-     REQ <= 8'b1111_1111;  
- end
-
- always
- begin
-     #25
-     FRAME = ~FRAME;
- end
-
- always
- begin
-     #5
-     clk = ~clk;
- end
-
-
- arbiter_FCFS arbiter_FCFS_test(GNT,REQ,FRAME,clk,RST);
- endmodule
-
-
-// module device_tb();
-
-// wire [31:0] Output0, Output1;
-
-// reg FORCED_REQ_N;
-// reg [31:0] MIN_ADDRESS;
-// reg [31:0] FORCED_ADDRESS;
-// reg [3:0] FORCED_CBE_N;
-
-// reg CLK, RST_N, GNT_N;
-
-// wire [31:0] AD;	
-// wire [3:0] CBE_N;
-// wire FRAME_N, IRDY_N, TRDY_N, DEVSEL_N;
-
-// reg FRAME_Nreg, IRDY_Nreg, TRDY_Nreg, DEVSEL_Nreg;
-// reg [31:0] ADreg;	
-// reg [3:0] CBE_Nreg;
-// reg [3:0] DataTfNo;
-// wire REQ_N;
-
-// assign FRAME_N = FRAME_Nreg;
-// assign IRDY_N = IRDY_Nreg;
-// assign TRDY_N = TRDY_Nreg;
-// assign DEVSEL_N = DEVSEL_Nreg;
-// assign AD = ADreg;
-// assign CBE_N = CBE_Nreg;
-
-
-// initial
-// begin
-// CLK <= 0;
-// RST_N <= 0;
-// MIN_ADDRESS <= 32'h0000_0001;
-// IRDY_Nreg <= 1'bz;
-// TRDY_Nreg <= 1'bz;
-// FRAME_Nreg <= 1'bz;
-// DEVSEL_Nreg <= 1'bz;
-// CBE_Nreg <= 4'bzzzz;
-// ADreg <= {(32){1'bz}};
-// #12
-// RST_N <= 1;
-// FORCED_REQ_N <= 0;
-// FORCED_ADDRESS <= 32'h0000_0002;
-// FORCED_CBE_N <= 4'b0110;
-// #10
-// GNT_N <= 0;
-// #10
-// DEVSEL_Nreg <= 0;
-// #20
-// TRDY_Nreg <= 0;
-// ADreg <= 32'h1000_0000;
-// #10
-// ADreg <= 32'h2000_0000;
-// #10
-// ADreg <= 32'h3000_0000;
-// #10
-// ADreg <= 32'h4000_0000;
-// #10
-// ADreg <= 32'h5000_0000;
-// #10
-// ADreg <= 32'h6000_0000;
-// #10
-// ADreg <= 32'h7000_0000;
-// #10
-// ADreg <= 32'h8000_0000;
-// #10
-// ADreg <= 32'h9000_0000;
-// #10
-// ADreg <= 32'hA000_0000;
-
-
-// #10
-// DEVSEL_Nreg <= 1;
-// ADreg <= {(32){1'bz}};
-// #10
-// FORCED_CBE_N <= 4'b0111;
-// #20
-// GNT_N <= 0;
-// #15
-// DEVSEL_Nreg <= 0;
-// #5
-// TRDY_Nreg <= 0;
-
-
-
-// end
-
-// always
-// begin
-// #5 CLK = ~CLK;
-// end
-// device_A device_tb(Output0,Output1,CLK, RST_N, AD, CBE_N, FRAME_N, IRDY_N, TRDY_N, DEVSEL_N, REQ_N, GNT_N, FORCED_REQ_N, FORCED_ADDRESS, FORCED_CBE_N,DataTfNo, MIN_ADDRESS);
-
-// endmodule
-*/
 module PCI_tb();
 
 reg [7:0] FORCED_REQ_N;
@@ -1660,11 +1296,11 @@ begin
 CLK <= 1'b0;
 RST_N <= 1'b0;
 mode <= 2'b00;
-Forced_Frame <= 1'b1;
-Forced_IRDY <= 1'b1;
+Forced_Frame <= 1'b0;
+Forced_IRDY <= 1'b0;
+Forced_TRDY <= 1'b0;
 #10
 RST_N  <= 1;
-Forced_Frame <= 1'b1;
 FORCED_REQ_N <= 8'b1111_1110;
 FORCED_ADDRESS_A <= 32'h0000_000A;
 FORCED_CBE_N_A <= 4'b0111;
@@ -1672,15 +1308,13 @@ Forced_DataTfNo_A <= 3;
 #10
 FORCED_CBE_N_A <= 4'b0000;
 #20
-Forced_IRDY <= 1'b0;
-#30
 FORCED_REQ_N <= 8'b1111_1101;
 FORCED_ADDRESS_B <= 32'h0000_0005;
 FORCED_CBE_N_B <= 4'b0111;
 Forced_DataTfNo_B <= 2;
-#30
+#40
 FORCED_CBE_N_B <= 4'b0000;
-#20
+#10
 FORCED_REQ_N <= 8'b1111_1010;
 FORCED_ADDRESS_A <= 32'h0000_0014;
 FORCED_ADDRESS_C <= 32'h0000_0003;
@@ -1688,92 +1322,153 @@ FORCED_CBE_N_A <= 4'b0111;
 FORCED_CBE_N_C <= 4'b0111;
 Forced_DataTfNo_A <= 2;
 Forced_DataTfNo_C <= 1;
-#30
+#40
 FORCED_CBE_N_A <= 4'b0000;
-#20
+#10
 FORCED_REQ_N <= 8'b1111_1011;
-#30
+#40
 FORCED_CBE_N_C <= 4'b0000;
 #20
 FORCED_CBE_N_C <= 4'b0111;
 FORCED_ADDRESS_C <= 32'h0000_000E;
 #20
 FORCED_CBE_N_C <= 4'b000;
-#40
+#30
+
 
 // ____ PriorityArbiter ____
-/*
 RST_N <= 0;
 mode <= 2'b00;
-#15
+#25
 RST_N  <= 1;
-FORCED_REQ_N <= 8'b1111_1101;
-FORCED_ADDRESS_B <= 32'h0000_0000;
+
+FORCED_REQ_N <= 8'b1111_1010;
+FORCED_ADDRESS_A <= 32'h0000_000A;
+FORCED_ADDRESS_C <= 32'h0000_000F;
+FORCED_CBE_N_A <= 4'b0111;
+FORCED_CBE_N_C <= 4'b0110;
+Forced_DataTfNo_A <= 5;
+Forced_DataTfNo_C <= 3;
+#20
+FORCED_CBE_N_A <= 4'b0000;
+#50
+FORCED_ADDRESS_A <= 32'h0000_0028;
+FORCED_CBE_N_A <= 4'b0111;
+#30
+FORCED_CBE_N_A <= 4'b0000;
+#30
+FORCED_REQ_N <= 8'b1111_1011;
+#40
+FORCED_CBE_N_C <= 4'b0000;
+#30
+FORCED_ADDRESS_C <= 32'h0000_0021;
+FORCED_CBE_N_C <= 4'b0111;
+#40
+FORCED_CBE_N_C <= 4'b0000;
+#20
+FORCED_REQ_N <= 8'b1111_0101;
+FORCED_ADDRESS_B <= 32'h0000_001E;
+FORCED_ADDRESS_D <= 32'h0000_0046;
 FORCED_CBE_N_B <= 4'b0111;
-Forced_DataTfNo_B <= 5;
+FORCED_CBE_N_D <= 4'b0110;
+Forced_DataTfNo_B <= 4;
+Forced_DataTfNo_D <= 1;
+#30
+FORCED_CBE_N_B <= 4'b0000;
+#50
+FORCED_ADDRESS_B <= 32'h0000_0023;
+FORCED_CBE_N_B <= 4'b0111;
+#20
+FORCED_CBE_N_B <= 4'b0000;
+#50
+FORCED_ADDRESS_B <= 32'h0000_0046;
+FORCED_CBE_N_B <= 4'b0111;
+#20
+FORCED_CBE_N_B <= 4'b0000;
+#50
+FORCED_ADDRESS_B <= 32'h0000_0048;
+FORCED_CBE_N_B <= 4'b0111;
 #20
 FORCED_CBE_N_B <= 4'b0000;
 #30
 FORCED_REQ_N <= 8'b1111_0111;
-FORCED_ADDRESS_D <= 32'h0000_0028;
-FORCED_CBE_N_D <= 4'b0110;
-Forced_DataTfNo_D <= 5;
-#80
-FORCED_REQ_N <= 8'b1111_1111;
-#50
-FORCED_REQ_N <= 8'b0111_1011;
-FORCED_ADDRESS_C <= 32'h0000_0000;
-FORCED_CBE_N_C <= 4'b0111;
-Forced_DataTfNo_C <= 5;
-FORCED_ADDRESS_H <= 32'h0000_002A;
-FORCED_CBE_N_H <= 4'b0111;
-Forced_DataTfNo_H <= 3;
-#15
-FORCED_CBE_N_C <= 4'b0000;
-#45
+#40
 FORCED_REQ_N <= 8'b0111_1111;
-#25
-FORCED_CBE_N_H <= 4'b0000;
+FORCED_ADDRESS_H <= 32'h0000_0014;
+FORCED_CBE_N_H <= 4'b0110;
+Forced_DataTfNo_H <= 8;
+Forced_Frame <= 1'b1;
+#80
+Forced_Frame <= 1'b0;
+#40
+Forced_IRDY <= 1'b1;
+#20
+Forced_IRDY <= 1'b0;
+#40
+Forced_TRDY <= 1'b1;
+#20
+Forced_TRDY <= 1'b0;
+#60
 
-/ ____ RobinRoundArbiter ____
+
+
+// ____ RobinRoundArbiter ____
 RST_N <= 0;
 mode <= 2'b01;
 #15
 RST_N  <= 1;
-*/
+
+FORCED_REQ_N <= 8'b1111_1010;
+FORCED_ADDRESS_A <= 32'h0000_000A;
+FORCED_ADDRESS_C <= 32'h0000_000F;
+FORCED_CBE_N_A <= 4'b0111;
+FORCED_CBE_N_C <= 4'b0110;
+Forced_DataTfNo_A <= 5;
+Forced_DataTfNo_C <= 3;
+#20
+FORCED_CBE_N_A <= 4'b0000;
+#60
+FORCED_CBE_N_C <= 4'b0000;
+#30
+FORCED_ADDRESS_A <= 32'h0000_0028;
+FORCED_CBE_N_A <= 4'b0111;
+#30
+FORCED_CBE_N_A <= 4'b0000;
+#30
+FORCED_ADDRESS_C <= 32'h0000_0021;
+FORCED_CBE_N_C <= 4'b0111;
+#40
+FORCED_CBE_N_C <= 4'b0000;
+#50
+
 // ____ FCFSArbiter ____ 
 RST_N <= 0;
 mode <= 2'b11;
 #10
 RST_N  <= 1;
 
-FORCED_REQ_N <= 8'b1111_1101;
-FORCED_ADDRESS_B <= 32'h0000_0000;
-FORCED_CBE_N_B <= 4'b0111;
-Forced_DataTfNo_B <= 5;
-#20
-FORCED_CBE_N_B <= 4'b0000;
+FORCED_REQ_N <= 8'b1101_1110;
+FORCED_ADDRESS_A <= 32'h0000_000A;
+FORCED_ADDRESS_C <= 32'h0000_000F;
+FORCED_ADDRESS_F <= 32'h0000_003C;
+FORCED_CBE_N_A <= 4'b0111;
+FORCED_CBE_N_C <= 4'b0110;
+FORCED_CBE_N_F <= 4'b0110;
+Forced_DataTfNo_A <= 5;
+Forced_DataTfNo_C <= 3;
+Forced_DataTfNo_F <= 3;
 #40
-FORCED_REQ_N <= 8'b1111_0111;
-FORCED_ADDRESS_D <= 32'h0000_0028;
-FORCED_CBE_N_D <= 4'b0110;
-Forced_DataTfNo_D <= 1;
-#80
-FORCED_REQ_N <= 8'b1111_1111;
-#50
-FORCED_REQ_N <= 8'b0111_1011;
-FORCED_ADDRESS_C <= 32'h0000_0000;
-FORCED_CBE_N_C <= 4'b0111;
-Forced_DataTfNo_C <= 5;
-FORCED_ADDRESS_H <= 32'h0000_002A;
-FORCED_CBE_N_H <= 4'b0111;
-Forced_DataTfNo_H <= 3;
+FORCED_REQ_N <= 8'b1101_1010;
+FORCED_CBE_N_A <= 4'b0000;
+#30
+FORCED_ADDRESS_A <= 32'h0000_0028;
+FORCED_CBE_N_A <= 4'b0111;
+#35
+FORCED_CBE_N_A <= 4'b0000;
 #25
-FORCED_CBE_N_C <= 4'b0000;
-#55
-FORCED_REQ_N <= 8'b0111_1111;
-#15
-FORCED_CBE_N_H <= 4'b0000;
+FORCED_REQ_N <= 8'b1101_1011;
+#80
+RST_N <= 0;
 
 end
 

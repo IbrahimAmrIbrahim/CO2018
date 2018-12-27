@@ -7,3 +7,4 @@ INFO: [VRFC 10-311] analyzing module REQ_THREADER
 INFO: [VRFC 10-311] analyzing module memory
 INFO: [VRFC 10-311] analyzing module PCI
 INFO: [VRFC 10-311] analyzing module PCI_tb
+INFO: [VRFC 10-311] analyzing module PCI_tb_2
