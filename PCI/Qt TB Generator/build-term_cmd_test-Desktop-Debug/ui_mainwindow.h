@@ -88,14 +88,6 @@ public:
     QLabel *Label6;
     QLabel *Label7;
     QLabel *Label8;
-    QLabel *Delay_Label1;
-    QLabel *Delay_Label2;
-    QLabel *Delay_Label3;
-    QLabel *Delay_Label4;
-    QLabel *Delay_Label5;
-    QLabel *Delay_Label6;
-    QLabel *Delay_Label7;
-    QLabel *Delay_Label8;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout_9;
     QPushButton *Device1;
@@ -103,6 +95,15 @@ public:
     QComboBox *Operation1;
     QTextEdit *Time1;
     QTextEdit *DtNo1;
+    QPushButton *WaveForm;
+    QLabel *label;
+    QLabel *label_2;
+    QLabel *label_3;
+    QLabel *label_4;
+    QLabel *label_5;
+    QLabel *label_6;
+    QLabel *label_7;
+    QLabel *label_8;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
 
@@ -110,15 +111,15 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(794, 592);
+        MainWindow->resize(871, 731);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         Label1 = new QLabel(centralWidget);
         Label1->setObjectName(QStringLiteral("Label1"));
-        Label1->setGeometry(QRect(60, 20, 71, 21));
+        Label1->setGeometry(QRect(90, 60, 71, 21));
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(230, 124, 161, 160));
+        layoutWidget->setGeometry(QRect(230, 124, 161, 150));
         verticalLayout_2 = new QVBoxLayout(layoutWidget);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -151,7 +152,7 @@ public:
 
         layoutWidget1 = new QWidget(centralWidget);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(400, 124, 161, 160));
+        layoutWidget1->setGeometry(QRect(400, 124, 161, 150));
         verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
@@ -184,7 +185,7 @@ public:
 
         layoutWidget2 = new QWidget(centralWidget);
         layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(570, 124, 161, 160));
+        layoutWidget2->setGeometry(QRect(570, 124, 161, 150));
         verticalLayout_4 = new QVBoxLayout(layoutWidget2);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -217,7 +218,7 @@ public:
 
         layoutWidget3 = new QWidget(centralWidget);
         layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(60, 290, 161, 160));
+        layoutWidget3->setGeometry(QRect(60, 280, 161, 150));
         verticalLayout_5 = new QVBoxLayout(layoutWidget3);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -250,7 +251,7 @@ public:
 
         layoutWidget4 = new QWidget(centralWidget);
         layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(230, 290, 161, 160));
+        layoutWidget4->setGeometry(QRect(230, 280, 161, 150));
         verticalLayout_6 = new QVBoxLayout(layoutWidget4);
         verticalLayout_6->setSpacing(6);
         verticalLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -283,7 +284,7 @@ public:
 
         layoutWidget5 = new QWidget(centralWidget);
         layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(400, 290, 161, 160));
+        layoutWidget5->setGeometry(QRect(400, 280, 161, 150));
         verticalLayout_7 = new QVBoxLayout(layoutWidget5);
         verticalLayout_7->setSpacing(6);
         verticalLayout_7->setContentsMargins(11, 11, 11, 11);
@@ -316,7 +317,7 @@ public:
 
         layoutWidget6 = new QWidget(centralWidget);
         layoutWidget6->setObjectName(QStringLiteral("layoutWidget6"));
-        layoutWidget6->setGeometry(QRect(570, 290, 161, 160));
+        layoutWidget6->setGeometry(QRect(570, 280, 161, 150));
         verticalLayout_8 = new QVBoxLayout(layoutWidget6);
         verticalLayout_8->setSpacing(6);
         verticalLayout_8->setContentsMargins(11, 11, 11, 11);
@@ -349,55 +350,31 @@ public:
 
         Generate = new QPushButton(centralWidget);
         Generate->setObjectName(QStringLiteral("Generate"));
-        Generate->setGeometry(QRect(352, 462, 91, 31));
+        Generate->setGeometry(QRect(180, 440, 101, 41));
         Label2 = new QLabel(centralWidget);
         Label2->setObjectName(QStringLiteral("Label2"));
-        Label2->setGeometry(QRect(130, 20, 71, 21));
+        Label2->setGeometry(QRect(160, 60, 71, 21));
         Label3 = new QLabel(centralWidget);
         Label3->setObjectName(QStringLiteral("Label3"));
-        Label3->setGeometry(QRect(200, 20, 71, 21));
+        Label3->setGeometry(QRect(230, 60, 71, 21));
         Label4 = new QLabel(centralWidget);
         Label4->setObjectName(QStringLiteral("Label4"));
-        Label4->setGeometry(QRect(270, 20, 71, 21));
+        Label4->setGeometry(QRect(300, 60, 71, 21));
         Label5 = new QLabel(centralWidget);
         Label5->setObjectName(QStringLiteral("Label5"));
-        Label5->setGeometry(QRect(400, 20, 71, 21));
+        Label5->setGeometry(QRect(430, 60, 71, 21));
         Label6 = new QLabel(centralWidget);
         Label6->setObjectName(QStringLiteral("Label6"));
-        Label6->setGeometry(QRect(470, 20, 71, 21));
+        Label6->setGeometry(QRect(500, 60, 71, 21));
         Label7 = new QLabel(centralWidget);
         Label7->setObjectName(QStringLiteral("Label7"));
-        Label7->setGeometry(QRect(540, 20, 71, 21));
+        Label7->setGeometry(QRect(570, 60, 71, 21));
         Label8 = new QLabel(centralWidget);
         Label8->setObjectName(QStringLiteral("Label8"));
-        Label8->setGeometry(QRect(610, 20, 71, 21));
-        Delay_Label1 = new QLabel(centralWidget);
-        Delay_Label1->setObjectName(QStringLiteral("Delay_Label1"));
-        Delay_Label1->setGeometry(QRect(60, 60, 71, 21));
-        Delay_Label2 = new QLabel(centralWidget);
-        Delay_Label2->setObjectName(QStringLiteral("Delay_Label2"));
-        Delay_Label2->setGeometry(QRect(130, 60, 71, 21));
-        Delay_Label3 = new QLabel(centralWidget);
-        Delay_Label3->setObjectName(QStringLiteral("Delay_Label3"));
-        Delay_Label3->setGeometry(QRect(200, 60, 71, 21));
-        Delay_Label4 = new QLabel(centralWidget);
-        Delay_Label4->setObjectName(QStringLiteral("Delay_Label4"));
-        Delay_Label4->setGeometry(QRect(270, 60, 71, 21));
-        Delay_Label5 = new QLabel(centralWidget);
-        Delay_Label5->setObjectName(QStringLiteral("Delay_Label5"));
-        Delay_Label5->setGeometry(QRect(60, 90, 71, 21));
-        Delay_Label6 = new QLabel(centralWidget);
-        Delay_Label6->setObjectName(QStringLiteral("Delay_Label6"));
-        Delay_Label6->setGeometry(QRect(130, 90, 71, 21));
-        Delay_Label7 = new QLabel(centralWidget);
-        Delay_Label7->setObjectName(QStringLiteral("Delay_Label7"));
-        Delay_Label7->setGeometry(QRect(200, 90, 71, 21));
-        Delay_Label8 = new QLabel(centralWidget);
-        Delay_Label8->setObjectName(QStringLiteral("Delay_Label8"));
-        Delay_Label8->setGeometry(QRect(270, 90, 71, 21));
+        Label8->setGeometry(QRect(640, 60, 71, 21));
         verticalLayoutWidget = new QWidget(centralWidget);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(60, 124, 160, 160));
+        verticalLayoutWidget->setGeometry(QRect(60, 124, 160, 150));
         verticalLayout_9 = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout_9->setSpacing(6);
         verticalLayout_9->setContentsMargins(11, 11, 11, 11);
@@ -432,10 +409,37 @@ public:
 
         verticalLayout_9->addWidget(DtNo1);
 
+        WaveForm = new QPushButton(centralWidget);
+        WaveForm->setObjectName(QStringLiteral("WaveForm"));
+        WaveForm->setGeometry(QRect(520, 440, 101, 41));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(90, 30, 59, 15));
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(160, 30, 59, 15));
+        label_3 = new QLabel(centralWidget);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(230, 30, 59, 15));
+        label_4 = new QLabel(centralWidget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(300, 30, 59, 15));
+        label_5 = new QLabel(centralWidget);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(430, 30, 59, 15));
+        label_6 = new QLabel(centralWidget);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(500, 30, 59, 15));
+        label_7 = new QLabel(centralWidget);
+        label_7->setObjectName(QStringLiteral("label_7"));
+        label_7->setGeometry(QRect(570, 30, 59, 15));
+        label_8 = new QLabel(centralWidget);
+        label_8->setObjectName(QStringLiteral("label_8"));
+        label_8->setGeometry(QRect(640, 30, 59, 15));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 794, 20));
+        menuBar->setGeometry(QRect(0, 0, 871, 20));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -479,17 +483,18 @@ public:
         Label6->setText(QApplication::translate("MainWindow", "Slave2", Q_NULLPTR));
         Label7->setText(QApplication::translate("MainWindow", "Slave3", Q_NULLPTR));
         Label8->setText(QApplication::translate("MainWindow", "Slave4", Q_NULLPTR));
-        Delay_Label1->setText(QApplication::translate("MainWindow", "Dev1Delay", Q_NULLPTR));
-        Delay_Label2->setText(QApplication::translate("MainWindow", "Dev2Delay", Q_NULLPTR));
-        Delay_Label3->setText(QApplication::translate("MainWindow", "Dev3Delay", Q_NULLPTR));
-        Delay_Label4->setText(QApplication::translate("MainWindow", "Dev4Delay", Q_NULLPTR));
-        Delay_Label5->setText(QApplication::translate("MainWindow", "Dev5Delay", Q_NULLPTR));
-        Delay_Label6->setText(QApplication::translate("MainWindow", "Dev6Delay", Q_NULLPTR));
-        Delay_Label7->setText(QApplication::translate("MainWindow", "Dev7Delay", Q_NULLPTR));
-        Delay_Label8->setText(QApplication::translate("MainWindow", "Dev8Delay", Q_NULLPTR));
         Device1->setText(QApplication::translate("MainWindow", "Device1", Q_NULLPTR));
         Time1->setPlaceholderText(QApplication::translate("MainWindow", "Enter Delay Before REQ", Q_NULLPTR));
         DtNo1->setPlaceholderText(QApplication::translate("MainWindow", "Enter No of Words", Q_NULLPTR));
+        WaveForm->setText(QApplication::translate("MainWindow", "Run Waveform", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "Master1", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindow", "Master2", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindow", "Master3", Q_NULLPTR));
+        label_4->setText(QApplication::translate("MainWindow", "Master4", Q_NULLPTR));
+        label_5->setText(QApplication::translate("MainWindow", "Slave1", Q_NULLPTR));
+        label_6->setText(QApplication::translate("MainWindow", "Slave2", Q_NULLPTR));
+        label_7->setText(QApplication::translate("MainWindow", "Slave3", Q_NULLPTR));
+        label_8->setText(QApplication::translate("MainWindow", "Slave4", Q_NULLPTR));
     } // retranslateUi
 
 };

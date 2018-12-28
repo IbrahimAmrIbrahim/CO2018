@@ -2,14 +2,14 @@
 #include "ui_mainwindow.h"
 #include <QFile>
 #include <QTextStream>
+#include <QProcess>
 
 QString Addresses_List[] = {"32'h0000_0000;","32'h0000_000A;","32'h0000_0014;","32'h0000_001E;","32'h0000_0028;","32'h0000_0032;","32'h0000_003C;","32'h0000_0046;"};
-//QString Addresses_List[] = {"A","B","C","D","E","F","G","H"};
 
-QString Forced_Adresses[] = {"QW","ER","AS","ZX"};
 QString Forced_Address = "";
 
-QString Forced_REQuests[4];
+QString Extension = "";
+
 QString Forced_REQ = "8'b1111_1111";
 
 QString Forced_CBE = "4'b0110;";
@@ -23,17 +23,18 @@ uint8_t SlaveInd  = 0;
 QTextEdit *REQ_Delays[4];
 uint8_t DelayInd  = 0;
 
-QString All = "Dev";
-
 QTextEdit *Dt_no[4];
 uint8_t Dt_noInd  = 0;
 
 QComboBox *Operation[4];
 uint8_t OpInd = 0;
 
-QString TB_includes_defs = "`timescale 1ns / 1ps\n`include \"../../CO2018/PCI/PCI.srcs/sources_1/new/PCI.v\"\n module PCI_tb();\nreg [7:0] FORCED_REQ_N;\nreg [31:0] FORCED_ADDRESS;\nreg [3:0] FORCED_CBE_N;\nreg [3:0] Forced_DataTfNo;\nreg CLK, RST_N;\ninteger i = 0;";
-QString TB_beg = "\ninitial\nbegin\nCLK <= 0;\nRST_N <= 0;\n#12\nRST_N  <= 1;";
-QString TB_Fixed = "\ninitial\nbegin\n\t$dumpfile(\"Simulation.vcd\");\n\t$dumpvars(0,PCI_tb);\nend\ninitial\nbegin\n\tfor (i = 0; i < 160; i = i + 1)\n\tbegin\n\t\t#5 CLK = !CLK;\n\tend\n\t#2 $finish;\nend\nPCI pci(CLK, RST_N, FORCED_REQ_N, mode,FORCED_ADDRESS_A, FORCED_ADDRESS_B, FORCED_ADDRESS_C, FORCED_ADDRESS_D, FORCED_ADDRESS_E, FORCED_ADDRESS_F, FORCED_ADDRESS_G, FORCED_ADDRESS_H,FORCED_CBE_N_A, FORCED_CBE_N_B, FORCED_CBE_N_C, FORCED_CBE_N_D, FORCED_CBE_N_E, FORCED_CBE_N_F, FORCED_CBE_N_G, FORCED_CBE_N_H,	Forced_DataTfNo_A, Forced_DataTfNo_B, Forced_DataTfNo_C, Forced_DataTfNo_D, Forced_DataTfNo_E, Forced_DataTfNo_F, Forced_DataTfNo_G, Forced_DataTfNo_H);";
+QString TB_includes_defs = "`timescale 1ns / 1ps\n`include \"../../PCI.srcs/sources_1/new/PCI.v\"\n";
+
+QString TB_beg = "module PCI_testB();\n\nreg [7:0] FORCED_REQ_N;\n\nreg [3:0] Forced_DataTfNo_A;\nreg [3:0] Forced_DataTfNo_B;\nreg [3:0] Forced_DataTfNo_C;\nreg [3:0] Forced_DataTfNo_D;\nreg [3:0] Forced_DataTfNo_E;\nreg [3:0] Forced_DataTfNo_F;\nreg [3:0] Forced_DataTfNo_G;\nreg [3:0] Forced_DataTfNo_H;\n\nreg [31:0] FORCED_ADDRESS_A;\nreg [31:0] FORCED_ADDRESS_B;\nreg [31:0] FORCED_ADDRESS_C;\nreg [31:0] FORCED_ADDRESS_D;\nreg [31:0] FORCED_ADDRESS_E;\nreg [31:0] FORCED_ADDRESS_F;\nreg [31:0] FORCED_ADDRESS_G;\nreg [31:0] FORCED_ADDRESS_H;\n\nreg [3:0] FORCED_CBE_N_A;\nreg [3:0] FORCED_CBE_N_B;\nreg [3:0] FORCED_CBE_N_C;\nreg [3:0] FORCED_CBE_N_D;\nreg [3:0] FORCED_CBE_N_E;\nreg [3:0] FORCED_CBE_N_F;\nreg [3:0] FORCED_CBE_N_G;\nreg [3:0] FORCED_CBE_N_H;\nreg CLK, RST_N, Forced_Frame, Forced_IRDY, Forced_TRDY;\nreg [1:0] mode;\ninteger i;\n";
+
+QString TB_Fixed = "\ninitial\nbegin\n\t$dumpfile(\"Simulation.vcd\");\n\t$dumpvars(0,PCI_testB);\nend\ninitial\nbegin\n\tfor (i = 0; i < 160; i = i + 1)\n\tbegin\n\t\t#5 CLK = !CLK;\n\tend\n\t#2 $finish;\nend\nPCI pci(CLK, RST_N, FORCED_REQ_N, mode,Forced_Frame,Forced_IRDY, Forced_TRDY,FORCED_ADDRESS_A, FORCED_ADDRESS_B, FORCED_ADDRESS_C, FORCED_ADDRESS_D, FORCED_ADDRESS_E, FORCED_ADDRESS_F, FORCED_ADDRESS_G, FORCED_ADDRESS_H,FORCED_CBE_N_A, FORCED_CBE_N_B, FORCED_CBE_N_C, FORCED_CBE_N_D, FORCED_CBE_N_E, FORCED_CBE_N_F, FORCED_CBE_N_G, FORCED_CBE_N_H,Forced_DataTfNo_A, Forced_DataTfNo_B, Forced_DataTfNo_C, Forced_DataTfNo_D, Forced_DataTfNo_E, Forced_DataTfNo_F, Forced_DataTfNo_G, Forced_DataTfNo_H);\n\ninitial\nbegin\nCLK <= 1'b0;\nRST_N <= 1'b0;\nmode <= 2'b00;\n\nForced_Frame <= 1'b0;\nForced_IRDY <= 1'b0;\nForced_TRDY <= 1'b0;\n#10\nRST_N  <= 1;\n\n";
+
 QString TB_Body[4] = {"","","",""};
 
 
@@ -116,6 +117,7 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->Mode7, SIGNAL(activated(QString)), this, SLOT(Dev7(QString)));
         connect(ui->Mode8, SIGNAL(activated(QString)), this, SLOT(Dev8(QString)));
         connect(ui->Generate, SIGNAL(clicked(bool))  , this, SLOT(Drop()));
+        connect(ui->WaveForm,SIGNAL(clicked(bool)), this, SLOT(Make()));
 
 }
 
@@ -141,34 +143,42 @@ void MainWindow::Drop()
            if (Masters[i] == "Dev1")
            {
                 Forced_REQ[11] = QString::number(Forced_REQ[0].unicode() & 0).at(0);
+                Extension = "_A";
            }
            if(Masters[i] == "Dev2")
            {
                 Forced_REQ[10] = QString::number(Forced_REQ[1].unicode() & 0).at(0);
+                Extension = "_B";
            }
            if(Masters[i] == "Dev3")
            {
                 Forced_REQ[9] = QString::number(Forced_REQ[2].unicode() & 0).at(0);
+                Extension = "_C";
            }
            if(Masters[i] == "Dev4")
            {
                 Forced_REQ[8] = QString::number(Forced_REQ[3].unicode() & 0).at(0);
+                Extension = "_D";
            }
            if(Masters[i] == "Dev5")
            {
                 Forced_REQ[6] = QString::number(Forced_REQ[4].unicode() & 0).at(0);
+                Extension = "_E";
            }
            if(Masters[i] == "Dev6")
            {
                 Forced_REQ[5] = QString::number(Forced_REQ[5].unicode() & 0).at(0);
+                Extension = "_F";
            }
            if(Masters[i] == "Dev7")
            {
                 Forced_REQ[4] = QString::number(Forced_REQ[6].unicode() & 0).at(0);
+                Extension = "_G";
            }
            if(Masters[i] == "Dev8")
            {
                 Forced_REQ[3] = QString::number(Forced_REQ[7].unicode() & 0).at(0);
+                Extension = "_H";
            }
 
 
@@ -215,7 +225,7 @@ void MainWindow::Drop()
                Forced_CBE = "4'b0110;";
            }
 
-            TB_Body[i] = "\n#" + REQ_Delays[i]->toPlainText() +";\nFORCED_REQ_N <= " + Forced_REQ + ";\nFORCED_ADDRESS <= " + Forced_Address + "\nFORCED_CBE_N <= " + Forced_CBE + "\nForced_DataTfNo <= " + Dt_no[i]->toPlainText() + ";\n";
+            TB_Body[i] = "\n#" + REQ_Delays[i]->toPlainText() +";\nFORCED_REQ_N <= "  + Forced_REQ + ";\nFORCED_ADDRESS" + Extension + "<= "   + Forced_Address + "\nFORCED_CBE_N" + Extension + "<= "   + Forced_CBE + "\nForced_DataTfNo" + Extension + "<= "   + Dt_no[i]->toPlainText() + ";\n#20\n"+ "FORCED_CBE_N" + Extension + "<= "   + QString::number(0) + ";\n" + "FORCED_REQ_N <= 8'b1111_1111;\n" + "\n#"+ QString::number((20+(Dt_no[i]->toPlainText().toInt()*10)));
             Forced_REQ = "8'b1111_1111";
        }
 
@@ -223,14 +233,24 @@ void MainWindow::Drop()
        SlaveInd  = 0;
        DelayInd  = 0;
        Dt_noInd  = 0;
+
        Forced_REQ = "8'b1111_1111";
-       QFile file("/home/ubunzer/Documents/Qt term cmd test/File.v");
+
+       QFile file("/media/ubunzer/WINDOWS/Documents and Settings/Almonzer/Documents/3rdYear/CO/Projects/PCI/PCI_Repo/CO2018/PCI/Qt TB Generator/Generated Test Bench/test_bench.v");
        if (file.open(QIODevice::ReadWrite)) {
            file.resize(0);
            QTextStream stream(&file);
-           stream << TB_includes_defs << TB_Fixed << TB_beg << TB_Body[0] << TB_Body[1] << TB_Body[2] << TB_Body[3] << "end\nendmodule";
+           stream << TB_includes_defs << TB_beg << TB_Fixed << TB_Body[0] << TB_Body[1] << TB_Body[2] << TB_Body[3] << "RST_N <= 0;\nend\nendmodule";
        }
 
+}
+
+void MainWindow::Make()
+{
+    Wave.setWorkingDirectory("/media/ubunzer/WINDOWS/Documents and Settings/Almonzer/Documents/3rdYear/CO/Projects/PCI/PCI_Repo/CO2018/PCI/Qt TB Generator/Generated Test Bench");
+    Wave.start("make",QStringList()<< "all");
+    Wave.waitForStarted();
+    Wave.waitForFinished();
 }
 
 void MainWindow::Dev1(QString MODE){
@@ -241,6 +261,7 @@ void MainWindow::Dev1(QString MODE){
 
         ui->Time1->show();
         ui->DtNo1->show();
+        ui->Operation1->show();
 
         REQ_Delays[DelayInd] = ui->Time1;
         DelayInd++;
@@ -257,6 +278,7 @@ void MainWindow::Dev1(QString MODE){
 
         ui->Time1->hide();
         ui->DtNo1->hide();
+        ui->Operation1->hide();
     }
 
 }
@@ -268,6 +290,7 @@ void MainWindow::Dev2(QString MODE){
 
         ui->Time2->show();
         ui->DtNo2->show();
+        ui->Operation2->show();
 
         REQ_Delays[DelayInd] = ui->Time2;
         DelayInd++;
@@ -284,6 +307,7 @@ void MainWindow::Dev2(QString MODE){
 
         ui->Time2->hide();
         ui->DtNo2->hide();
+        ui->Operation2->hide();
     }
 }
 void MainWindow::Dev3(QString MODE){
@@ -294,6 +318,7 @@ void MainWindow::Dev3(QString MODE){
 
         ui->Time3->show();
         ui->DtNo3->show();
+        ui->Operation3->show();
 
         REQ_Delays[DelayInd] = ui->Time3;
         DelayInd++;
@@ -310,6 +335,7 @@ void MainWindow::Dev3(QString MODE){
 
         ui->Time3->hide();
         ui->DtNo3->hide();
+        ui->Operation3->hide();
 
     }
 }
@@ -321,6 +347,7 @@ void MainWindow::Dev4(QString MODE){
 
         ui->Time4->show();
         ui->DtNo4->show();
+        ui->Operation4->show();
 
         REQ_Delays[DelayInd] = ui->Time4;
         DelayInd++;
@@ -337,6 +364,7 @@ void MainWindow::Dev4(QString MODE){
 
         ui->Time4->hide();
         ui->DtNo4->hide();
+        ui->Operation4->hide();
 
     }
 }
@@ -348,6 +376,7 @@ void MainWindow::Dev5(QString MODE){
 
         ui->Time5->show();
         ui->DtNo5->show();
+        ui->Operation5->show();
 
         REQ_Delays[DelayInd] = ui->Time5;
         DelayInd++;
@@ -364,6 +393,7 @@ void MainWindow::Dev5(QString MODE){
 
         ui->Time5->hide();
         ui->DtNo5->hide();
+        ui->Operation5->hide();
 
     }
 }
@@ -375,6 +405,7 @@ void MainWindow::Dev6(QString MODE){
 
         ui->Time6->show();
         ui->DtNo6->show();
+        ui->Operation6->show();
 
         REQ_Delays[DelayInd] = ui->Time6;
         DelayInd++;
@@ -391,6 +422,7 @@ void MainWindow::Dev6(QString MODE){
 
         ui->Time6->hide();
         ui->DtNo6->hide();
+        ui->Operation6->hide();
 
     }
 }
@@ -402,6 +434,7 @@ void MainWindow::Dev7(QString MODE){
 
         ui->Time7->show();
         ui->DtNo7->show();
+        ui->Operation7->show();
 
         REQ_Delays[DelayInd] = ui->Time7;
         DelayInd++;
@@ -418,6 +451,7 @@ void MainWindow::Dev7(QString MODE){
 
         ui->Time7->hide();
         ui->DtNo7->hide();
+        ui->Operation7->hide();
 
     }
 }
@@ -429,6 +463,7 @@ void MainWindow::Dev8(QString MODE){
 
         ui->Time8->show();
         ui->DtNo8->show();
+        ui->Operation8->show();
 
         REQ_Delays[DelayInd] = ui->Time8;
         DelayInd++;
@@ -445,6 +480,7 @@ void MainWindow::Dev8(QString MODE){
 
         ui->Time8->hide();
         ui->DtNo8->hide();
+        ui->Operation8->hide();
 
     }
 }

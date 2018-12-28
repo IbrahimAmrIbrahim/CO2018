@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>794</width>
-    <height>592</height>
+    <width>871</width>
+    <height>731</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QLabel" name="Label1">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>20</y>
+      <x>90</x>
+      <y>60</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -33,7 +33,7 @@
       <x>230</x>
       <y>124</y>
       <width>161</width>
-      <height>160</height>
+      <height>150</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -72,7 +72,7 @@
       <x>400</x>
       <y>124</y>
       <width>161</width>
-      <height>160</height>
+      <height>150</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -111,7 +111,7 @@
       <x>570</x>
       <y>124</y>
       <width>161</width>
-      <height>160</height>
+      <height>150</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -148,9 +148,9 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>290</y>
+      <y>280</y>
       <width>161</width>
-      <height>160</height>
+      <height>150</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -187,9 +187,9 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>290</y>
+      <y>280</y>
       <width>161</width>
-      <height>160</height>
+      <height>150</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -226,9 +226,9 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>290</y>
+      <y>280</y>
       <width>161</width>
-      <height>160</height>
+      <height>150</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -265,9 +265,9 @@
     <property name="geometry">
      <rect>
       <x>570</x>
-      <y>290</y>
+      <y>280</y>
       <width>161</width>
-      <height>160</height>
+      <height>150</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -303,10 +303,10 @@
    <widget class="QPushButton" name="Generate">
     <property name="geometry">
      <rect>
-      <x>352</x>
-      <y>462</y>
-      <width>91</width>
-      <height>31</height>
+      <x>180</x>
+      <y>440</y>
+      <width>101</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -316,8 +316,8 @@
    <widget class="QLabel" name="Label2">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>20</y>
+      <x>160</x>
+      <y>60</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -329,8 +329,8 @@
    <widget class="QLabel" name="Label3">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>20</y>
+      <x>230</x>
+      <y>60</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -342,8 +342,8 @@
    <widget class="QLabel" name="Label4">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>20</y>
+      <x>300</x>
+      <y>60</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -355,8 +355,8 @@
    <widget class="QLabel" name="Label5">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>20</y>
+      <x>430</x>
+      <y>60</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -368,8 +368,8 @@
    <widget class="QLabel" name="Label6">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>20</y>
+      <x>500</x>
+      <y>60</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -381,8 +381,8 @@
    <widget class="QLabel" name="Label7">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>20</y>
+      <x>570</x>
+      <y>60</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -394,8 +394,8 @@
    <widget class="QLabel" name="Label8">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>20</y>
+      <x>640</x>
+      <y>60</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -404,117 +404,13 @@
      <string>Slave4</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Delay_Label1">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>60</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Dev1Delay</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Delay_Label2">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>60</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Dev2Delay</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Delay_Label3">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>60</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Dev3Delay</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Delay_Label4">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>60</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Dev4Delay</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Delay_Label5">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>90</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Dev5Delay</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Delay_Label6">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>90</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Dev6Delay</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Delay_Label7">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>90</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Dev7Delay</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Delay_Label8">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>90</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Dev8Delay</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>60</x>
       <y>124</y>
       <width>160</width>
-      <height>160</height>
+      <height>150</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -555,13 +451,130 @@
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="WaveForm">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>440</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Run Waveform</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>30</y>
+      <width>59</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Master1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>30</y>
+      <width>59</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Master2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>30</y>
+      <width>59</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Master3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>30</y>
+      <width>59</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Master4</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>30</y>
+      <width>59</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Slave1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>30</y>
+      <width>59</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Slave2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>30</y>
+      <width>59</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Slave3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>30</y>
+      <width>59</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Slave4</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>794</width>
+     <width>871</width>
      <height>20</height>
     </rect>
    </property>
