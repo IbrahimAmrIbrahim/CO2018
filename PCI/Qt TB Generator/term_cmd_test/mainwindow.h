@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QProcess>
 
 namespace Ui {
 class MainWindow;
@@ -15,6 +16,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    QProcess Wave;
+
 public slots:
     void Dev1(QString);
     void Dev2(QString);
@@ -25,6 +28,7 @@ public slots:
     void Dev7(QString);
     void Dev8(QString);
     void Drop();
+    void Make();
 private:
     Ui::MainWindow *ui;
 };
