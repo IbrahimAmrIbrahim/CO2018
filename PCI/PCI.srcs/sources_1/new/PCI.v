@@ -387,13 +387,13 @@ begin
 		begin
 			casez(REQ_N)
 				8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; EN <= 1'b0;BusStatus <= 1'b0; end
-				8'bzzzz_zz01:begin GNT_Nreg <= 8'b1111_1101; EN <= 1'b0;BusStatus <= 1'b0; end
-				8'bzzzz_z011:begin GNT_Nreg <= 8'b1111_1011; EN <= 1'b0;BusStatus <= 1'b0; end
-				8'bzzzz_0111:begin GNT_Nreg <= 8'b1111_0111; EN <= 1'b0;BusStatus <= 1'b0; end
-				8'bzzz0_1111:begin GNT_Nreg <= 8'b1110_1111; EN <= 1'b0;BusStatus <= 1'b0; end
-				8'bzz01_1111:begin GNT_Nreg <= 8'b1101_1111; EN <= 1'b0;BusStatus <= 1'b0; end
-				8'bz011_1111:begin GNT_Nreg <= 8'b1011_1111; EN <= 1'b0;BusStatus <= 1'b0; end
-				8'b0111_1111:begin GNT_Nreg <= 8'b0111_1111; EN <= 1'b0;BusStatus <= 1'b0; end
+				8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; EN <= 1'b0;BusStatus <= 1'b0; end
+				8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; EN <= 1'b0;BusStatus <= 1'b0; end
+				8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; EN <= 1'b0;BusStatus <= 1'b0; end
+				8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; EN <= 1'b0;BusStatus <= 1'b0; end
+				8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; EN <= 1'b0;BusStatus <= 1'b0; end
+				8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; EN <= 1'b0;BusStatus <= 1'b0; end
+				8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; EN <= 1'b0;BusStatus <= 1'b0; end
 				default:begin GNT_Nreg <= 8'b1111_1111; EN <= 1'b1;BusStatus <= 1'b1; end
 			endcase
 		end
@@ -438,13 +438,13 @@ begin
 		begin
 		casez(REQ_N)
 			8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_zz01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_z011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_0111:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzz0_1111:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzz01_1111:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz011_1111:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b0111_1111:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
 			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b000; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase
 		end
@@ -452,13 +452,13 @@ begin
 		begin
 		casez(REQ_N)
 			8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_z01z:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_011z:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzz0_111z:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzz01_111z:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz011_111z:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b0111_111z:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_1110:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
 			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b001; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase
 		end
@@ -466,13 +466,13 @@ begin
 		begin
 		casez(REQ_N)
 			8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzzz_01zz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzz0_11zz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzz01_11zz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz011_11zz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b0111_11zz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_11z0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_1101:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
 			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b010; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase
 		end
@@ -480,13 +480,13 @@ begin
 		begin
 		casez(REQ_N)
 			8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzzz0_1zzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzz01_1zzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz011_1zzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b0111_1zzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_1zz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_1z01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_1011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
 			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b011; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase                
 		end
@@ -494,13 +494,13 @@ begin
 		begin
 		casez(REQ_N)
 			8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bzz01_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz011_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b0111_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_zz01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_z011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1111_0111:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
 			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b100; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase                
 		end
@@ -508,13 +508,13 @@ begin
 		begin
 		casez(REQ_N)
 			8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'bz01z_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b011z_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b111z_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b111z_zz01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b111z_z011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b111z_0111:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1110_1111:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
 			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b101; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase                
 		end
@@ -522,13 +522,13 @@ begin
 		begin
 		casez(REQ_N)
 			8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b01zz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b11zz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b11zz_zz01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b11zz_z011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b11zz_0111:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b11z0_1111:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1101_1111:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
 			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b110; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase               
 		end
@@ -536,13 +536,13 @@ begin
 		begin
 		casez(REQ_N)
 			8'b0zzz_zzzz:begin GNT_Nreg <= 8'b0111_1111; counter <= 3'b000; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1zzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1zzz_zz01:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1zzz_z011:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1zzz_0111:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1zz0_1111:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1z01_1111:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
-			8'b1011_1111:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zzz0:begin GNT_Nreg <= 8'b1111_1110; counter <= 3'b001; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_zz0z:begin GNT_Nreg <= 8'b1111_1101; counter <= 3'b010; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_z0zz:begin GNT_Nreg <= 8'b1111_1011; counter <= 3'b011; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzzz_0zzz:begin GNT_Nreg <= 8'b1111_0111; counter <= 3'b100; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzzz0_zzzz:begin GNT_Nreg <= 8'b1110_1111; counter <= 3'b101; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bzz0z_zzzz:begin GNT_Nreg <= 8'b1101_1111; counter <= 3'b110; EN <= 1'b0;BusStatus <= 1'b0; end
+			8'bz0zz_zzzz:begin GNT_Nreg <= 8'b1011_1111; counter <= 3'b111; EN <= 1'b0;BusStatus <= 1'b0; end
 			default: begin GNT_Nreg <= 8'b1111_1111; counter <= 3'b111; EN <= 1'b1;BusStatus <= 1'b1; end
 		endcase                
 	   end
