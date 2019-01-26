@@ -1,9 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/Lectures/Computer Organization/Project/CO2018/PCI/PCI.srcs/sources_1/new/PCI.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module device
-INFO: [VRFC 10-311] analyzing module arbiter_priority
-INFO: [VRFC 10-311] analyzing module arbiter_RobinRound
-INFO: [VRFC 10-311] analyzing module arbiter_FCFS
-INFO: [VRFC 10-311] analyzing module REQ_THREADER
-INFO: [VRFC 10-311] analyzing module memory
-INFO: [VRFC 10-311] analyzing module PCI
-INFO: [VRFC 10-311] analyzing module PCI_tb
