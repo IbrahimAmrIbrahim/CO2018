@@ -76,7 +76,7 @@ output reg [31:0]OUT;
 always@(*)
 begin
 OUT[1:0]<=2'b 00;
-OUT[31:2]=IN[30:0];
+OUT[31:2]=IN[29:0];
 end 
 
 endmodule
