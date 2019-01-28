@@ -18,9 +18,37 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module mux2x1(input in1,input in2 ,input sel, output out);
+module mux2x1(in1, in2, sel, out);
+input [31:0] in1;
+input [31:0] in2;
+input sel;
+output [31:0] out;
 assign out = (sel == 0)? in1:in2;
 
 endmodule
+
+module tb_mux();
+reg [31:0]in1;
+reg [31:0]in2;
+reg sel;
+wire [31:0]out;
+mux2x1 tmux(in1, in2 , sel, out);
+initial
+begin
+$monitor("%h // %h // %b // %h", in1,in2,sel,out);
+#5
+in1=32'h11111111;
+#5
+in1=32'h00000000;
+in2=32'hffffffff;
+sel=0;
+#5
+in1=32'h00000000;
+in2=32'hffffffff;
+sel=1;
+
+end
+
+endmodule 
 
 

@@ -39,3 +39,45 @@ case(aluctr)
 endcase
 end
 endmodule
+
+module tb_alu();
+reg [31:0] in1,in2;
+reg [3:0]aluctr;
+wire [31:0] out;
+wire zero;
+alu alutest(in1,in2,aluctr,out,zero);
+initial 
+begin
+$monitor(" %d // %d // %b // %b // %b",in1,in2,aluctr,out,zero);
+#5
+in1=32'd25;
+in2=32'd50;
+aluctr=4'b0000;
+#5
+in1=32'd25;
+in2=32'd50;
+aluctr=4'b0001;
+#5
+in1=32'd25;
+in2=32'd50;
+aluctr=4'b0010;
+#5
+in1=32'd50;
+in2=32'd25;
+aluctr=4'b0111;
+#5
+in1=32'd25;
+in2=32'd50;
+aluctr=4'b0111;
+
+#5
+in1=32'd25;
+in2=32'd50;
+aluctr=4'b0110;
+#5
+in1=32'd75;
+in2=32'd50;
+aluctr=4'b0110;
+
+end
+endmodule

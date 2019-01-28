@@ -1,5 +1,5 @@
 ISim log file
-Running: D:\Faculty\WorkSpace\Xillinx\comips1\alu_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb D:/Faculty/WorkSpace/Xillinx/comips1/alu_isim_beh.wdb 
+Running: D:\Faculty\WorkSpace\Xillinx\comips1\tb_alu_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb D:/Faculty/WorkSpace/Xillinx/comips1/tb_alu_isim_beh.wdb 
 ISim P.20131013 (signature 0x7708f090)
 This is a Full version of ISim.
 Time resolution is 1 ps
@@ -8,11 +8,11 @@ Time resolution is 1 ps
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-# isim force add /alu/in1 15 -radix dec
-# isim force add /alu/in2 20 -radix dec
-# isim force add /alu/aluctr 0111 -radix bin
-# run 1.00us
-# isim force add /alu/in1 50 -radix hex
-# run 1.00us
-# isim force add /alu/aluctr 0110 -radix bin
-# run 1.00us
+          x //          x // xxxx //          x // x
+         25 //         50 // 0000 //         16 // 0
+         25 //         50 // 0001 //         59 // 0
+         25 //         50 // 0010 //         75 // 0
+         50 //         25 // 0111 //          0 // 1
+         25 //         50 // 0111 // 4294967295 // 0
+         25 //         50 // 0110 // 4294967271 // 0
+         75 //         50 // 0110 //         25 // 0

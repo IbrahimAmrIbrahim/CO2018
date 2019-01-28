@@ -2,27 +2,27 @@ Command line:
    mux2x1_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  60738
+     -socket  63239
 
-Mon Jan 28 15:34:59 2019
+Mon Jan 28 23:31:59 2019
 
 
- Elaboration Time: 0.09375 sec
+ Elaboration Time: 0.140625 sec
 
- Current Memory Usage: 5335.62 Meg
+ Current Memory Usage: 5334.99 Meg
 
  Total Signals          : 17
- Total Nets             : 17
+ Total Nets             : 110
  Total Signal Drivers   : 6
  Total Blocks           : 2
  Total Primitive Blocks : 2
  Total Processes        : 7
  Total Traceable Variables  : 18
- Total Scalar Nets and Variables : 97
+ Total Scalar Nets and Variables : 190
 
- Total Simulation Time: 0.46875 sec
+ Total Simulation Time: 0.203125 sec
 
- Current Memory Usage: 5178.34 Meg
+ Current Memory Usage: 5649.56 Meg
 
-Mon Jan 28 15:36:25 2019
+Mon Jan 28 23:32:50 2019
 
