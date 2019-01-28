@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Mon Jan 28 17:45:53 2019
+# Process ID: 19696
+# Current directory: F:/REP/CO2018/MIPS Processor
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent20384 F:\REP\CO2018\MIPS Processor\MIPS Processor.xpr
+# Log file: F:/REP/CO2018/MIPS Processor/vivado.log
+# Journal file: F:/REP/CO2018/MIPS Processor\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {F:/REP/CO2018/MIPS Processor/MIPS Processor.xpr}
+INFO: [Project 1-313] Project file moved from 'E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/1st Term/Lectures/Computer Organization/Project/CO2018/MIPS Processor' since last save.
+Scanning sources...
+Finished scanning sources
+WARNING: [filemgmt 56-2] IPUserFilesDir: Could not find the directory 'F:/REP/CO2018/MIPS Processor/MIPS Processor.ip_user_files', nor could it be found using path 'E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/1st Term/Lectures/Computer Organization/Project/CO2018/MIPS Processor/MIPS Processor.ip_user_files'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'.
+open_project: Time (s): cpu = 00:00:16 ; elapsed = 00:00:08 . Memory (MB): peak = 861.980 ; gain = 119.281
+update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Mon Jan 28 20:12:39 2019...
