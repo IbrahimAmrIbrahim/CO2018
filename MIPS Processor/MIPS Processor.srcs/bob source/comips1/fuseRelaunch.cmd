@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "D:/Faculty/WorkSpace/Xillinx/comips1/alu_isim_beh.exe" -prj "D:/Faculty/WorkSpace/Xillinx/comips1/alu_beh.prj" "work.alu" "work.glbl" 
