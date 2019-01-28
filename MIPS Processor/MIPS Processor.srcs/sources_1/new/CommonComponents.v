@@ -68,3 +68,15 @@ endmodule
 module ControlUnit();
 
 endmodule
+
+
+module ShiftLeft2(IN,OUT);
+input [31:0]IN;
+output reg [31:0]OUT;
+always@(*)
+begin
+OUT[1:0]<=2'b 00;
+OUT[31:2]=IN[30:0];
+end 
+
+endmodule
