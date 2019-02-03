@@ -55,6 +55,38 @@ end
 endmodule
 
 
+module mux3x1_32bit(in1, in2,in3,in4, sel, out);
+input [31:0] in1;
+input [31:0] in2,in3,in4;
+
+input [1:0]sel;
+output reg [31:0] out;
+always@(*)
+begin
+
+    case(sel)
+    0:out<=in1;
+    1:out<=in2;
+    2:out<=in3;
+    4:out<=in4;
+    
+    endcase
+end
+
+endmodule
+
+module mux2x1_5bit(in1, in2, sel, out);
+input [4:0] in1;
+input [4:0] in2;
+input sel;
+output [4:0] out;
+assign out = (sel == 0)? in1:in2;
+
+endmodule
+
+
+
+
 module mux2x1(in1, in2, sel, out);
 input [31:0] in1;
 input [31:0] in2;
@@ -210,7 +242,213 @@ output reg [31:0]OUT;
 always@(*)
 begin
 OUT[1:0]<=2'b 00;
-OUT[31:2]=IN[29:0];
+OUT[31:2]<=IN[29:0];
 end 
+
+endmodule
+
+
+module forwarding_unit(RS,RT,RD_EX,RD_MEM,WB_EX,WB_MEM,MUX_RS,MUX_RT);
+input [4:0]RS,RT,RD_EX,RD_MEM;
+input  WB_EX,WB_MEM;
+output reg [1:0]MUX_RS,MUX_RT;
+
+always@(*)
+begin
+
+
+if(WB_MEM||WB_EX)
+    begin
+        case(RS)
+        
+        RD_MEM:begin
+        if(WB_MEM)
+        MUX_RS=1;
+        end
+        RD_EX:begin
+         if(WB_EX)
+         MUX_RS=2;
+         end
+         default:MUX_RS=0;
+               
+        endcase
+ 
+//=======================//
+       case(RT)
+       
+       RD_MEM:begin
+       if(WB_MEM)
+       MUX_RT=1;
+       end
+       RD_EX:begin
+        if(WB_EX)
+        MUX_RT=2;
+        end
+        default:MUX_RT=0;
+              
+       endcase
+
+    end
+   
+    else
+        begin
+        MUX_RT=0;
+        MUX_RS=0;
+        end
+        
+        
+    
+end
+
+endmodule
+
+
+
+
+
+
+
+
+
+
+module tb_forwarding();
+reg [4:0]RS,RT,RD_EX,RD_MEM;
+reg  WB_EX,WB_MEM;
+wire  [1:0]MUX_RS,MUX_RT;
+initial 
+begin
+$monitor("%d // %d", MUX_RS,MUX_RT);
+WB_EX=1;WB_MEM=1;
+RS=1;
+RT=2;
+RD_EX=1;
+RD_MEM=2;
+#5
+WB_EX=1;WB_MEM=1;
+RS=1;
+RT=2;
+RD_EX=3;
+RD_MEM=4;
+#5
+WB_EX=0;WB_MEM=1;
+RS=1;
+RT=2;
+RD_EX=1;
+RD_MEM=5;
+#5
+WB_EX=0;WB_MEM=0;
+RS=1;
+RT=2;
+RD_EX=1;
+RD_MEM=5;
+
+
+
+
+
+
+end
+
+
+forwarding_unit ahmed(RS,RT,RD_EX,RD_MEM,WB_EX,WB_MEM,MUX_RS,MUX_RT); 
+endmodule
+
+
+
+
+
+
+
+
+
+module IF_ID(CLK,INPUT,OUTPUT,HOLD);
+input [63:0]INPUT;
+output reg [63:0]OUTPUT;
+input CLK,HOLD;
+reg [63:0]memory;
+always@(posedge CLK)
+begin
+if(~HOLD)
+memory<=INPUT;
+end
+
+
+always@(negedge CLK)
+begin
+if(~HOLD)
+OUTPUT<=memory;
+end
+
+
+
+
+endmodule
+
+
+
+module ID_EX(CLK,INPUT,OUTPUT);
+input [119:0]INPUT;
+output reg [119:0]OUTPUT;
+input CLK;
+reg [119:0]memory;
+always@(posedge CLK)
+begin
+memory<=INPUT;
+end
+
+
+always@(negedge CLK)
+begin
+OUTPUT<=memory;
+end
+
+
+
+
+endmodule
+
+
+
+module EX_MEM(CLK,INPUT,OUTPUT);
+input [73:0]INPUT;
+output reg [73:0]OUTPUT;
+input CLK;
+reg [73:0]memory;
+always@(posedge CLK)
+begin
+memory<=INPUT;
+end
+
+
+always@(negedge CLK)
+begin
+OUTPUT<=memory;
+end
+
+
+
+
+endmodule
+
+
+
+module MEM_WB(CLK,INPUT,OUTPUT);
+input [70:0]INPUT;
+output reg [70:0]OUTPUT;
+input CLK;
+reg [70:0]memory;
+always@(posedge CLK)
+begin
+memory<=INPUT;
+end
+
+
+always@(negedge CLK)
+begin
+OUTPUT<=memory;
+end
+
+
+
 
 endmodule
