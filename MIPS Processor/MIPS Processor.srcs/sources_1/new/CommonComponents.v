@@ -310,6 +310,7 @@ endmodule
 
 
 
+
 module tb_forwarding();
 reg [4:0]RS,RT,RD_EX,RD_MEM;
 reg  WB_EX,WB_MEM;
@@ -350,4 +351,104 @@ end
 
 
 forwarding_unit ahmed(RS,RT,RD_EX,RD_MEM,WB_EX,WB_MEM,MUX_RS,MUX_RT); 
+endmodule
+
+
+
+
+
+
+
+
+
+module IF_ID(CLK,INPUT,OUTPUT,HOLD);
+input [63:0]INPUT;
+output reg [63:0]OUTPUT;
+input CLK,HOLD;
+reg [63:0]memory;
+always@(posedge CLK)
+begin
+if(~HOLD)
+memory<=INPUT;
+end
+
+
+always@(negedge CLK)
+begin
+if(~HOLD)
+OUTPUT<=memory;
+end
+
+
+
+
+endmodule
+
+
+
+module ID_EX(CLK,INPUT,OUTPUT);
+input [119:0]INPUT;
+output reg [119:0]OUTPUT;
+input CLK;
+reg [119:0]memory;
+always@(posedge CLK)
+begin
+memory<=INPUT;
+end
+
+
+always@(negedge CLK)
+begin
+OUTPUT<=memory;
+end
+
+
+
+
+endmodule
+
+
+
+module EX_MEM(CLK,INPUT,OUTPUT);
+input [73:0]INPUT;
+output reg [73:0]OUTPUT;
+input CLK;
+reg [73:0]memory;
+always@(posedge CLK)
+begin
+memory<=INPUT;
+end
+
+
+always@(negedge CLK)
+begin
+OUTPUT<=memory;
+end
+
+
+
+
+endmodule
+
+
+
+module MEM_WB(CLK,INPUT,OUTPUT);
+input [70:0]INPUT;
+output reg [70:0]OUTPUT;
+input CLK;
+reg [70:0]memory;
+always@(posedge CLK)
+begin
+memory<=INPUT;
+end
+
+
+always@(negedge CLK)
+begin
+OUTPUT<=memory;
+end
+
+
+
+
 endmodule

@@ -2,10 +2,10 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Sun Feb  3 20:47:23 2019
-# Process ID: 8300
+# Start of session at: Sun Feb  3 18:17:58 2019
+# Process ID: 38536
 # Current directory: F:/REP/CO2018/MIPS Processor
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent20972 F:\REP\CO2018\MIPS Processor\MIPS Processor.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent38108 F:\REP\CO2018\MIPS Processor\MIPS Processor.xpr
 # Log file: F:/REP/CO2018/MIPS Processor/vivado.log
 # Journal file: F:/REP/CO2018/MIPS Processor\vivado.jou
 #-----------------------------------------------------------
@@ -16,7 +16,7 @@ Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'.
-open_project: Time (s): cpu = 00:00:14 ; elapsed = 00:00:08 . Memory (MB): peak = 866.289 ; gain = 105.551
+open_project: Time (s): cpu = 00:00:17 ; elapsed = 00:00:11 . Memory (MB): peak = 843.254 ; gain = 106.211
 update_compile_order -fileset sources_1
 exit
-INFO: [Common 17-206] Exiting Vivado at Sun Feb  3 21:18:20 2019...
+INFO: [Common 17-206] Exiting Vivado at Sun Feb  3 18:49:37 2019...
