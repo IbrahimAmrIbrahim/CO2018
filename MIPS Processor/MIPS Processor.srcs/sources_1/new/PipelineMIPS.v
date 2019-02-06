@@ -9,12 +9,9 @@ wire [31:0] Instruction;
 
 assign IF_ID [63:32] = PC;
 	
-always @(RST)
+always @(posedge RST)
 begin
-	if (RST)
-	begin
-		PC <= 32'hffff_fffc;
-	end
+	PC <= 32'h0000_0000;
 end
 
 always @(posedge clk)
@@ -69,9 +66,8 @@ ControlUnit ControlUnit1(ID_EX [141],ID_EX [138],ID_EX [145],ID_EX [146],ID_EX [
 endmodule
 
 
-module ExecutionStage(EX_MEM,clk,ID_EX);
+module ExecutionStage(EX_MEM,ID_EX);
 output [106:0] EX_MEM;
-input clk;
 input [151:0] ID_EX;
 wire [3:0]ALUCtrl;
 wire Zero_wire;
@@ -113,9 +109,8 @@ DataMemory DataMemory1(READ_DATA,EX_MEM [68:37],EX_MEM [36:5],EX_MEM [102],EX_ME
 endmodule
 
 
-module WBStage(WriteRegister,WRITE_DATA,RegWrite,clk,MEM_WB);
+module WBStage(WriteRegister,WRITE_DATA,RegWrite,MEM_WB);
 input [70:0] MEM_WB;
-input clk;
 output [4:0] WriteRegister;
 output [31:0] WRITE_DATA;
 output RegWrite;
@@ -151,11 +146,11 @@ FetchStage FetchStage1(IF_ID_in,clk,PCSrc,BranchAddress,RST,loadInstructionMem,I
 IF_ID__MEM IF_ID__MEM_1(clk,IF_ID_in,IF_ID_out);
 DecodeStage DecodeStage1(ID_EX_in,IF_ID_out,clk,WRITE_REGISTER,WRITE_DATA,REG_WRITE,RST,loadRegFile,RegFileData);
 ID_EX__MEM ID_EX__MEM_1(clk,ID_EX_in,ID_EX_out);
-ExecutionStage ExecutionStage1(EX_MEM_in,clk,ID_EX_out);
+ExecutionStage ExecutionStage1(EX_MEM_in,ID_EX_out);
 EX_MEM__MEM EX_MEM__MEM_1(clk,EX_MEM_in,EX_MEM_out);
 MemoryStage MemoryStage1(MEM_WB_in,PCSrc,BranchAddress,clk,EX_MEM_out,RST,loadDataMem,DataMemData);
 MEM_WB__MEM MEM_WB__MEM_1(clk,MEM_WB_in,MEM_WB_out);
-WBStage WBStage1(WRITE_REGISTER,WRITE_DATA,REG_WRITE,clk,MEM_WB_out);
+WBStage WBStage1(WRITE_REGISTER,WRITE_DATA,REG_WRITE,MEM_WB_out);
 
 endmodule
 
