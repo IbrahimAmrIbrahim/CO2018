@@ -1,45 +1,39 @@
 `timescale 1ns / 1ps
 
-module FetchStageHAZARD(IF_ID,clk,PCSrc,BranchAddress,RST,load,Data,IF_ID_WRITE);
-input clk , PCSrc ,load,RST;
+module FetchStageWithoutHazard(IF_ID,clk,PCSrc,BranchAddress,RST,load,Data,IF_ID_WRITE);
+input clk,PCSrc,load,RST;
 input [31:0] BranchAddress,Data;
 reg [31:0] PC;
 output reg [63:0] IF_ID;
 wire [31:0] Instruction;
 input IF_ID_WRITE;
-always @(posedge clk,RST)
+
+assign IF_ID [63:32] = PC;
+
+always @(posedge RST)
 begin
-	if (RST)
-	begin
-		PC <= 32'h0000_0000;
-	end
-	
+	PC <= 32'h0000_0000;
 end
 
-always @(negedge clk)
+always @(posedge clk)
 begin
-	if(~IF_ID_WRITE)
+	if (~(RST && IF_ID_WRITE))
 	begin
-		IF_ID [31:0] <= Instruction;
-		IF_ID [63:32] <= PC;
-		if (~RST)
-		   begin
-				if (PCSrc)
-				begin
-					PC <= BranchAddress;
-				end
-				else
-				begin
-					PC <= PC + 4;
-				end
-		   end 
-	end	   
+		if (PCSrc)
+		begin
+			PC <= BranchAddress;
+		end
+		else
+		begin
+			PC <= PC + 4;
+		end
+    end 
 end
 
 InstructionMemory InstructionMemory1(Instruction,PC,clk,RST,load,Data);
 endmodule
 
-module DecodeStageHAZARD(ID_EX,IF_ID,clk,WRITE_REGISTER,WRITE_DATA,REG_WRITE,RST,load,Data,IF_ID_WRITE,ID_EX_MEMORY_CONTROL,ID_EX_RT);
+module DecodeStageWithoutHazard(ID_EX,IF_ID,clk,WRITE_REGISTER,WRITE_DATA,REG_WRITE,RST,load,Data,IF_ID_WRITE,ID_EX_MEMORY_CONTROL,ID_EX_RT);
 output reg [151:0] ID_EX;
 wire RegDst,ALUSrc,MemtoReg,RegWrite,MemRead,MemWrite,Branch;
 wire [1:0] ALUOp;
@@ -88,7 +82,7 @@ ControlUnit ControlUnit1(RegDst,ALUSrc,MemtoReg,RegWrite,MemRead,MemWrite,Branch
 endmodule
 
 
-module ExecutionStageHAZARD(EX_MEM,clk,ID_EX,WB_EX,WB_MEM,RD_EX,RD_MEM,ALU_OUT,WRITE_BACK_DATA);
+module ExecutionStageWithoutHazard(EX_MEM,clk,ID_EX,WB_EX,WB_MEM,RD_EX,RD_MEM,ALU_OUT,WRITE_BACK_DATA);
 output reg [106:0] EX_MEM;
 input WB_EX,WB_MEM; 
 input [4:0]RD_EX,RD_MEM;
@@ -123,7 +117,7 @@ ShiftLeft2 ShiftLeft2_1 (ID_EX [46:15],Shifted_wire);
 endmodule
 
 
-module MemoryStageHAZARD(MEM_WB,PCSrc,BranchAddress,clk,EX_MEM,load,Data);
+module MemoryStageWithoutHazard(MEM_WB,PCSrc,BranchAddress,clk,EX_MEM,load,Data);
 output reg [70:0] MEM_WB;
 output reg PCSrc;
 output reg [31:0] BranchAddress;
@@ -150,7 +144,7 @@ DataMemory DataMemory1(READ_DATA,EX_MEM [68:37],EX_MEM [36:5],EX_MEM [102],EX_ME
 endmodule
 
 
-module WBStageHAZARD(WriteRegister,WRITE_DATA,RegWrite,clk,MEM_WB);
+module WBStageWithoutHazard(WriteRegister,WRITE_DATA,RegWrite,clk,MEM_WB);
 input [70:0] MEM_WB;
 input clk;
 output reg [4:0] WriteRegister;
@@ -166,7 +160,7 @@ end
 endmodule
 
 
-module PipelineMIPSHAZARD(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData,DataMemData);
+module PipelineMIPSWithoutHazard(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData,DataMemData);
 input clk,RST,loadRegFile,loadInstructionMem,loadDataMem;
 input [31:0] RegFileData ,InstructionMemData;
 input [7:0] DataMemData;
@@ -180,18 +174,18 @@ wire [106:0]EX_MEM;
 wire [70:0]MEM_WB;
 
 
-ExecutionStageHAZARD(EX_MEM,clk,ID_EX,EX_MEM[106],MEM_WB[70],EX_MEM[4:0],MEM_WB[4:0],EX_MEM[68:37],WRITE_DATA);
-FetchStageHAZARD FetchStage1(IF_ID,clk,PCSrc,BranchAddress,RST,loadInstructionMem,InstructionMemData);
-DecodeStageHAZARD DecodeStage1(ID_EX,IF_ID,clk,WRITE_REGISTER,WRITE_DATA,REG_WRITE,RST,loadRegFile,RegFileData);
-//ExecutionStageHAZARD ExecutionStage1(EX_MEM,clk,ID_EX);
-MemoryStageHAZARD MemoryStage1(MEM_WB,PCSrc,BranchAddress,clk,EX_MEM,loadDataMem,DataMemData);
-WBStageHAZARD WBStage1(WRITE_REGISTER,WRITE_DATA,REG_WRITE,clk,MEM_WB);
+ExecutionStageWithoutHazard(EX_MEM,clk,ID_EX,EX_MEM[106],MEM_WB[70],EX_MEM[4:0],MEM_WB[4:0],EX_MEM[68:37],WRITE_DATA);
+FetchStageWithoutHazard FetchStage1(IF_ID,clk,PCSrc,BranchAddress,RST,loadInstructionMem,InstructionMemData);
+DecodeStageWithoutHazard DecodeStage1(ID_EX,IF_ID,clk,WRITE_REGISTER,WRITE_DATA,REG_WRITE,RST,loadRegFile,RegFileData);
+//ExecutionStageWithoutHazard ExecutionStage1(EX_MEM,clk,ID_EX);
+MemoryStageWithoutHazard MemoryStage1(MEM_WB,PCSrc,BranchAddress,clk,EX_MEM,loadDataMem,DataMemData);
+WBStageWithoutHazard WBStage1(WRITE_REGISTER,WRITE_DATA,REG_WRITE,clk,MEM_WB);
 
 endmodule
 
 
 //=======================tb==============//
-module tb_PipelineMIPSHAZARD();
+module tb_PipelineMIPSWithoutHazard();
 reg clk ,RST,loadRegFile,loadInstructionMem,loadDataMem;
 reg [31:0] RegFileData,InstructionMemData;
 reg [7:0] DataMemData;
@@ -242,13 +236,13 @@ begin
 #5
 clk = ~clk;
 end
-PipelineMIPSHAZARD PipelineMIPS1(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData,DataMemData);
+PipelineMIPSWithoutHazard PipelineMIPS1(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData,DataMemData);
 endmodule
 
 
 
 
-module tb_DECStageHAZARD();
+module tb_DECStageWithoutHazard();
 wire [146:0] ID_EX;
 reg [4:0] WRITE_REGISTER;
 reg [31:0] WRITE_DATA,Data;
@@ -285,11 +279,11 @@ begin
 clk = ~clk;
 end
 
-DecodeStageHAZARD DEC(ID_EX,IF_ID,clk,WRITE_REGISTER,WRITE_DATA,REG_WRITE,RST,load,Data);
+DecodeStageWithoutHazard DEC(ID_EX,IF_ID,clk,WRITE_REGISTER,WRITE_DATA,REG_WRITE,RST,load,Data);
 endmodule
 
 
-module tb_registerfileHAZARD(); 
+module tb_registerfileWithoutHazard(); 
 reg [4:0] READ_REGISTER2,READ_REGISTER1,WRITE_REGISTER;
 reg REG_WRITE,load,clk,RST;
 reg [31:0] WRITE_DATA,Data;

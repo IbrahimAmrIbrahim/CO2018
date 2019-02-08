@@ -25,12 +25,15 @@ begin
 	loadAddress <= 32'h0000_0000;
 end
 
-always @(PC)
+always @(posedge clk)
 begin
-	Instruction[7:0] <= memory[PC];
-	Instruction[15:8] <= memory[PC + 1];
-	Instruction[23:16] <= memory[PC + 2];
-	Instruction[31:24] <= memory[PC + 3];
+	if(~(load && RST))
+	begin
+		Instruction[7:0] <= memory[PC];
+		Instruction[15:8] <= memory[PC + 1];
+		Instruction[23:16] <= memory[PC + 2];
+		Instruction[31:24] <= memory[PC + 3];
+	end
 end
 endmodule
 
@@ -536,4 +539,26 @@ In = 16'hf475;
 end
 
 SignExtend Sign(In,Out);
+endmodule
+
+
+module DataMemoryFile();
+integer file , i;
+
+
+initial
+begin
+
+//file = $fopen("E://Faculty of Engineering Ain Shams University//3rd CSE 2018 - 2019//1st Term//Lectures//Computer Organization//Project//CO2018//MIPS Processor//MIPS Processor.srcs//sources_1//new//DataMemoryData.txt");
+file = $fopen("E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/1st Term/Lectures/Computer Organization/Project/CO2018/MIPS Processor/MIPS Processor.srcs/sources_1/new/DataMemoryData.txt");
+
+//$fmonitor(file, "%b  //%d\n", i , i);
+
+for (i = 0 ; i <= 600 ; i = i + 1)
+begin
+#1
+$fdisplay(file, "%b // %d\n", i , i);
+end
+
+end
 endmodule
