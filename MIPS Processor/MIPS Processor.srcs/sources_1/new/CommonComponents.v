@@ -27,7 +27,7 @@ end
 
 always @(posedge clk)
 begin
-	if(~(load && RST))
+	if(~(load || RST))
 	begin
 		Instruction[7:0] <= memory[PC];
 		Instruction[15:8] <= memory[PC + 1];
@@ -39,38 +39,38 @@ endmodule
 
 
 
-module DataMemory(READ_DATA,ADDRESS,WRITE_DATA,MEM_WRITE,MEM_READ,clk,RST,LOAD,DATA);
+module DataMemory(READ_DATA,ADDRESS,WRITE_DATA,MEM_WRITE,MEM_READ,clk,RST,LOAD);
 input [31:0]ADDRESS,WRITE_DATA;
 input MEM_READ,MEM_WRITE,LOAD,clk,RST;
 output reg [31:0] READ_DATA;
-reg [7:0] memory [0:4294967295];
+reg [7:0] memory [0:1073741823];
 reg [31:0] loadAddress;
-input [7:0] DATA;
 
-always@(negedge clk)
+always@(posedge LOAD)
 begin
-	if(LOAD && RST)
+	if(RST)
 	begin
-		memory[loadAddress] <= DATA;
-		loadAddress <= loadAddress + 1;
-	end
-	else if(MEM_WRITE)
-	begin
-		memory[ADDRESS]   <= WRITE_DATA[7:0];
-		memory[ADDRESS+1] <= WRITE_DATA[15:8];
-		memory[ADDRESS+2] <= WRITE_DATA[23:16];
-		memory[ADDRESS+3] <= WRITE_DATA[31:24];
+		$readmemb("E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/1st Term/Lectures/Computer Organization/Project/CO2018/MIPS Processor/MIPS Processor.srcs/sources_1/new/DataMemoryData.txt" , memory);
 	end
 end
 
-always @(posedge RST)
+always@(negedge clk)
 begin
-	loadAddress <=32'h0000_0000;
+	if(~(LOAD || RST))
+	begin
+		if(MEM_WRITE)
+		begin
+			memory[ADDRESS]   <= WRITE_DATA[7:0];
+			memory[ADDRESS+1] <= WRITE_DATA[15:8];
+			memory[ADDRESS+2] <= WRITE_DATA[23:16];
+			memory[ADDRESS+3] <= WRITE_DATA[31:24];
+		end
+	end
 end
 
 always@(posedge clk)
 begin
-	if(~(LOAD && RST))
+	if(~(LOAD || RST))
 	begin
 		if(MEM_READ)
 		begin
@@ -88,12 +88,19 @@ module RegisterFile(READ_DATA1,READ_DATA2,READ_REGISTER1,READ_REGISTER2,WRITE_RE
 input [4:0] READ_REGISTER2,READ_REGISTER1,WRITE_REGISTER;
 input REG_WRITE,load,clk,RST;
 input [31:0] WRITE_DATA,Data;
-output [31:0] READ_DATA2,READ_DATA1;
+output reg [31:0] READ_DATA2,READ_DATA1;
 reg [31:0] memory [0:31];
 reg [4:0] loadAddress;
 
-assign READ_DATA2 = memory[READ_REGISTER2];
-assign READ_DATA1 = memory[READ_REGISTER1];
+
+always@(READ_REGISTER1,READ_REGISTER2)
+begin
+	if(~(load || RST))
+	begin
+		READ_DATA2 = memory[READ_REGISTER2];
+		READ_DATA1 = memory[READ_REGISTER1];
+	end
+end
 
 always@(negedge clk)
 begin
@@ -111,9 +118,12 @@ end
 
 always@(*)
 begin
-	if(REG_WRITE)
+	if(~(load || RST))
 	begin
-		memory[WRITE_REGISTER] <= WRITE_DATA;
+		if(REG_WRITE)
+		begin
+			memory[WRITE_REGISTER] <= WRITE_DATA;
+		end
 	end
 end
 endmodule
@@ -603,12 +613,11 @@ integer file , i;
 initial
 begin
 
-//file = $fopen("E://Faculty of Engineering Ain Shams University//3rd CSE 2018 - 2019//1st Term//Lectures//Computer Organization//Project//CO2018//MIPS Processor//MIPS Processor.srcs//sources_1//new//DataMemoryData.txt");
 file = $fopen("E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/1st Term/Lectures/Computer Organization/Project/CO2018/MIPS Processor/MIPS Processor.srcs/sources_1/new/DataMemoryData.txt");
 
 //$fmonitor(file, "%b  //%d\n", i , i);
 
-for (i = 0 ; i <= 600 ; i = i + 1)
+for (i = 0 ; i <= 2147483646 ; i = i + 1)
 begin
 #1
 $fdisplay(file, "%b // %d\n", i , i);

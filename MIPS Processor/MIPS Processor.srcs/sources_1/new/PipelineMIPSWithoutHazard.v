@@ -118,14 +118,13 @@ ShiftLeft2 ShiftLeft2_1 (ID_EX [46:15],Shifted_wire);
 endmodule
 
 
-module MemoryStageWithoutHazard(MEM_WB,PCSrc,BranchAddress,clk,EX_MEM,RST,load,Data,ALUOut,EX_MEM_rd,EX_MEM_WB);
+module MemoryStageWithoutHazard(MEM_WB,PCSrc,BranchAddress,clk,EX_MEM,RST,load,ALUOut,EX_MEM_rd,EX_MEM_WB);
 output [70:0] MEM_WB;
 output PCSrc,EX_MEM_WB;
 output [31:0] BranchAddress , ALUOut;
 output [4:0] EX_MEM_rd;
 
 input clk,load,RST;
-input [7:0] Data;
 input [106:0] EX_MEM;
 
 wire [31:0] READ_DATA;
@@ -138,9 +137,9 @@ assign MEM_WB [68:37] = READ_DATA;
 assign MEM_WB [70:69] = EX_MEM [106:105];
 assign ALUOut = EX_MEM [68:37];
 assign EX_MEM_WB = EX_MEM [106];
+assign EX_MEM_rd = EX_MEM[4:0];
 
-
-DataMemory DataMemory1(READ_DATA,EX_MEM [68:37],EX_MEM [36:5],EX_MEM [102],EX_MEM [103],clk,RST,load,Data);
+DataMemory DataMemory1(READ_DATA,EX_MEM [68:37],EX_MEM [36:5],EX_MEM [102],EX_MEM [103],clk,RST,load);
 endmodule
 
 
@@ -158,10 +157,9 @@ assign RegWrite = MEM_WB [70];
 endmodule
 
 
-module PipelineMIPSWithoutHazard(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData,DataMemData);
+module PipelineMIPSWithoutHazard(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData);
 input clk,RST,loadRegFile,loadInstructionMem,loadDataMem;
 input [31:0] RegFileData ,InstructionMemData;
-input [7:0] DataMemData;
 
 wire PCSrc,REG_WRITE,PC_WRITE,IF_ID_WRITE,ID_EX_MEMRead,EX_MEM_WB;
 
@@ -192,7 +190,7 @@ DecodeStageWithoutHazard DecodeStageWithoutHazard1(ID_EX_in,IF_ID_out,clk,WRITE_
 ID_EX__MEM ID_EX__MEM_1(clk,ID_EX_in,ID_EX_out);
 ExecutionStageWithoutHazard ExecutionStageWithoutHazard1(EX_MEM_in,ID_EX_out,EX_MEM_WB,REG_WRITE,EX_MEM_rd,WRITE_REGISTER,ALUOut,WRITE_DATA,ID_EX_MEMRead,RST);
 EX_MEM__MEM EX_MEM__MEM_1(clk,EX_MEM_in,EX_MEM_out);
-MemoryStageWithoutHazard MemoryStageWithoutHazard1(MEM_WB_in,PCSrc,BranchAddress,clk,EX_MEM_out,RST,loadDataMem,DataMemData,ALUOut,EX_MEM_rd,EX_MEM_WB);
+MemoryStageWithoutHazard MemoryStageWithoutHazard1(MEM_WB_in,PCSrc,BranchAddress,clk,EX_MEM_out,RST,loadDataMem,ALUOut,EX_MEM_rd,EX_MEM_WB);
 MEM_WB__MEM MEM_WB__MEM_1(clk,MEM_WB_in,MEM_WB_out);
 WBStageWithoutHazard WBStageWithoutHazard1(WRITE_REGISTER,WRITE_DATA,REG_WRITE,MEM_WB_out);
 
@@ -203,7 +201,6 @@ endmodule
 module tb_PipelineMIPSWithoutHazard();
 reg clk ,RST,loadRegFile,loadInstructionMem,loadDataMem;
 reg [31:0] RegFileData,InstructionMemData;
-reg [7:0] DataMemData;
 reg [31:0] RegFileDataFile [0:31];
 reg [31:0] InstructionFileDataFile [0:131071];
 integer i,j;
@@ -213,34 +210,40 @@ begin
 clk = 1'b0;
 loadRegFile <= 0;
 loadInstructionMem <= 0;
+loadDataMem <= 0;
 RST <= 1;
 $readmemb("E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/1st Term/Lectures/Computer Organization/Project/CO2018/MIPS Processor/MIPS Processor.srcs/sources_1/new/RegFileData.txt" , RegFileDataFile);
 $readmemb("E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/1st Term/Lectures/Computer Organization/Project/CO2018/MIPS Processor/MIPS Processor.srcs/sources_1/new/InstructionFileData.txt" , InstructionFileDataFile);
-#15
+#3
 fork
 begin
 	for (i = 0 ; i < 32; i = i + 1)
 	begin
-	#10
+	#2
 	loadRegFile <= 1;
 	RegFileData <= RegFileDataFile[i];
 	end
-	#10
+	#2
 	loadRegFile <= 0;
 end
 begin
-	for (j = 0 ; j < 200; j = j + 1)
+	for (j = 0 ; j < 131072; j = j + 1)
 	begin
-	#10
+	#2
 	loadInstructionMem <= 1;
 	InstructionMemData <= InstructionFileDataFile[j];
-	$display("%b \n",InstructionFileDataFile[j - 1]);
 	end
-	#10
+	#2
 	loadInstructionMem <= 0;
 end
+begin
+	loadDataMem <= 1;
+end
 join
-#5
+#3
+loadRegFile <= 0;
+loadInstructionMem <= 0;
+loadDataMem <= 0;
 RST <= 0;
 
 end
@@ -248,8 +251,8 @@ end
 
 always
 begin
-#5
+#1
 clk = ~clk;
 end
-PipelineMIPSWithoutHazard PipelineMIPSWithoutHazard1(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData,DataMemData);
+PipelineMIPSWithoutHazard PipelineMIPSWithoutHazard1(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData);
 endmodule
