@@ -109,7 +109,7 @@ begin
 	loadAddress <= 5'b00000;
 end
 
-always@(posedge clk)
+always@(*)
 begin
 	if(REG_WRITE)
 	begin
@@ -189,7 +189,7 @@ endmodule
 module ALUControl(ALUOP,Func,ALUCtrl);
 input [1:0] ALUOP;
 input [5:0] Func;
-output reg [4:0] ALUCtrl;
+output reg [3:0] ALUCtrl;
 
 always @(*)
 begin
@@ -287,53 +287,105 @@ assign Out = {{16{In[15]}},In};
 
 endmodule
 
+module hazard_detction_unit(ID_EX_MEMORY_CONTROL,RS,RT,ID_EX_RT,IF_ID_WRITE,MUX_0_CONTROL,RST);
+input  ID_EX_MEMORY_CONTROL,RST;
+input [4:0]RS,RT,ID_EX_RT;
+output reg IF_ID_WRITE,MUX_0_CONTROL;
+always@(*)
+begin
+	if(RST)
+	begin
+		IF_ID_WRITE<=0;
+		MUX_0_CONTROL<=0;
+	end
+	else
+	begin
+		if(ID_EX_MEMORY_CONTROL)
+		begin
+		   if (RT==ID_EX_RT)
+		   begin
+		   IF_ID_WRITE<=1;
+		   MUX_0_CONTROL<=1;
+		   end
+		
+		   else if (RS==ID_EX_RT)
+		   begin
+			IF_ID_WRITE<=1;
+			MUX_0_CONTROL<=1;
+		   end
+		   
+		   else
+		   begin
+			IF_ID_WRITE<=0;
+			MUX_0_CONTROL<=0;
+			end
+		end
+		
+		else
+		begin
+		IF_ID_WRITE<=0;
+		MUX_0_CONTROL<=0;
+		end
+	end
+end
 
-module forwarding_unit(RS,RT,RD_EX,RD_MEM,WB_EX,WB_MEM,MUX_RS,MUX_RT);
+endmodule
+
+
+module forwarding_unit(RS,RT,RD_EX,RD_MEM,WB_EX,WB_MEM,MUX_RS,MUX_RT,RST);
 input [4:0] RS,RT,RD_EX,RD_MEM;
-input WB_EX,WB_MEM;
+input WB_EX,WB_MEM,RST;
 output reg [1:0] MUX_RS,MUX_RT;
 
 always@(*)
 begin
-	if(WB_MEM||WB_EX)
-	begin
-		case(RS)
-			RD_MEM:begin
-				if(WB_MEM)
-				MUX_RS=1;
-				end
-			RD_EX:begin
-				 if(WB_EX)
-				 MUX_RS=2;
-				 end
-			default:MUX_RS=0;
-		endcase
- 
-		case(RT)
-			RD_MEM:begin
-				if(WB_MEM)
-				MUX_RT=1;
-				end
-			RD_EX:begin
-				if(WB_EX)
-				MUX_RT=2;
-				end
-			default:MUX_RT=0;
-		endcase
-	end
-	else
+	if(RST)
 	begin
 		MUX_RT=0;
 		MUX_RS=0;
+	end
+	else
+	begin
+		if(WB_MEM||WB_EX)
+		begin
+			case(RS)
+				RD_MEM:begin
+					if(WB_MEM)
+					MUX_RS=1;
+					end
+				RD_EX:begin
+					 if(WB_EX)
+					 MUX_RS=2;
+					 end
+				default:MUX_RS=0;
+			endcase
+	 
+			case(RT)
+				RD_MEM:begin
+					if(WB_MEM)
+					MUX_RT=1;
+					end
+				RD_EX:begin
+					if(WB_EX)
+					MUX_RT=2;
+					end
+				default:MUX_RT=0;
+			endcase
+		end
+		else
+		begin
+			MUX_RT=0;
+			MUX_RS=0;
+		end
 	end
 end
 endmodule
 
 
-module IF_ID__MEM(CLK,INPUT,OUTPUT);
+module IF_ID__MEM(CLK,INPUT,OUTPUT,IF_ID__Write);
 input [63:0]INPUT;
 output reg [63:0]OUTPUT;
-input CLK;
+input CLK,IF_ID__Write;
 reg [63:0]memory;
 
 always@(posedge CLK)
@@ -343,7 +395,10 @@ end
 	
 always@(negedge CLK)
 begin
-	memory <= INPUT;
+	if(~IF_ID__Write)
+	begin
+		memory <= INPUT;
+	end
 end
 endmodule
 
@@ -544,7 +599,6 @@ endmodule
 
 module DataMemoryFile();
 integer file , i;
-
 
 initial
 begin

@@ -40,11 +40,12 @@ input [31:0] WRITE_DATA,Data;
 input [63:0] IF_ID;
 input REG_WRITE,clk,RST,load;
 
-assign ID_EX [4:0] = IF_ID[15:11];
-assign ID_EX [9:5] = IF_ID[20:16];
-assign ID_EX [137:106] = IF_ID[63:32];
+assign ID_EX [4:0] = IF_ID[15:11]; //rd
+assign ID_EX [9:5] = IF_ID[20:16]; //rt
+assign ID_EX [137:106] = IF_ID[63:32]; //PC + 4
 
-/*	ID_EX [4:0] <= IF_ID[15:11];
+/*
+	ID_EX [4:0] <= IF_ID[15:11];
 	ID_EX [9:5] <= IF_ID[20:16];
 	ID_EX [41:10] <= SignExtend_wires;
 	ID_EX [73:42] <= READ_DATA2;
@@ -61,7 +62,13 @@ assign ID_EX [137:106] = IF_ID[63:32];
 */
 
 SignExtend SignExtend1(IF_ID[15:0],ID_EX [41:10]);
+/*
+module RegisterFile(READ_DATA1,READ_DATA2,READ_REGISTER1,READ_REGISTER2,WRITE_REGISTER,WRITE_DATA,REG_WRITE,clk,RST,load,Data);
+*/
 RegisterFile RegisterFile1 (ID_EX [105:74],ID_EX [73:42],IF_ID[25:21],IF_ID[20:16],WRITE_REGISTER,WRITE_DATA,REG_WRITE,clk,RST,load,Data);
+/*
+module ControlUnit(RegDst,ALUSrc,MemtoReg,RegWrite,MemRead,MemWrite,Branch,ALUOp,OpCode);
+*/
 ControlUnit ControlUnit1(ID_EX [141],ID_EX [138],ID_EX [145],ID_EX [146],ID_EX [143] ,ID_EX [142],ID_EX [144],ID_EX [140:139],IF_ID[31:26]);
 endmodule
 
@@ -143,7 +150,7 @@ wire [4:0] WRITE_REGISTER;
 wire [31:0] WRITE_DATA,BranchAddress;
 
 FetchStage FetchStage1(IF_ID_in,clk,PCSrc,BranchAddress,RST,loadInstructionMem,InstructionMemData);
-IF_ID__MEM IF_ID__MEM_1(clk,IF_ID_in,IF_ID_out);
+IF_ID__MEM IF_ID__MEM_1(clk,IF_ID_in,IF_ID_out,1'b0);
 DecodeStage DecodeStage1(ID_EX_in,IF_ID_out,clk,WRITE_REGISTER,WRITE_DATA,REG_WRITE,RST,loadRegFile,RegFileData);
 ID_EX__MEM ID_EX__MEM_1(clk,ID_EX_in,ID_EX_out);
 ExecutionStage ExecutionStage1(EX_MEM_in,ID_EX_out);
@@ -209,88 +216,3 @@ clk = ~clk;
 end
 PipelineMIPS PipelineMIPS1(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData,DataMemData);
 endmodule
-
-
-
-
-module tb_DECStage();
-wire [146:0] ID_EX;
-reg [4:0] WRITE_REGISTER;
-reg [31:0] WRITE_DATA,Data;
-reg [63:0] IF_ID;
-reg REG_WRITE,clk,RST,load;
-reg[31:0] i;
-initial
-begin
-clk=1;
-load=1;
-RST=1;
-REG_WRITE=0;
-    for(i=0;i<10;i=i+1)
-    begin
-    #5
-    Data=10;
-    
-    end
-    
-#5
-RST=0;
-load=0;
-REG_WRITE=1;
-WRITE_DATA=50;
-WRITE_REGISTER=19;
-IF_ID=32'h0000_0000;
-
-    
-end
-
-always
-begin
-#5
-clk = ~clk;
-end
-
-DecodeStage DEC(ID_EX,IF_ID,clk,WRITE_REGISTER,WRITE_DATA,REG_WRITE,RST,load,Data);
-endmodule
-
-
-module tb_registerfile(); 
-reg [4:0] READ_REGISTER2,READ_REGISTER1,WRITE_REGISTER;
-reg REG_WRITE,load,clk,RST;
-reg [31:0] WRITE_DATA,Data;
-wire [31:0] READ_DATA2,READ_DATA1;
-reg [31:0]i;
-initial
-begin
-clk=1;
-load=1;
-RST=1;
-REG_WRITE=0;
-   for(i=0;i<10;i=i+1)
-    begin
-    #5
-    Data=i;
-    
-    end
-    
-#5
-RST=0;
-load=0;
-READ_REGISTER1=0;
-READ_REGISTER2=1;   
-REG_WRITE=1;
-WRITE_REGISTER=12;  
-WRITE_DATA=40;  
-end
-
-always
-begin
-#5
-clk = ~clk;
-end
-
-
-RegisterFile rf1(READ_DATA2,READ_DATA1,READ_REGISTER1,READ_REGISTER2,WRITE_REGISTER,WRITE_DATA,REG_WRITE,clk,RST,load,Data);
-endmodule
-
-
