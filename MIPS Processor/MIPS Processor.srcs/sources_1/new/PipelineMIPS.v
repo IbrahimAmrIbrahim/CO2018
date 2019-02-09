@@ -96,12 +96,11 @@ ShiftLeft2 ShiftLeft2_1 (ID_EX [41:10],Shifted_wire);
 endmodule
 
 
-module MemoryStage(MEM_WB,PCSrc,BranchAddress,clk,EX_MEM,RST,load,Data);
+module MemoryStage(MEM_WB,PCSrc,BranchAddress,clk,EX_MEM,RST,load);
 output [70:0] MEM_WB;
 output PCSrc;
 output [31:0] BranchAddress;
 input clk,load,RST;
-input [7:0] Data;
 input [106:0] EX_MEM;
 wire [31:0] READ_DATA;
 
@@ -112,7 +111,7 @@ assign MEM_WB [36:5] = EX_MEM [68:37];
 assign MEM_WB [68:37] = READ_DATA;
 assign MEM_WB [70:69] = EX_MEM [106:105];
 
-DataMemory DataMemory1(READ_DATA,EX_MEM [68:37],EX_MEM [36:5],EX_MEM [102],EX_MEM [103],clk,RST,load,Data);
+DataMemory DataMemory1(READ_DATA,EX_MEM [68:37],EX_MEM [36:5],EX_MEM [102],EX_MEM [103],clk,RST,load);
 endmodule
 
 
@@ -130,10 +129,9 @@ assign RegWrite = MEM_WB [70];
 endmodule
 
 
-module PipelineMIPS(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData,DataMemData);
+module PipelineMIPS(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData);
 input clk,RST,loadRegFile,loadInstructionMem,loadDataMem;
 input [31:0] RegFileData ,InstructionMemData;
-input [7:0] DataMemData;
 
 wire PCSrc,REG_WRITE;
 
@@ -155,7 +153,7 @@ DecodeStage DecodeStage1(ID_EX_in,IF_ID_out,clk,WRITE_REGISTER,WRITE_DATA,REG_WR
 ID_EX__MEM ID_EX__MEM_1(clk,ID_EX_in,ID_EX_out);
 ExecutionStage ExecutionStage1(EX_MEM_in,ID_EX_out);
 EX_MEM__MEM EX_MEM__MEM_1(clk,EX_MEM_in,EX_MEM_out);
-MemoryStage MemoryStage1(MEM_WB_in,PCSrc,BranchAddress,clk,EX_MEM_out,RST,loadDataMem,DataMemData);
+MemoryStage MemoryStage1(MEM_WB_in,PCSrc,BranchAddress,clk,EX_MEM_out,RST,loadDataMem);
 MEM_WB__MEM MEM_WB__MEM_1(clk,MEM_WB_in,MEM_WB_out);
 WBStage WBStage1(WRITE_REGISTER,WRITE_DATA,REG_WRITE,MEM_WB_out);
 
@@ -166,7 +164,6 @@ endmodule
 module tb_PipelineMIPS();
 reg clk ,RST,loadRegFile,loadInstructionMem,loadDataMem;
 reg [31:0] RegFileData,InstructionMemData;
-reg [7:0] DataMemData;
 reg [31:0] RegFileDataFile [0:31];
 reg [31:0] InstructionFileDataFile [0:131071];
 integer i,j;
@@ -176,43 +173,50 @@ begin
 clk = 1'b0;
 loadRegFile <= 0;
 loadInstructionMem <= 0;
+loadDataMem <= 0;
 RST <= 1;
 $readmemb("E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/1st Term/Lectures/Computer Organization/Project/CO2018/MIPS Processor/MIPS Processor.srcs/sources_1/new/RegFileData.txt" , RegFileDataFile);
 $readmemb("E:/Faculty of Engineering Ain Shams University/3rd CSE 2018 - 2019/1st Term/Lectures/Computer Organization/Project/CO2018/MIPS Processor/MIPS Processor.srcs/sources_1/new/InstructionFileData.txt" , InstructionFileDataFile);
-#15
+#3
 fork
 begin
 	for (i = 0 ; i < 32; i = i + 1)
 	begin
-	#10
+	#2
 	loadRegFile <= 1;
 	RegFileData <= RegFileDataFile[i];
 	end
-	#10
+	#2
 	loadRegFile <= 0;
 end
 begin
-	for (j = 0 ; j < 200; j = j + 1)
+	for (j = 0 ; j < 131072; j = j + 1)
 	begin
-	#10
+	#2
 	loadInstructionMem <= 1;
 	InstructionMemData <= InstructionFileDataFile[j];
-	$display("%b \n",InstructionFileDataFile[j - 1]);
 	end
-	#10
+	#2
 	loadInstructionMem <= 0;
 end
+begin
+	loadDataMem <= 1;
+end
 join
-#5
+#3
+loadRegFile <= 0;
+loadInstructionMem <= 0;
+loadDataMem <= 0;
 RST <= 0;
 
 end
 
 
+
 always
 begin
-#5
+#1
 clk = ~clk;
 end
-PipelineMIPS PipelineMIPS1(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData,DataMemData);
+PipelineMIPS PipelineMIPS1(clk,RST,loadRegFile,loadInstructionMem,loadDataMem,RegFileData,InstructionMemData);
 endmodule
