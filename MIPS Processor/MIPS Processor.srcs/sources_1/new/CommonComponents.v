@@ -287,13 +287,13 @@ assign Out = {{16{In[15]}},In};
 
 endmodule
 
-module hazard_detction_unit(ID_EX_MEMORY_CONTROL,RS,RT,ID_EX_RT,IF_ID_WRITE,MUX_0_CONTROL);
-input  ID_EX_MEMORY_CONTROL;
+module hazard_detction_unit(ID_EX_MEMORY_CONTROL,RS,RT,ID_EX_RT,IF_ID_WRITE,MUX_0_CONTROL,RST);
+input  ID_EX_MEMORY_CONTROL,RST;
 input [4:0]RS,RT,ID_EX_RT;
 output reg IF_ID_WRITE,MUX_0_CONTROL;
 always@(*)
 begin
-	if (RST)
+	if(RST)
 	begin
 		IF_ID_WRITE<=0;
 		MUX_0_CONTROL<=0;

@@ -29,7 +29,7 @@ begin
     end 
 end
 
-InstructionMemory InstructionMemory1(Instruction,PC,clk,RST,load,Data);
+InstructionMemory InstructionMemory1(IF_ID [31:0],PC,clk,RST,load,Data);
 endmodule
 
 module DecodeStageWithoutHazard(ID_EX,IF_ID,clk,WRITE_REGISTER,WRITE_DATA,REG_WRITE,RST,load,Data,IF_ID_WRITE,PCWrite,ID_EX_MEMRead,ID_EX_RT);
@@ -73,7 +73,7 @@ ID_EX [151] <= RegWrite;
 /*
 module hazard_detction_unit(ID_EX_MEMORY_CONTROL,RS,RT,ID_EX_RT,IF_ID_WRITE,MUX_0_CONTROL);
 */
-hazard_detction_unit hazard_detction_unit_1(ID_EX_MEMRead,IF_ID[25:21],IF_ID[20:16],ID_EX_RT,IF_ID_WRITE,MUX_0_CONTROL);
+hazard_detction_unit hazard_detction_unit_1(ID_EX_MEMRead,IF_ID[25:21],IF_ID[20:16],ID_EX_RT,IF_ID_WRITE,MUX_0_CONTROL,RST);
 SignExtend SignExtend1(IF_ID[15:0],SignExtend_wires);
 RegisterFile RegisterFile1 (READ_DATA1,READ_DATA2,IF_ID[25:21],IF_ID[20:16],WRITE_REGISTER,WRITE_DATA,REG_WRITE,clk,RST,load,Data);
 /*
@@ -89,7 +89,7 @@ output [106:0] EX_MEM;
 output ID_EX_MEMRead;
 
 input [151:0] ID_EX;
-input EX_MEM_WB,MEM_WB_WB; 
+input EX_MEM_WB,MEM_WB_WB,RST; 
 input [4:0] EX_MEM_rd,MEM_WB_rd;
 input [31:0] ALU_OUT,WRITE_BACK_DATA;
 
